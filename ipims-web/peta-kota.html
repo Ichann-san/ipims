@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Peta Kota &amp; GNN Insight</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="peta">
+
+  <header id="site-header">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">&#8962;</span>
+        IPIMS
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" data-nav="beranda">Beranda</a>
+        <a href="buat-laporan.html" data-nav="lapor">Lapor</a>
+        <a href="peta-kota.html" data-nav="peta">Peta Kota</a>
+        <a href="transparansi.html" data-nav="transparansi">Transparansi</a>
+        <a href="dashboard-prioritas.html" data-nav="admin" class="nav-admin-link">⚙ Admin</a>
+      </nav>
+      <div class="header-actions">
+        <a href="buat-laporan.html" class="btn btn-primary btn-sm">Lapor Sekarang</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="map-page">
+    <div class="map-page-grid">
+      <!-- MAP AREA -->
+      <div class="map-area">
+        <div class="map-badge">
+          <span class="map-badge-icon">◆</span>
+          GNN Logic: Dependencies Active
+        </div>
+
+        <div class="map-canvas" id="mapCanvas">
+          <svg viewBox="0 0 800 600" class="map-svg" role="img" aria-label="Peta kota dengan overlay graph infrastruktur">
+            <rect x="0" y="0" width="800" height="600" fill="#eef1f0" />
+            <path d="M0 300 H800" stroke="#c7cdd6" stroke-width="10" />
+            <path d="M400 0 V600" stroke="#c7cdd6" stroke-width="10" />
+            <path d="M120 0 V600" stroke="#dde1e6" stroke-width="6" />
+            <path d="M680 0 V600" stroke="#dde1e6" stroke-width="6" />
+            <path d="M0 130 H800" stroke="#dde1e6" stroke-width="6" />
+            <path d="M0 470 H800" stroke="#dde1e6" stroke-width="6" />
+
+            <g class="edge-group" stroke="#d98324" stroke-width="2" stroke-dasharray="6 5" fill="none" opacity="0.85">
+              <line x1="230" y1="300" x2="400" y2="220" />
+              <line x1="400" y1="220" x2="560" y2="180" />
+              <line x1="400" y1="220" x2="400" y2="380" />
+              <line x1="400" y1="380" x2="250" y2="440" />
+              <line x1="400" y1="380" x2="560" y2="420" />
+            </g>
+
+            <g class="node-group">
+              <circle class="node node-critical" cx="230" cy="300" r="11" data-node="jalan-a" />
+              <circle class="node node-critical" cx="400" cy="220" r="11" data-node="jembatan-kuning" />
+              <circle class="node node-warning" cx="560" cy="180" r="9" data-node="rs-koja" />
+              <circle class="node node-normal" cx="400" cy="380" r="9" data-node="pasar" />
+              <circle class="node node-warning" cx="250" cy="440" r="9" data-node="sekolah" />
+              <circle class="node node-normal" cx="560" cy="420" r="9" data-node="terminal" />
+              <circle class="node node-normal" cx="680" cy="300" r="9" data-node="mall" />
+              <circle class="node node-normal" cx="120" cy="180" r="9" data-node="taman" />
+            </g>
+          </svg>
+
+          <div class="map-zoom-controls">
+            <button type="button" aria-label="Perbesar peta">+</button>
+            <button type="button" aria-label="Perkecil peta">−</button>
+          </div>
+        </div>
+
+        <div class="map-footer-bar">
+          <span>📋 124 Infrastruktur Terdampak</span>
+          <span>🔗 45 Dependensi Terdeteksi</span>
+          <span class="map-network-status">Status Jaringan: <span class="status-chip status-chip-warn"></span><span class="status-chip status-chip-critical"></span></span>
+        </div>
+      </div>
+
+      <!-- INFO PANEL -->
+      <aside class="map-panel">
+        <h2>Detail Infrastruktur</h2>
+        <p class="text-muted panel-hint" id="panelHint">Klik marker pada peta untuk melihat detail aset.</p>
+
+        <div class="asset-card hidden" id="assetCard">
+          <div class="asset-photo">
+            <img src="assets/report-jembatan.jpg" alt="Kondisi jembatan" onerror="this.style.display='none'" />
+            <span class="badge urgency-critical asset-severity-tag">Severity: High</span>
+          </div>
+          <h3 id="assetName">Jembatan Kuning</h3>
+          <p class="text-muted" id="assetId">ID: STR-JK-002</p>
+
+          <div class="asset-info-grid">
+            <div>
+              <span class="asset-info-label">Kategori</span>
+              <span class="asset-info-value" id="assetCategory">Jembatan</span>
+            </div>
+            <div>
+              <span class="asset-info-label">Update</span>
+              <span class="asset-info-value" id="assetUpdate">12 Mar 2024</span>
+            </div>
+          </div>
+
+          <div class="impact-score-row">
+            <span>Impact Score</span>
+            <strong id="assetImpact">92/100</strong>
+          </div>
+          <div class="impact-bar">
+            <span style="width: 92%"></span>
+          </div>
+
+          <button class="btn btn-primary btn-block" type="button">Tugaskan Perbaikan</button>
+        </div>
+
+        <div class="legend-box">
+          <h4>Legenda Sistem</h4>
+          <ul>
+            <li><span class="legend-dot legend-critical"></span> Kritis (Tindakan Segera)</li>
+            <li><span class="legend-dot legend-warning"></span> Sedang (Monitor)</li>
+            <li><span class="legend-dot legend-normal"></span> Normal (Fungsional)</li>
+            <li><span class="legend-line"></span> Edge Dependency (GNN)</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <div class="footer-brand">IPIMS</div>
+          <p class="footer-desc">Sistem Manajemen Infrastruktur Publik Cerdas untuk kota yang lebih baik, lebih tanggap, dan lebih transparan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Tautan Cepat</h4>
+          <ul>
+            <li><a href="peta-kota.html">Peta Interaktif</a></li>
+            <li><a href="transparansi.html">Statistik Kota</a></li>
+            <li><a href="daftar-laporan.html">Laporan Terbaru</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul>
+            <li>info@ipims.go.id</li>
+            <li>(021) 555-0123</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 IPIMS Infrastructure Management. All Rights Reserved.</span>
+        <div>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/loader.js"></script>
+  <script src="js/peta-kota.js"></script>
+</body>
+</html>

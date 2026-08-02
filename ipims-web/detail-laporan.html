@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Detail Laporan #REP-99210</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="lapor">
+
+  <header id="site-header">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">&#8962;</span>
+        IPIMS
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" data-nav="beranda">Beranda</a>
+        <a href="buat-laporan.html" data-nav="lapor">Lapor</a>
+        <a href="peta-kota.html" data-nav="peta">Peta Kota</a>
+        <a href="transparansi.html" data-nav="transparansi">Transparansi</a>
+        <a href="dashboard-prioritas.html" data-nav="admin" class="nav-admin-link">⚙ Admin</a>
+      </nav>
+      <div class="header-actions">
+        <a href="buat-laporan.html" class="btn btn-primary btn-sm">Lapor Sekarang</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="detail-main">
+    <div class="detail-photo">
+      <img src="assets/report-jembatan.jpg" alt="Retakan struktur pilar jembatan" onerror="this.style.display='none'" />
+      <div class="detail-photo-tags">
+        <span class="badge photo-tag">Jembatan &amp; Jalan</span>
+        <span class="badge photo-tag">Kerusakan Struktur</span>
+      </div>
+    </div>
+
+    <div class="detail-container">
+      <section class="detail-card card">
+        <div class="detail-title-row">
+          <div>
+            <h1>Retakan Struktur Pilar P-04</h1>
+            <p class="text-muted detail-meta">Dilaporkan pada 24 Okt 2023 &middot; ID: #IP-99210</p>
+          </div>
+          <div class="severity-box">
+            <span class="severity-label">Tingkat Keparahan</span>
+            <span class="severity-dot">
+              <span class="filled"></span><span class="filled"></span><span class="filled"></span><span class="filled"></span><span></span>
+            </span>
+            <span class="severity-score">4/5</span>
+          </div>
+        </div>
+
+        <div class="ai-analysis">
+          <p class="ai-label">✨ Analisis AI IPIMS</p>
+          <p>Deteksi otomatis menunjukkan adanya retakan geser pada pilar pendukung utama. Pola retakan menyebar secara vertikal sepanjang 1.2 meter dengan lebar celah rata-rata 5mm. Direkomendasikan inspeksi teknis mendalam segera untuk mencegah degradasi struktural lanjut akibat getaran kendaraan berat.</p>
+        </div>
+      </section>
+
+      <section class="detail-card card">
+        <h3 class="card-heading">📍 Lokasi Kejadian</h3>
+        <div class="map-placeholder-block">Peta Lokasi Laporan</div>
+        <p class="location-line">Jl. Gatot Subroto KM 4.5, Jakarta Selatan</p>
+        <p class="text-muted location-coord">Koordinat: -6.2304, 106.8234 (Akurasi Tinggi)</p>
+      </section>
+
+      <section class="detail-card card">
+        <h3 class="card-heading">💬 Tanggapan Publik</h3>
+        <ul class="comment-list">
+          <li class="comment-item">
+            <div class="comment-avatar">BS</div>
+            <div>
+              <p class="comment-meta"><strong>Bambang S.</strong> <span class="text-muted">2 jam yang lalu</span></p>
+              <p>Sangat berbahaya kalau malam hari karena penerangan di titik ini juga redup. Mohon segera ditindaklanjuti.</p>
+            </div>
+          </li>
+          <li class="comment-item">
+            <div class="comment-avatar">AD</div>
+            <div>
+              <p class="comment-meta"><strong>Ani Dewi</strong> <span class="text-muted">5 jam yang lalu</span></p>
+              <p>Sudah sering lewat sini, retakannya memang makin lebar tiap minggunya.</p>
+            </div>
+          </li>
+        </ul>
+        <form class="comment-form" id="commentForm">
+          <input type="text" placeholder="Tambahkan informasi atau tanggapan..." aria-label="Tambahkan komentar" />
+          <button type="submit" class="btn btn-dark">Kirim</button>
+        </form>
+      </section>
+
+      <section class="detail-card card">
+        <h3 class="card-heading">Status Penanganan</h3>
+        <ol class="status-timeline">
+          <li class="timeline-item done">
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">Dilaporkan</span>
+            <span class="timeline-time">24 Okt, 09:12</span>
+          </li>
+          <li class="timeline-item done">
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">AI Verified</span>
+            <span class="timeline-time">24 Okt, 09:15</span>
+          </li>
+          <li class="timeline-item active">
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">Gov Verification</span>
+            <span class="timeline-time">Sedang diproses...</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">Assigned</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">Under Repair</span>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-dot"></span>
+            <span class="timeline-label">Completed</span>
+          </li>
+        </ol>
+
+        <button class="btn btn-primary btn-block share-btn" id="shareBtn" type="button">↗ Bagikan Laporan</button>
+        <p class="text-muted share-note">Membagikan laporan ini membantu mempercepat proses validasi sosial oleh pemerintah daerah.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <div class="footer-brand">IPIMS</div>
+          <p class="footer-desc">Sistem Manajemen Infrastruktur Publik Cerdas untuk kota yang lebih baik, lebih tanggap, dan lebih transparan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Tautan Cepat</h4>
+          <ul>
+            <li><a href="peta-kota.html">Peta Interaktif</a></li>
+            <li><a href="transparansi.html">Statistik Kota</a></li>
+            <li><a href="daftar-laporan.html">Laporan Terbaru</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul>
+            <li>info@ipims.go.id</li>
+            <li>(021) 555-0123</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 IPIMS Infrastructure Management. All Rights Reserved.</span>
+        <div>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="bottom-nav" aria-label="Navigasi bawah">
+    <a href="index.html"><span>🏠</span>Beranda</a>
+    <a href="buat-laporan.html" class="bottom-nav-active"><span>➕</span>Lapor</a>
+    <a href="peta-kota.html"><span>🗺️</span>Peta</a>
+    <a href="daftar-laporan.html"><span>📊</span>Data</a>
+  </nav>
+
+  <script src="js/loader.js"></script>
+  <script src="js/detail-laporan.js"></script>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Simulasi What-If</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="admin" class="admin-body">
+
+  <div class="admin-shell">
+    <button class="admin-hamburger" id="adminHamburger" aria-label="Buka menu" type="button">☰</button>
+    <div class="admin-overlay" id="adminOverlay"></div>
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-brand">
+        <strong>IPIMS</strong>
+        <span>Infrastructure Management</span>
+      </div>
+      <nav class="admin-nav">
+        <a href="dashboard-prioritas.html">📊 Dashboard</a>
+        <a href="manajemen-laporan.html">📋 Manajemen Laporan</a>
+        <a href="peta-kota.html">🗺 Peta Kota</a>
+        <a href="simulasi-whatif.html" class="active">🔮 Simulasi What-If</a>
+        <a href="transparansi.html">📈 Transparansi</a>
+      </nav>
+      <div class="admin-nav-footer">
+        <a href="index.html" class="admin-back-link">← Kembali ke Situs</a>
+      </div>
+
+      <div class="admin-weights">
+        <h4>Active Weights (MCDM)</h4>
+        <div class="weight-row">
+          <div class="weight-label"><span>Traffic Volume</span><span>40%</span></div>
+          <div class="weight-bar"><span style="width: 40%"></span></div>
+        </div>
+        <div class="weight-row">
+          <div class="weight-label"><span>Pavement Severity</span><span>25%</span></div>
+          <div class="weight-bar"><span style="width: 25%"></span></div>
+        </div>
+        <div class="weight-row">
+          <div class="weight-label"><span>Social Impact</span><span>20%</span></div>
+          <div class="weight-bar"><span style="width: 20%"></span></div>
+        </div>
+        <div class="weight-row">
+          <div class="weight-label"><span>Safety Risk</span><span>15%</span></div>
+          <div class="weight-bar"><span style="width: 15%"></span></div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="admin-content">
+      <div class="whatif-header">
+        <h1>Simulasi What-If</h1>
+        <p class="text-muted">Eksplorasi skenario intervensi dan dampaknya terhadap kualitas jaringan infrastruktur kota.</p>
+      </div>
+
+      <div class="whatif-grid">
+        <!-- LEFT: Parameters -->
+        <div class="param-card card">
+          <h3>Parameter Intervensi</h3>
+          <p class="text-muted">Pilih skenario untuk disimulasikan:</p>
+
+          <div class="intervention-options">
+            <button class="intervention-btn active" type="button">🛣 Perbaikan Jalan Nasional +</button>
+            <button class="intervention-btn" type="button">🌊 Normalisasi Drainase +</button>
+            <button class="intervention-btn" type="button">💡 Upgrade Penerangan +</button>
+            <button class="intervention-btn" type="button">🌿 Penghijauan Kota +</button>
+          </div>
+
+          <div class="scenario-summary">
+            <h4>Ringkasan Skenario</h4>
+            <div class="summary-row">
+              <span>Intervensi Terpilih</span>
+              <strong>1 aktif</strong>
+            </div>
+            <div class="summary-row">
+              <span>Estimasi Biaya</span>
+              <strong>Rp 8.4M</strong>
+            </div>
+            <div class="summary-row">
+              <span>Durasi Estimasi</span>
+              <strong>3-4 Minggu</strong>
+            </div>
+          </div>
+
+          <button class="btn btn-primary btn-block" id="runSimBtn" type="button">▶ Jalankan Simulasi</button>
+
+          <div class="mini-map-card">
+            <div class="mini-map-label">
+              <span>📍 Area Terdampak</span>
+              <a href="peta-kota.html">Full Map →</a>
+            </div>
+            <div class="mini-map-canvas">Peta Mini Interaktif</div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Results -->
+        <div class="whatif-results">
+          <div class="result-kpi-row">
+            <div class="result-kpi card">
+              <span class="kpi-label">Road Quality Index</span>
+              <span class="kpi-value kpi-down">-18%</span>
+              <span class="text-muted">Penurunan</span>
+            </div>
+            <div class="result-kpi card">
+              <span class="kpi-label">Safety Score</span>
+              <span class="kpi-value kpi-up-value">+22%</span>
+              <span class="text-muted">Peningkatan</span>
+            </div>
+            <div class="result-kpi card">
+              <span class="kpi-label">Avg Response</span>
+              <span class="kpi-value">2.1<span class="kpi-unit">hr</span></span>
+            </div>
+            <div class="result-kpi card">
+              <span class="kpi-label">Efficiency</span>
+              <span class="kpi-value kpi-up-value">94%</span>
+            </div>
+          </div>
+
+          <div class="compare-grid">
+            <div class="compare-card card">
+              <span class="compare-tag compare-before">SEBELUM</span>
+              <h4>Distribusi Beban Jaringan</h4>
+              <div class="mini-bars">
+                <span style="height: 60%"></span>
+                <span style="height: 80%"></span>
+                <span style="height: 95%" class="overload"></span>
+                <span style="height: 70%"></span>
+                <span style="height: 50%"></span>
+                <span style="height: 88%" class="overload"></span>
+                <span style="height: 40%"></span>
+              </div>
+              <p class="compare-caption"><span class="overload-text">2 segmen overload</span> — Distribusi tidak merata</p>
+            </div>
+
+            <div class="compare-card card compare-card-highlight">
+              <span class="compare-tag compare-after">SESUDAH</span>
+              <h4>Distribusi Beban Jaringan</h4>
+              <div class="mini-bars">
+                <span style="height: 55%"></span>
+                <span style="height: 60%"></span>
+                <span style="height: 65%"></span>
+                <span style="height: 58%"></span>
+                <span style="height: 50%"></span>
+                <span style="height: 62%"></span>
+                <span style="height: 48%"></span>
+              </div>
+              <p class="compare-caption"><span class="text-good">0 segmen overload</span> — Distribusi merata</p>
+            </div>
+          </div>
+
+          <div class="compare-grid">
+            <div class="compare-card card">
+              <h4>Indikator Lingkungan</h4>
+              <div class="indicator-row"><span>Kualitas Drainase</span><span>62%</span></div>
+              <div class="bar-track"><span style="width: 62%" class="bar-danger"></span></div>
+              <div class="indicator-row"><span>Tingkat Banjir</span><span>78%</span></div>
+              <div class="bar-track"><span style="width: 78%" class="bar-danger"></span></div>
+            </div>
+            <div class="compare-card card compare-card-highlight">
+              <h4>Indikator Lingkungan</h4>
+              <div class="indicator-row"><span>Kualitas Drainase</span><span class="text-good">85%</span></div>
+              <div class="bar-track"><span style="width: 85%" class="bar-good"></span></div>
+              <div class="indicator-row"><span>Tingkat Banjir</span><span class="text-good">32%</span></div>
+              <div class="bar-track"><span style="width: 32%" class="bar-good"></span></div>
+            </div>
+          </div>
+
+          <div class="budget-card card">
+            <div>
+              <h4>Estimasi Anggaran &amp; ROI</h4>
+              <p>Dengan intervensi terpilih, estimasi penghematan jangka panjang dibandingkan biaya perbaikan darurat signifikan.</p>
+              <div class="budget-tags">
+                <span class="badge status-completed">Hemat Rp 12.6M/tahun</span>
+                <span class="badge status-gov">ROI: 18 bulan</span>
+              </div>
+            </div>
+            <div class="budget-score">
+              <strong>A+</strong>
+              <span class="text-muted">Feasibility</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/loader.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/simulasi-whatif.js"></script>
+</body>
+</html>

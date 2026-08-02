@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Profil Pengguna</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="profil">
+
+  <header id="site-header">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">&#8962;</span>
+        IPIMS
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" data-nav="beranda">Beranda</a>
+        <a href="buat-laporan.html" data-nav="lapor">Lapor</a>
+        <a href="peta-kota.html" data-nav="peta">Peta Kota</a>
+        <a href="transparansi.html" data-nav="transparansi">Transparansi</a>
+        <a href="dashboard-prioritas.html" data-nav="admin" class="nav-admin-link">⚙ Admin</a>
+      </nav>
+      <div class="header-actions">
+        <a href="buat-laporan.html" class="btn btn-primary btn-sm">Lapor Sekarang</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="profile-page">
+    <div class="profile-container">
+      <a href="index.html" class="back-link">← Kembali</a>
+
+      <div class="profile-card card">
+        <div class="profile-banner"></div>
+        <div class="profile-photo-wrap">
+          <img src="assets/avatar-budi.jpg" alt="Foto profil Budi Setiawan" onerror="this.style.display='none'" />
+        </div>
+        <h1>Budi Setiawan, M.T.</h1>
+        <p class="profile-role">Kepala Dinas Pekerjaan Umum</p>
+
+        <div class="profile-divider" aria-hidden="true"></div>
+
+        <div class="profile-info-grid">
+          <div class="profile-info-row">
+            <span class="info-icon">✉️</span>
+            <div>
+              <span class="info-label">Email</span>
+              <span class="info-value">budi.setiawan@ipims.go.id</span>
+            </div>
+          </div>
+          <div class="profile-info-row">
+            <span class="info-icon">📞</span>
+            <div>
+              <span class="info-label">Telepon</span>
+              <span class="info-value">+62 812-3456-7890</span>
+            </div>
+          </div>
+          <div class="profile-info-row">
+            <span class="info-icon">📍</span>
+            <div>
+              <span class="info-label">Lokasi</span>
+              <span class="info-value">Jakarta Selatan, DKI Jakarta</span>
+            </div>
+          </div>
+          <div class="profile-info-row">
+            <span class="info-icon">🏢</span>
+            <div>
+              <span class="info-label">Organisasi</span>
+              <span class="info-value">Dinas PU &amp; Penataan Ruang</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-actions">
+          <button class="btn btn-dark" type="button">✎ Edit Profil</button>
+          <button class="btn btn-outline" type="button">↗ Bagikan Kontak</button>
+        </div>
+      </div>
+
+      <div class="profile-meta-grid">
+        <div class="meta-card card">
+          <span class="meta-icon">📋</span>
+          <div>
+            <h4>Total Laporan Ditangani</h4>
+            <p>2,481 laporan sejak bergabung</p>
+          </div>
+        </div>
+        <div class="meta-card card">
+          <span class="meta-icon">⏱</span>
+          <div>
+            <h4>Response Time (Rata-rata)</h4>
+            <p>2.4 Jam per laporan baru</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <div class="footer-brand">IPIMS</div>
+          <p class="footer-desc">Sistem Manajemen Infrastruktur Publik Cerdas untuk kota yang lebih baik, lebih tanggap, dan lebih transparan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Tautan Cepat</h4>
+          <ul>
+            <li><a href="peta-kota.html">Peta Interaktif</a></li>
+            <li><a href="transparansi.html">Statistik Kota</a></li>
+            <li><a href="daftar-laporan.html">Laporan Terbaru</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul>
+            <li>info@ipims.go.id</li>
+            <li>(021) 555-0123</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 IPIMS Infrastructure Management. All Rights Reserved.</span>
+        <div>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/loader.js"></script>
+  <script src="js/profil.js"></script>
+</body>
+</html>

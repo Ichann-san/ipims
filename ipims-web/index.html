@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Beranda</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="prefetch" href="buat-laporan.html" />
+  <link rel="prefetch" href="peta-kota.html" />
+  <link rel="prefetch" href="daftar-laporan.html" />
+</head>
+<body data-page="beranda">
+
+  <header id="site-header">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">&#8962;</span>
+        IPIMS
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" data-nav="beranda">Beranda</a>
+        <a href="buat-laporan.html" data-nav="lapor">Lapor</a>
+        <a href="peta-kota.html" data-nav="peta">Peta Kota</a>
+        <a href="transparansi.html" data-nav="transparansi">Transparansi</a>
+        <a href="dashboard-prioritas.html" data-nav="admin" class="nav-admin-link">⚙ Admin</a>
+      </nav>
+      <div class="header-actions">
+        <a href="buat-laporan.html" class="btn btn-primary btn-sm">Lapor Sekarang</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <h1>Laporkan, Pantau, dan Ikuti Perbaikan Infrastruktur Kota</h1>
+          <p class="hero-sub">Platform cerdas untuk kolaborasi publik menjaga kualitas jalan, jembatan, dan fasilitas umum. Transparan, terukur, dan dapat sasaran.</p>
+          <div class="hero-actions">
+            <a href="buat-laporan.html" class="btn btn-primary">Buat Laporan</a>
+            <a href="peta-kota.html" class="btn btn-outline">Lihat Peta Kota</a>
+          </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+          <img src="assets/hero-street.jpg" alt="" onerror="this.style.display='none'" />
+        </div>
+      </div>
+    </section>
+
+    <!-- STATISTIK RINGKAS -->
+    <section class="stats-section">
+      <div class="container stats-grid">
+        <div class="stat-card">
+          <span class="stat-tag stat-up">+12% vs bulan lalu</span>
+          <div class="stat-value">12,482</div>
+          <div class="stat-label">Total Laporan</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-tag stat-neutral">Verified</span>
+          <div class="stat-value">9,821</div>
+          <div class="stat-label">Laporan Selesai</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-tag stat-warn">Critical Range</span>
+          <div class="stat-value">4.2 Hr</div>
+          <div class="stat-label">Rata-rata Waktu</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-tag stat-neutral">Optimal</span>
+          <div class="stat-value">87.4%</div>
+          <div class="stat-label">Completion Rate</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARA KERJA -->
+    <section class="workflow-section">
+      <div class="container">
+        <p class="eyebrow">Workflow Sistem</p>
+        <h2>Proses Penanganan Cerdas</h2>
+        <p class="section-sub">IPIMS menggunakan teknologi AI untuk mengklasifikasi dan memprioritaskan setiap laporan warga secara real-time.</p>
+
+        <div class="workflow-grid">
+          <div class="workflow-step">
+            <div class="workflow-icon">📷</div>
+            <h3>1. Foto &amp; Unggah</h3>
+            <p>Laporan kerusakan dengan foto yang jelas dan lokasi GPS otomatis.</p>
+          </div>
+          <div class="workflow-step">
+            <div class="workflow-icon">✨</div>
+            <h3>2. AI Analisis</h3>
+            <p>Sistem AI mendeteksi tingkat kerusakan dan jenis kerusakan secara instan.</p>
+          </div>
+          <div class="workflow-step">
+            <div class="workflow-icon">⚑</div>
+            <h3>3. Prioritas</h3>
+            <p>Laporan diskoringkan berdasarkan urgensi untuk penanganan optimal.</p>
+          </div>
+          <div class="workflow-step">
+            <div class="workflow-icon">🔧</div>
+            <h3>4. Perbaikan</h3>
+            <p>Tim teknis diturunkan secara efisien. Pantau progresnya melalui Dashboard Anda.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAPORAN TERKINI -->
+    <section class="recent-section">
+      <div class="container">
+        <div class="section-heading-row">
+          <div>
+            <p class="eyebrow">Laporan Terkini</p>
+            <h2>Update Infrastruktur Kota</h2>
+          </div>
+          <a href="daftar-laporan.html" class="link-arrow">Lihat Semua Laporan →</a>
+        </div>
+
+        <div class="recent-grid">
+          <article class="recent-card">
+            <div class="recent-thumb">
+              <img src="assets/report-jalan.jpg" alt="Lubang jalan dalam" onerror="this.style.display='none'" />
+              <span class="badge status-assigned recent-priority">Prioritas Tinggi</span>
+            </div>
+            <div class="recent-body">
+              <p class="recent-title">Lubang Jalan Dalam</p>
+              <div class="recent-meta">
+                <span>Budi Pratama</span>
+                <span class="badge status-repair">Dalam Proses</span>
+              </div>
+              <span class="text-muted recent-time">1 jam yang lalu</span>
+            </div>
+          </article>
+
+          <article class="recent-card">
+            <div class="recent-thumb">
+              <img src="assets/report-lampu.jpg" alt="Lampu jalan mati" onerror="this.style.display='none'" />
+            </div>
+            <div class="recent-body">
+              <p class="recent-title">Lampu Jalan Mati</p>
+              <div class="recent-meta">
+                <span>Sari Amelia</span>
+                <span class="badge status-gov">Diverifikasi</span>
+              </div>
+              <span class="text-muted recent-time">3 jam yang lalu</span>
+            </div>
+          </article>
+
+          <article class="recent-card">
+            <div class="recent-thumb">
+              <img src="assets/report-trotoar.jpg" alt="Perbaikan trotoar rusak" onerror="this.style.display='none'" />
+            </div>
+            <div class="recent-body">
+              <p class="recent-title">Perbaikan Trotoar Rusak</p>
+              <div class="recent-meta">
+                <span>Admin IPIMS</span>
+                <span class="badge status-completed">Selesai</span>
+              </div>
+              <span class="text-muted recent-time">6 Jam yang lalu</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- TRANSPARANSI CTA -->
+    <section class="transparency-cta">
+      <div class="container transparency-inner">
+        <h2>Transparansi Data &amp; Akuntabilitas</h2>
+        <p>Setiap rupiah yang dialokasikan dan setiap jam kerja perbaikan dapat dipantau secara publik.</p>
+        <div class="transparency-actions">
+          <a href="transparansi.html" class="btn btn-outline btn-light">Lihat Dashboard Transparansi</a>
+          <a href="#" class="btn btn-primary">Download Laporan Tahunan</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <div class="footer-brand">IPIMS</div>
+          <p class="footer-desc">Sistem Manajemen Infrastruktur Publik Cerdas untuk kota yang lebih baik, lebih tanggap, dan lebih transparan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Tautan Cepat</h4>
+          <ul>
+            <li><a href="peta-kota.html">Peta Interaktif</a></li>
+            <li><a href="transparansi.html">Statistik Kota</a></li>
+            <li><a href="daftar-laporan.html">Laporan Terbaru</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul>
+            <li>info@ipims.go.id</li>
+            <li>(021) 555-0123</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 IPIMS Infrastructure Management. All Rights Reserved.</span>
+        <div>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/loader.js"></script>
+  <script src="js/beranda.js"></script>
+</body>
+</html>

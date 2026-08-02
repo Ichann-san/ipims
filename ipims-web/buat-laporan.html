@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Buat Laporan</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="lapor" class="report-flow-page">
+
+  <!-- Header minimal khusus flow (bukan header utama sticky penuh) -->
+  <header class="flow-header">
+    <button class="flow-back" id="flowBack" aria-label="Kembali" type="button">←</button>
+    <h1 id="flowTitle">Buat Laporan</h1>
+    <span class="flow-header-spacer"></span>
+  </header>
+
+  <main class="flow-main">
+    <!-- Progress -->
+    <div class="flow-progress" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" id="flowProgress">
+      <span class="flow-progress-bar" id="flowProgressBar"></span>
+    </div>
+
+    <!-- STEP 1: CAMERA -->
+    <section class="flow-step" data-step="1">
+      <div class="camera-frame" id="cameraFrame" style="position: relative; overflow: hidden; background: #000;">
+        <video id="cameraVideo" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover;"></video>
+        <canvas id="cameraCanvas" style="display: none;"></canvas>
+        <div class="camera-overlay">
+          <button class="shutter-btn" id="shutterBtn" type="button" aria-label="Ambil foto"></button>
+          <p class="camera-hint">Ambil foto kerusakan infrastruktur</p>
+        </div>
+      </div>
+
+      <div class="flow-copy">
+        <h2>Langkah 1: Dokumentasi Visual</h2>
+        <p>Pastikan objek kerusakan terlihat jelas dan mendapatkan pencahayaan yang cukup untuk hasil AI terbaik.</p>
+        <p class="flow-note">📵 Foto dari galeri tidak diperbolehkan — sistem memverifikasi metadata kamera &amp; GPS langsung untuk mengurangi laporan palsu.</p>
+      </div>
+
+      <div class="flow-actions">
+        <button class="btn btn-primary btn-block" id="toStep2" type="button" disabled>Lanjut ke Lokasi</button>
+      </div>
+    </section>
+
+    <!-- STEP 2: LOKASI -->
+    <section class="flow-step hidden" data-step="2">
+      <div class="flow-copy">
+        <h2>Langkah 2: Verifikasi Lokasi</h2>
+        <p>Sistem mendeteksi lokasi Anda secara otomatis menggunakan GPS perangkat.</p>
+      </div>
+
+      <div class="map-preview">
+        <iframe id="locationMap" width="100%" height="200" style="border:0;" loading="lazy" allowfullscreen src="about:blank"></iframe>
+        <span class="confidence-badge" id="confidenceBadge">Confidence: 95%</span>
+      </div>
+
+      <p class="location-address">📍 Jl. Gatot Subroto KM 4.5, Jakarta Selatan</p>
+
+      <button class="btn btn-outline btn-block" id="manualPinBtn" type="button">Tentukan Lokasi Manual</button>
+
+      <div class="flow-actions flow-actions-split">
+        <button class="btn btn-outline" id="toStep1" type="button">Kembali</button>
+        <button class="btn btn-primary" id="toStep3" type="button">Lanjut ke Kategori</button>
+      </div>
+    </section>
+
+    <!-- STEP 3: KATEGORI -->
+    <section class="flow-step hidden" data-step="3">
+      <div class="flow-copy">
+        <h2>Langkah 3: Kategori (Opsional)</h2>
+        <p>AI akan mendeteksi otomatis jika tidak dipilih.</p>
+      </div>
+
+      <div class="chip-group" id="categoryChips">
+        <button class="chip" type="button" data-category="Jalan">Jalan</button>
+        <button class="chip" type="button" data-category="Trotoar">Trotoar</button>
+        <button class="chip" type="button" data-category="Drainase">Drainase</button>
+        <button class="chip" type="button" data-category="Lampu Jalan">Lampu Jalan</button>
+        <button class="chip" type="button" data-category="Halte">Halte</button>
+        <button class="chip" type="button" data-category="Jembatan">Jembatan</button>
+        <button class="chip" type="button" data-category="Lainnya">Lainnya</button>
+      </div>
+
+      <div class="flow-actions flow-actions-split">
+        <button class="btn btn-outline" id="toStep2b" type="button">Kembali</button>
+        <button class="btn btn-primary" id="toStep4" type="button">Lanjut ke Review</button>
+      </div>
+    </section>
+
+    <!-- STEP 4: REVIEW & SUBMIT -->
+    <section class="flow-step hidden" data-step="4">
+      <div class="flow-copy">
+        <h2>Langkah 4: Review &amp; Kirim</h2>
+        <p>Periksa kembali data laporan sebelum dikirim ke sistem.</p>
+      </div>
+
+      <div class="review-card">
+        <div class="review-row">
+          <span class="review-label">Foto</span>
+          <span class="review-value">✅ 1 foto diambil</span>
+        </div>
+        <div class="review-row">
+          <span class="review-label">Lokasi</span>
+          <span class="review-value">Jl. Gatot Subroto KM 4.5</span>
+        </div>
+        <div class="review-row">
+          <span class="review-label">Kategori</span>
+          <span class="review-value" id="reviewCategory">Otomatis oleh AI</span>
+        </div>
+      </div>
+
+      <div class="flow-actions flow-actions-split">
+        <button class="btn btn-outline" id="toStep3b" type="button">Kembali</button>
+        <button class="btn btn-primary" id="submitReport" type="button">Kirim Laporan</button>
+      </div>
+    </section>
+
+    <!-- LOADING STATE -->
+    <section class="flow-step hidden" data-step="loading">
+      <div class="loading-state">
+        <div class="spinner" aria-hidden="true"></div>
+        <p>Menganalisis dengan AI...</p>
+      </div>
+    </section>
+
+    <!-- SUCCESS STATE -->
+    <section class="flow-step hidden" data-step="success">
+      <div class="success-state">
+        <div class="success-icon">✓</div>
+        <h2>Laporan Terkirim</h2>
+        <p class="text-muted">ID Laporan: <strong>#REP-2043</strong></p>
+        <div class="flow-actions">
+          <a href="detail-laporan.html" class="btn btn-primary btn-block">Lihat Detail Laporan</a>
+          <a href="index.html" class="btn btn-outline btn-block">Kembali ke Beranda</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/loader.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/buat-laporan.js"></script>
+</body>
+</html>

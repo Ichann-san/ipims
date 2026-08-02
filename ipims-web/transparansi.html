@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Transparansi Data</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="transparansi">
+
+  <header id="site-header">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">&#8962;</span>
+        IPIMS
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" data-nav="beranda">Beranda</a>
+        <a href="buat-laporan.html" data-nav="lapor">Lapor</a>
+        <a href="peta-kota.html" data-nav="peta">Peta Kota</a>
+        <a href="transparansi.html" data-nav="transparansi">Transparansi</a>
+        <a href="dashboard-prioritas.html" data-nav="admin" class="nav-admin-link">⚙ Admin</a>
+      </nav>
+      <div class="header-actions">
+        <a href="buat-laporan.html" class="btn btn-primary btn-sm">Lapor Sekarang</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="transparency-page">
+    <div class="container">
+      <p class="eyebrow">Dashboard Publik</p>
+      <h1>Transparansi &amp; Akuntabilitas</h1>
+      <p class="section-sub">Semua data kinerja ditampilkan secara publik. Setiap warga berhak memantau penggunaan anggaran dan progres perbaikan.</p>
+
+      <div class="stats-grid">
+        <div class="stat-card card">
+          <div class="stat-value">Rp 42.8M</div>
+          <div class="stat-label">Total Dana Tersalurkan</div>
+        </div>
+        <div class="stat-card card">
+          <div class="stat-value">1,482</div>
+          <div class="stat-label">Proyek Selesai</div>
+        </div>
+        <div class="stat-card card">
+          <div class="stat-value">87%</div>
+          <div class="stat-label">Tingkat Kepuasan</div>
+        </div>
+        <div class="stat-card card">
+          <div class="stat-value">96%</div>
+          <div class="stat-label">On-Time Delivery</div>
+        </div>
+      </div>
+
+      <div class="chart-grid">
+        <div class="chart-card card">
+          <h3>Tren Penanganan Bulanan</h3>
+          <svg class="trend-chart" viewBox="0 0 400 180">
+            <polyline fill="none" stroke="var(--color-accent)" stroke-width="2.5"
+                      points="0,160 40,140 80,120 120,100 160,110 200,80 240,70 280,60 320,50 360,40 400,30" />
+            <polyline fill="none" stroke="var(--color-ink-soft)" stroke-width="1.5" stroke-dasharray="4 3"
+                      points="0,140 40,135 80,130 120,120 160,118 200,110 240,105 280,100 320,95 360,90 400,85" />
+          </svg>
+          <div class="chart-axis-labels">
+            <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>Mei</span>
+            <span>Jun</span><span>Jul</span><span>Agu</span><span>Sep</span><span>Okt</span>
+          </div>
+        </div>
+
+        <div class="chart-card card">
+          <h3>Distribusi per Kategori</h3>
+          <div class="bar-chart">
+            <div class="bar-row">
+              <span>Jalan &amp; Jembatan</span>
+              <div class="bar-track"><span style="width: 62%"></span></div>
+              <span class="bar-value">62%</span>
+            </div>
+            <div class="bar-row">
+              <span>Drainase</span>
+              <div class="bar-track"><span style="width: 18%"></span></div>
+              <span class="bar-value">18%</span>
+            </div>
+            <div class="bar-row">
+              <span>Fasilitas Umum</span>
+              <div class="bar-track"><span style="width: 12%"></span></div>
+              <span class="bar-value">12%</span>
+            </div>
+            <div class="bar-row">
+              <span>Lainnya</span>
+              <div class="bar-track"><span style="width: 8%"></span></div>
+              <span class="bar-value">8%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="performance-card card">
+        <h3>Kinerja OPD (Organisasi Perangkat Daerah)</h3>
+        <div class="performance-list">
+          <div class="performance-row">
+            <span class="performance-name">Dinas PU</span>
+            <div class="bar-track"><span style="width: 91%"></span></div>
+            <span class="performance-value">91%</span>
+          </div>
+          <div class="performance-row">
+            <span class="performance-name">Dinas SDA</span>
+            <div class="bar-track"><span style="width: 84%"></span></div>
+            <span class="performance-value">84%</span>
+          </div>
+          <div class="performance-row">
+            <span class="performance-name">Dinas Kebersihan</span>
+            <div class="bar-track"><span style="width: 78%"></span></div>
+            <span class="performance-value">78%</span>
+          </div>
+          <div class="performance-row">
+            <span class="performance-name">Dinas Perhubungan</span>
+            <div class="bar-track"><span style="width: 72%"></span></div>
+            <span class="performance-value">72%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <div class="footer-brand">IPIMS</div>
+          <p class="footer-desc">Sistem Manajemen Infrastruktur Publik Cerdas untuk kota yang lebih baik, lebih tanggap, dan lebih transparan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Tautan Cepat</h4>
+          <ul>
+            <li><a href="peta-kota.html">Peta Interaktif</a></li>
+            <li><a href="transparansi.html">Statistik Kota</a></li>
+            <li><a href="daftar-laporan.html">Laporan Terbaru</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul>
+            <li>info@ipims.go.id</li>
+            <li>(021) 555-0123</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 IPIMS Infrastructure Management. All Rights Reserved.</span>
+        <div>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/loader.js"></script>
+</body>
+</html>

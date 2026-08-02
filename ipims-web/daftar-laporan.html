@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Daftar Laporan</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="prefetch" href="detail-laporan.html" />
+</head>
+<body data-page="lapor">
+
+  <header id="site-header">
+    <div class="container">
+      <a href="index.html" class="brand">
+        <span class="brand-mark" aria-hidden="true">&#8962;</span>
+        IPIMS
+      </a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" data-nav="beranda">Beranda</a>
+        <a href="buat-laporan.html" data-nav="lapor">Lapor</a>
+        <a href="peta-kota.html" data-nav="peta">Peta Kota</a>
+        <a href="transparansi.html" data-nav="transparansi">Transparansi</a>
+        <a href="dashboard-prioritas.html" data-nav="admin" class="nav-admin-link">⚙ Admin</a>
+      </nav>
+      <div class="header-actions">
+        <a href="buat-laporan.html" class="btn btn-primary btn-sm">Lapor Sekarang</a>
+        <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="list-main">
+    <div class="container list-toolbar">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Cari laporan (misal: 'Jalan berlubang', 'Lampu padam')..." id="searchInput" />
+      </div>
+
+      <div class="filter-row">
+        <button class="btn btn-outline filter-toggle" id="filterToggle" type="button">
+          ⚙ Filter &amp; Urutkan
+        </button>
+
+        <div class="filter-panel hidden" id="filterPanel">
+          <div class="filter-group">
+            <label for="filterCategory">Kategori</label>
+            <select id="filterCategory">
+              <option value="">Semua Kategori</option>
+              <option value="jalan">Jalan &amp; Jembatan</option>
+              <option value="drainase">Drainase</option>
+              <option value="fasilitas">Fasilitas Umum</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filterStatus">Status</label>
+            <select id="filterStatus">
+              <option value="">Semua Status</option>
+              <option value="baru">Baru</option>
+              <option value="diproses">Diproses</option>
+              <option value="selesai">Selesai</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="filterSort">Urutkan</label>
+            <select id="filterSort">
+              <option value="terbaru">Terbaru</option>
+              <option value="prioritas">Prioritas Tertinggi</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container report-list" id="reportList">
+      <article class="report-card">
+        <div class="report-thumb">
+          <img src="assets/report-lubang.jpg" alt="Lubang jalan" onerror="this.style.display='none'" />
+          <span class="badge urgency-critical">Sangat Mendesak</span>
+        </div>
+        <div class="report-body">
+          <div class="report-tags">
+            <span class="badge status-reported">Jalan &amp; Jembatan</span>
+            <span class="badge status-gov badge-dot">Baru</span>
+          </div>
+          <h3>Lubang Jalan Kedalaman 15cm — Jl. Sudirman</h3>
+          <p class="report-desc">Ditemukan kerusakan struktur jalan yang cukup parah setelah hujan deras...</p>
+          <div class="report-meta">
+            <span>📍 Kec. Menteng</span>
+            <span>🕒 2 Jam yang lalu</span>
+            <span>ID: #REP-2041</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="report-card">
+        <div class="report-thumb">
+          <img src="assets/report-drainase.jpg" alt="Drainase tersumbat" onerror="this.style.display='none'" />
+          <span class="badge urgency-medium">Sedang</span>
+        </div>
+        <div class="report-body">
+          <div class="report-tags">
+            <span class="badge status-reported">Drainase</span>
+            <span class="badge status-repair badge-dot">Diproses</span>
+          </div>
+          <h3>Saluran Air Tersumbat Sampah Domestik</h3>
+          <p class="report-desc">Penyumbatan di titik temu pipa drainase utama. Petugas sudah dijadwalkan...</p>
+          <div class="report-meta">
+            <span>📍 Kec. Tebet</span>
+            <span>🕒 5 Jam yang lalu</span>
+            <span>ID: #REP-1992</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="report-card">
+        <div class="report-thumb">
+          <img src="assets/report-trotoar2.jpg" alt="Perbaikan tiang lampu" onerror="this.style.display='none'" />
+          <span class="badge urgency-low">Rendah</span>
+        </div>
+        <div class="report-body">
+          <div class="report-tags">
+            <span class="badge status-reported">Fasilitas Umum</span>
+            <span class="badge status-completed badge-dot">Selesai</span>
+          </div>
+          <h3>Perbaikan Tiang Lampu Pedestrian</h3>
+          <p class="report-desc">Lampu yang dilaporkan padam di area taman kota telah diganti dengan unit...</p>
+          <div class="report-meta">
+            <span>📍 Kec. Gambir</span>
+            <span>🕒 1 Hari yang lalu</span>
+            <span>ID: #REP-1850</span>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="container load-more-row">
+      <button class="btn btn-outline" id="loadMoreBtn" type="button">Muat Laporan Lainnya ⌄</button>
+    </div>
+  </main>
+
+  <footer id="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-brand-col">
+          <div class="footer-brand">IPIMS</div>
+          <p class="footer-desc">Sistem Manajemen Infrastruktur Publik Cerdas untuk kota yang lebih baik, lebih tanggap, dan lebih transparan.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Tautan Cepat</h4>
+          <ul>
+            <li><a href="peta-kota.html">Peta Interaktif</a></li>
+            <li><a href="transparansi.html">Statistik Kota</a></li>
+            <li><a href="daftar-laporan.html">Laporan Terbaru</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kontak</h4>
+          <ul>
+            <li>info@ipims.go.id</li>
+            <li>(021) 555-0123</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2024 IPIMS Infrastructure Management. All Rights Reserved.</span>
+        <div>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="bottom-nav" aria-label="Navigasi bawah">
+    <a href="index.html"><span>🏠</span>Beranda</a>
+    <a href="buat-laporan.html"><span>➕</span>Lapor</a>
+    <a href="peta-kota.html"><span>🗺️</span>Peta</a>
+    <a href="daftar-laporan.html" class="bottom-nav-active"><span>📊</span>Data</a>
+  </nav>
+
+  <script src="js/loader.js"></script>
+  <script src="js/daftar-laporan.js"></script>
+</body>
+</html>

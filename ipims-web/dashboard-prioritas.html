@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Dashboard Prioritas</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body data-page="admin" class="admin-body">
+
+  <div class="admin-shell">
+    <button class="admin-hamburger" id="adminHamburger" aria-label="Buka menu" type="button">☰</button>
+    <div class="admin-overlay" id="adminOverlay"></div>
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-brand">
+        <strong>IPIMS</strong>
+        <span>Infrastructure Management</span>
+      </div>
+      <nav class="admin-nav">
+        <a href="dashboard-prioritas.html" class="active">📊 Dashboard</a>
+        <a href="manajemen-laporan.html">📋 Manajemen Laporan</a>
+        <a href="peta-kota.html">🗺 Peta Kota</a>
+        <a href="simulasi-whatif.html">🔮 Simulasi What-If</a>
+        <a href="transparansi.html">📈 Transparansi</a>
+      </nav>
+      <div class="admin-nav-footer">
+        <a href="index.html" class="admin-back-link">← Kembali ke Situs</a>
+      </div>
+
+      <div class="admin-weights">
+        <h4>Active Weights (MCDM)</h4>
+        <div class="weight-row">
+          <div class="weight-label"><span>Traffic Volume</span><span>40%</span></div>
+          <div class="weight-bar"><span style="width: 40%"></span></div>
+        </div>
+        <div class="weight-row">
+          <div class="weight-label"><span>Pavement Severity</span><span>25%</span></div>
+          <div class="weight-bar"><span style="width: 25%"></span></div>
+        </div>
+        <div class="weight-row">
+          <div class="weight-label"><span>Social Impact</span><span>20%</span></div>
+          <div class="weight-bar"><span style="width: 20%"></span></div>
+        </div>
+        <div class="weight-row">
+          <div class="weight-label"><span>Safety Risk</span><span>15%</span></div>
+          <div class="weight-bar"><span style="width: 15%"></span></div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="admin-content">
+      <header class="admin-topbar">
+        <h1>Priority Queue</h1>
+        <div class="road-toggle" id="roadToggle">
+          <button class="road-toggle-btn active" data-weight="nasional" type="button">Fasilitas Nasional</button>
+          <button class="road-toggle-btn" data-weight="lingkungan" type="button">Fasilitas Daerah</button>
+        </div>
+        <div class="topbar-actions">
+          <button class="btn btn-outline btn-sm">⚙ Filter</button>
+          <a href="buat-laporan.html" class="btn btn-primary btn-sm">Lapor Sekarang</a>
+        </div>
+      </header>
+
+      <section class="kpi-row">
+        <div class="kpi-card">
+          <span class="kpi-label">Total Issues</span>
+          <span class="kpi-value">1,284</span>
+          <span class="kpi-tag kpi-up">+12%</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Critical Severity</span>
+          <span class="kpi-value kpi-critical">42</span>
+          <span class="kpi-tag kpi-warn">Needs Attention</span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Avg Priority Score</span>
+          <span class="kpi-value">78.4<span class="kpi-unit">/100</span></span>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">Resolved (MTD)</span>
+          <span class="kpi-value">312</span>
+          <span class="kpi-tag kpi-up">On Track</span>
+        </div>
+      </section>
+
+      <section class="queue-card card">
+        <div class="queue-header">
+          <div>
+            <h3>Critical Maintenance Queue</h3>
+            <span class="text-muted queue-sub">Sorted by Priority Score</span>
+          </div>
+          <input type="text" placeholder="Search location or ID..." class="queue-search" />
+        </div>
+
+        <div class="table-scroll">
+          <table class="queue-table">
+            <thead>
+              <tr>
+                <th>Thumb</th>
+                <th>Location</th>
+                <th>Category</th>
+                <th>Severity</th>
+                <th>Impact</th>
+                <th>Priority Score</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="table-thumb"></div>
+                </td>
+                <td><strong>KM 14.5 Jalan Sudirman</strong><br /><span class="text-muted">Central Jakarta, DKI
+                    Jakarta</span></td>
+                <td><span class="badge status-reported">Pavement Cracks</span></td>
+                <td><span class="badge severity-tag severity-5">Level 5</span></td>
+                <td>9.2</td>
+                <td class="priority-cell">94.5</td>
+                <td><span class="status-dot status-unassigned"></span>Unassigned</td>
+                <td class="action-cell">
+                  <button class="icon-btn" aria-label="Lihat detail">👁</button>
+                  <button class="btn btn-dark btn-sm">Assign</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="table-thumb"></div>
+                </td>
+                <td><strong>Flyover Semanggi North</strong><br /><span class="text-muted">South Jakarta, DKI
+                    Jakarta</span></td>
+                <td><span class="badge status-reported">Structural Joint</span></td>
+                <td><span class="badge severity-tag severity-4">Level 4</span></td>
+                <td>8.8</td>
+                <td class="priority-cell">89.2</td>
+                <td><span class="status-dot status-pending"></span>Pending Review</td>
+                <td class="action-cell">
+                  <button class="icon-btn" aria-label="Lihat detail">👁</button>
+                  <button class="btn btn-dark btn-sm">Assign</button>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="table-thumb"></div>
+                </td>
+                <td><strong>Simpang Tomang Drain</strong><br /><span class="text-muted">West Jakarta, DKI Jakarta</span>
+                </td>
+                <td><span class="badge status-reported">Drainage/Flooding</span></td>
+                <td><span class="badge severity-tag severity-4">Level 4</span></td>
+                <td>7.5</td>
+                <td class="priority-cell">82.1</td>
+                <td><span class="status-dot status-progress"></span>In Progress</td>
+                <td class="action-cell">
+                  <button class="icon-btn" aria-label="Lihat detail">👁</button>
+                  <button class="btn btn-outline btn-sm" disabled>Assigned</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <span class="text-muted">Showing 1 to 10 of 1,284 issues</span>
+          <div class="pagination">
+            <button type="button">‹</button>
+            <button type="button" class="active">1</button>
+            <button type="button">2</button>
+            <button type="button">3</button>
+            <button type="button">›</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="js/loader.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+
+</html>

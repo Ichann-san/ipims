@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IPIMS — Manajemen Laporan</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="admin" class="admin-body">
+
+  <div class="admin-shell">
+    <button class="admin-hamburger" id="adminHamburger" aria-label="Buka menu" type="button">☰</button>
+    <div class="admin-overlay" id="adminOverlay"></div>
+    <aside class="admin-sidebar" id="adminSidebar">
+      <div class="admin-brand">
+        <strong>IPIMS</strong>
+        <span>Infrastructure Management</span>
+      </div>
+      <nav class="admin-nav">
+        <a href="dashboard-prioritas.html">📊 Dashboard</a>
+        <a href="manajemen-laporan.html" class="active">📋 Manajemen Laporan</a>
+        <a href="peta-kota.html">🗺 Peta Kota</a>
+        <a href="simulasi-whatif.html">🔮 Simulasi What-If</a>
+        <a href="transparansi.html">📈 Transparansi</a>
+      </nav>
+      <div class="admin-nav-footer">
+        <a href="index.html" class="admin-back-link">← Kembali ke Situs</a>
+      </div>
+    </aside>
+
+    <div class="admin-content">
+
+  <main class="editor-page">
+    <!-- LEFT: report list -->
+    <aside class="editor-list">
+      <div class="editor-list-search">
+        <input type="text" placeholder="Cari laporan..." />
+      </div>
+      <ul class="editor-list-items">
+        <li class="editor-list-item active" data-report="8821">
+          <div class="editor-list-top">
+            <span>#REP-8821</span>
+            <span class="badge status-repair">Proses</span>
+          </div>
+          <p class="editor-list-title">Lubang Jalan di Jl. Sudirman</p>
+          <span class="text-muted">2 jam yang lalu · Infrastruktur Jalan</span>
+        </li>
+        <li class="editor-list-item" data-report="8820">
+          <div class="editor-list-top">
+            <span>#REP-8820</span>
+            <span class="badge urgency-critical">Urgent</span>
+          </div>
+          <p class="editor-list-title">Tiang Listrik Miring</p>
+          <span class="text-muted">5 jam yang lalu · Utilitas Publik</span>
+        </li>
+        <li class="editor-list-item" data-report="8819">
+          <div class="editor-list-top">
+            <span>#REP-8819</span>
+            <span class="badge status-completed">Selesai</span>
+          </div>
+          <p class="editor-list-title">Saluran Air Tersumbat</p>
+          <span class="text-muted">Yesterday · Drainase Kota</span>
+        </li>
+        <li class="editor-list-item" data-report="8818">
+          <div class="editor-list-top">
+            <span>#REP-8818</span>
+            <span class="badge status-repair">Proses</span>
+          </div>
+          <p class="editor-list-title">Lampu Taman Mati</p>
+          <span class="text-muted">Yesterday · Penerangan Jalan</span>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- MIDDLE: report content -->
+    <section class="editor-main">
+      <p class="breadcrumb">Laporan Infrastruktur &rsaquo; #REP-8821</p>
+      <h1>Detail Laporan: Lubang Jalan di Jl. Sudirman</h1>
+
+      <div class="editor-photo">
+        <img src="assets/report-jalan2.jpg" alt="Lubang jalan Jl. Sudirman" onerror="this.style.display='none'" />
+        <span class="editor-photo-caption">📍 Jl. Jenderal Sudirman No. 45, Samping Halte TransJakarta</span>
+      </div>
+
+      <h3 class="ai-desc-heading">✨ Deskripsi AI (Dapat Diedit)</h3>
+      <textarea class="ai-desc-textarea" rows="6">Berdasarkan analisis visual, terdapat kerusakan permukaan aspal berupa lubang dengan diameter kurang lebih 45cm dan kedalaman 12cm. Kerusakan ini berlokasi di lajur kiri jalan protokol yang memiliki volume lalu lintas tinggi. Potensi bahaya signifikan bagi kendaraan roda dua, terutama pada kondisi hujan atau malam hari. Disarankan perbaikan segera menggunakan metode cold mix atau patch.</textarea>
+
+      <h3 class="history-heading">Riwayat Perubahan</h3>
+      <ul class="history-list">
+        <li>
+          <span class="history-icon">🕓</span>
+          <div>
+            <p>Laporan diterima oleh sistem dan diverifikasi awal.</p>
+            <span class="text-muted">System &middot; 12 Oct 2024, 14:20</span>
+          </div>
+        </li>
+        <li>
+          <span class="history-icon">✏️</span>
+          <div>
+            <p>Status diubah dari Baru ke Proses.</p>
+            <span class="text-muted">Admin-01 (Budi Santoso) &middot; 12 Oct 2024, 15:05</span>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- RIGHT: settings panel -->
+    <aside class="editor-settings">
+      <div class="settings-card card">
+        <h3>Pengaturan Laporan</h3>
+
+        <label class="settings-label" for="statusSelect">Status Laporan</label>
+        <select id="statusSelect" class="settings-select">
+          <option>Baru</option>
+          <option selected>Dalam Proses</option>
+          <option>Gov Verification</option>
+          <option>Assigned</option>
+          <option>Under Repair</option>
+          <option>Completed</option>
+        </select>
+
+        <label class="settings-label" for="opdSelect">Assign ke OPD</label>
+        <select id="opdSelect" class="settings-select">
+          <option selected>Dinas Pekerjaan Umum (DPU)</option>
+          <option>Dinas Perhubungan</option>
+          <option>Dinas Kebersihan &amp; Pertamanan</option>
+          <option>Dinas Sumber Daya Air</option>
+        </select>
+
+        <label class="settings-label" for="adminNotes">Catatan Internal Admin</label>
+        <textarea id="adminNotes" class="settings-textarea" rows="4">Tim survei sudah menuju lokasi untuk pengecekan dimensi detail. Harap siapkan material aspal dingin.</textarea>
+
+        <button class="btn btn-dark btn-block" id="saveChanges" type="button">Simpan Perubahan</button>
+        <button class="btn-text-danger" id="deleteReport" type="button">🗑 Hapus Laporan</button>
+      </div>
+
+      <div class="reporter-card card">
+        <h4>Detail Pelapor</h4>
+        <div class="reporter-row">
+          <div class="reporter-avatar">A</div>
+          <div>
+            <p class="reporter-name">Adi Wijaya</p>
+            <span class="text-muted">Level: Warga Aktif (Gold)</span>
+          </div>
+        </div>
+        <div class="reporter-meta">
+          <span>NIK: 32750**********</span>
+          <span>ID Perangkat: iPhone 14 Pro Max</span>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+    </div><!-- .admin-content -->
+  </div><!-- .admin-shell -->
+
+  <script src="js/loader.js"></script>
+  <script src="js/manajemen-laporan.js"></script>
+</body>
+</html>
