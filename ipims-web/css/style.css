@@ -128,7 +128,22 @@ body {
 
 img {
   max-width: 100%;
-  display: flex;
+  height: auto;
+  display: block;
+}
+
+.hero-visual img,
+.report-thumb img,
+.recent-thumb img,
+.detail-photo img,
+.asset-photo img,
+.editor-photo img,
+.profile-photo-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 a {
