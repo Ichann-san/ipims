@@ -1,0 +1,22 @@
+# Proposal contains personal data
+*.pdf
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+
+# Env and runtime data
+.env
+backend/media/
+
+# ML artifacts and downloaded data
+ml/data/
+ml/artifacts/
+*.pt
+*.onnx
