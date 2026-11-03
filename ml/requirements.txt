@@ -1,0 +1,7 @@
+osmnx
+scipy
+networkx
+shapely
+geopandas
+numpy
+torch==2.4.1

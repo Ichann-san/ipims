@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_USER: ipims
+      POSTGRES_PASSWORD: ipims
+      POSTGRES_DB: ipims
+    ports:
+      - "5433:5432"
+    volumes:
+      - ipims-db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ipims"]
+      interval: 5s
+      retries: 10
+
+volumes:
+  ipims-db:
