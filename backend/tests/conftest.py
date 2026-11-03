@@ -34,6 +34,7 @@ from app.services import vision  # noqa: E402
 
 # Unit tests never load the real CV model; tests that need AI output monkeypatch vision.analyze.
 vision.available = lambda: False
+vision.warm = lambda: None
 vision.analyze = lambda img: None
 
 # A road segment in Pare running east-west at lat -7.765.

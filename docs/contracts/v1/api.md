@@ -75,9 +75,10 @@ Query: `status` (repeatable), `category` (repeatable), `q` (text in description/
 ```json
 {
   "total": 0,
+  "active": 0,
   "by_status": {"reported": 0, "...": 0},
   "by_category": {"jalan": 0, "...": 0},
-  "completed_rate": 0.0,
+  "completed_rate": 0.0,             // completed / (completed + rejected)
   "median_hours_to_verify": null,
   "median_hours_to_complete": null,
   "monthly": [{"month": "2026-11", "reported": 0, "completed": 0}]

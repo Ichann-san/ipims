@@ -15,7 +15,7 @@ from .services import network, vision
 async def lifespan(_: FastAPI):
     init_db()
     # Load the CV model and road graph in the background so the first request is not slow.
-    threading.Thread(target=lambda: (vision.available(), network.available()), daemon=True).start()
+    threading.Thread(target=lambda: (vision.warm(), network.available()), daemon=True).start()
     yield
 
 

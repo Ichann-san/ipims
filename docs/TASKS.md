@@ -13,5 +13,5 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | B3 | Website | React admin: login, queue with breakdown, manage status, weights, graph map, what-if | done | full lifecycle clickable |
 | C2 | ML | CV: CLIP ViT category + zero-shot damage type and severity, eval (YOLO dropped: untrusted pickle weights) | done | `ml/cv/EVAL.md` with held-out numbers |
 | C3b | ML | GNN surrogate trained on simulation labels, eval vs baselines | done | `ml/gnn/EVAL.md` |
-| D1 | Integration | Wire CV + GNN into backend, seed demo data, docs, phone test | doing | demo script runs end to end |
-| U1 | Website | Visual design pass (direction A) | todo | later, after D1 |
+| D1 | Integration | Wire CV + GNN into backend, seed demo data, docs, phone test | done | `docs/DEMO.md`; `e2e/smoke.py` 14/14 in Edge over HTTPS with phone emulation + GPS (real phone: team) |
+| U1 | Website | Visual design pass (direction A) | todo | next stage; keep `e2e/smoke.py` passing (update selectors if labels change) |

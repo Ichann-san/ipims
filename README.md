@@ -47,7 +47,11 @@ Default officer login is `admin` / `admin123`; set `IPIMS_ADMIN_PASSWORD` and `I
 cd backend && ../.venv/Scripts/python -m pytest -q
 .venv/Scripts/python -m pytest -q ml
 cd frontend && npm run build
+.venv/Scripts/python -m pip install playwright   # once; uses the installed Microsoft Edge
+.venv/Scripts/python e2e/smoke.py               # full loop in a real browser, servers must be running
 ```
+
+Demo: [docs/DEMO.md](docs/DEMO.md). For a phone on the same Wi-Fi run `npm run dev:https` (GPS needs HTTPS).
 
 ## Evaluation
 

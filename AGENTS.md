@@ -28,3 +28,4 @@ IPIMS is a decision support system for public infrastructure in Kabupaten Kediri
 - Backend: `cd backend && python -m pytest -q`
 - Frontend: `cd frontend && npm run build`
 - ML: `python -m pytest -q ml`
+- End to end (servers running): `python e2e/smoke.py` → `14 steps passed`
