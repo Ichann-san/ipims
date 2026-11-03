@@ -55,7 +55,7 @@ export default function Home() {
       <div className="pointer-events-none absolute inset-0 bg-ink-950/45" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_15%_85%,rgb(8_16_31/0.85),transparent_55%)]" />
 
-      <div className="absolute inset-x-3 bottom-[12.5rem] grid gap-3 md:inset-x-6 md:bottom-[9.5rem] md:max-w-xl">
+      <div className="absolute inset-x-3 bottom-[5.75rem] z-20 grid gap-3 md:inset-x-6 md:bottom-[4.5rem] md:max-w-xl">
         <p className="num text-[11px] font-semibold uppercase tracking-[0.2em] text-coral-soft">
           {region.name} · {formatCoord(region.center)}
         </p>
@@ -67,13 +67,13 @@ export default function Home() {
           <Button variant="primary" icon={<Plus size={18} weight="bold" />} onClick={() => nav('/laporan?buat=1')}>Report</Button>
           <Link to="/peta"><Button icon={<ArrowRight size={18} />}>Open map</Button></Link>
         </div>
+        <Panel className="mt-1 grid grid-cols-3 gap-4 px-5 py-3 text-center">
+          <Stat label="Reports" value={s ? s.active : '-'} />
+          <Stat label="Completed" value={s ? s.by_status.completed : '-'} tone="var(--color-st-completed)" />
+          <Stat label="Approval time" value={s?.median_hours_to_verify != null ? `${s.median_hours_to_verify} h` : '-'} />
+        </Panel>
       </div>
 
-      <Panel className="absolute bottom-[6.75rem] left-1/2 md:bottom-[4.5rem] z-20 grid w-[min(36rem,calc(100%-1.5rem))] -translate-x-1/2 grid-cols-3 gap-4 px-5 py-3 text-center">
-        <Stat label="Active reports" value={s ? s.active : '-'} />
-        <Stat label="Completed" value={s ? s.by_status.completed : '-'} tone="var(--color-st-completed)" />
-        <Stat label="Approval time" value={s?.median_hours_to_verify != null ? `${s.median_hours_to_verify} h` : '-'} />
-      </Panel>
       <Footer overlay />
     </div>
   )
