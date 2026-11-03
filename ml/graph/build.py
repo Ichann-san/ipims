@@ -20,6 +20,7 @@ import pandas as pd
 from shapely.strtree import STRtree
 
 from . import config as C
+from .extract import FEATURES as FEATURES_XML, ROADS as ROADS_XML
 
 
 def _first(value):
@@ -36,11 +37,18 @@ def load_area() -> gpd.GeoDataFrame:
     return gpd.GeoDataFrame({"kecamatan": list(C.KECAMATAN)}, geometry=gdf.geometry.values, crs=4326)
 
 
+def _features(polygon, tags):
+    """Features from the local extract when present (ml.graph.extract), otherwise from Overpass."""
+    if FEATURES_XML.exists():
+        return ox.features_from_xml(FEATURES_XML, polygon=polygon, tags=tags)
+    return ox.features_from_polygon(polygon, tags=tags)
+
+
 def load_facilities(polygon) -> gpd.GeoDataFrame:
     frames = []
     for kind, tags in C.FACILITY_TAGS.items():
         try:
-            f = ox.features_from_polygon(polygon, tags=tags)
+            f = _features(polygon, tags)
         except ox._errors.InsufficientResponseError:
             continue
         f = f.reset_index()
@@ -57,7 +65,7 @@ def load_facilities(polygon) -> gpd.GeoDataFrame:
 
 
 def load_buildings(polygon) -> gpd.GeoSeries:
-    b = ox.features_from_polygon(polygon, tags={"building": True})
+    b = _features(polygon, {"building": True})
     b = b[b.geom_type.isin(["Polygon", "MultiPolygon"])]
     return b.to_crs(C.METRIC_CRS).geometry.centroid.reset_index(drop=True)
 
@@ -75,8 +83,13 @@ def build():
     union = area.union_all()
     clip = gpd.GeoSeries([union], crs=4326).to_crs(C.METRIC_CRS).buffer(300).to_crs(4326).iloc[0]
 
-    print("downloading road network…")
-    G = ox.graph_from_polygon(clip, network_type="drive", simplify=True, truncate_by_edge=True)
+    if ROADS_XML.exists():
+        print("reading road network from local extract…")
+        G = ox.graph_from_xml(ROADS_XML, bidirectional=False, simplify=True)
+        G = ox.truncate.truncate_graph_polygon(G, clip, truncate_by_edge=True)
+    else:
+        print("downloading road network…")
+        G = ox.graph_from_polygon(clip, network_type="drive", simplify=True, truncate_by_edge=True)
     G = ox.truncate.largest_component(G, strongly=False)
     U = ox.convert.to_undirected(G)
     nodes_gdf, edges_gdf = ox.convert.graph_to_gdfs(U)
@@ -156,7 +169,7 @@ def build():
 
     info = {
         "built_at": datetime.now(timezone.utc).isoformat(),
-        "source": "OpenStreetMap contributors (ODbL), via OSMnx",
+        "source": "OpenStreetMap contributors (ODbL), " + ("openstreetmap.fr East Java extract" if ROADS_XML.exists() else "Overpass API"),
         "kecamatan": list(C.KECAMATAN),
         "nodes": int(len(node_ids)),
         "segments": int(len(seg_gdf)),

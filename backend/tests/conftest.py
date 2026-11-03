@@ -30,6 +30,11 @@ from app.auth import hash_password  # noqa: E402
 from app.db import Base, SessionLocal, engine, init_db  # noqa: E402
 from app.main import app  # noqa: E402
 from app.models import Admin, Segment  # noqa: E402
+from app.services import vision  # noqa: E402
+
+# Unit tests never load the real CV model; tests that need AI output monkeypatch vision.analyze.
+vision.available = lambda: False
+vision.analyze = lambda img: None
 
 # A road segment in Pare running east-west at lat -7.765.
 SEG_LINE = LineString([(112.190, -7.765), (112.200, -7.765)])

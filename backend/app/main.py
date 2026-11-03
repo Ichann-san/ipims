@@ -1,3 +1,4 @@
+import threading
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
@@ -7,11 +8,14 @@ from fastapi.staticfiles import StaticFiles
 from .config import settings
 from .db import init_db
 from .routers import admin, public
+from .services import network, vision
 
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
     init_db()
+    # Load the CV model and road graph in the background so the first request is not slow.
+    threading.Thread(target=lambda: (vision.available(), network.available()), daemon=True).start()
     yield
 
 
