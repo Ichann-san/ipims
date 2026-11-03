@@ -47,7 +47,7 @@ export default function Home() {
   const s = stats.data
   return (
     <div className="home-map relative h-[100dvh] overflow-hidden">
-      <MapCanvas mapRef={mapRef} interactive={false} controls={false} onLoad={onLoad}
+      <MapCanvas mapRef={mapRef} interactive={false} controls={false} attribution={false} onLoad={onLoad}
         initialViewState={{ longitude: 110, latitude: -4, zoom: 2.1, pitch: 0, bearing: 0 }}>
         <ReportsLayer reports={reports.data?.items ?? []} />
       </MapCanvas>

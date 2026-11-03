@@ -16,12 +16,14 @@ export interface MapCanvasProps {
   onMoveEnd?: (bbox: string, zoom: number) => void
   onLoad?: () => void
   controls?: boolean
+  /** false when the page shows the attribution text next to the map (e.g. in a footer). */
+  attribution?: boolean
   mapRef?: Ref<MapRef>
 }
 
 export function MapCanvas({
   initialViewState, children, className = 'h-full w-full', interactive = true, interactiveLayerIds,
-  onClick, onMoveEnd, onLoad, controls = true, mapRef,
+  onClick, onMoveEnd, onLoad, controls = true, attribution = true, mapRef,
 }: MapCanvasProps) {
   if (!TOKEN) {
     return (
@@ -57,7 +59,7 @@ export function MapCanvas({
         attributionControl={false}
         style={{ width: '100%', height: '100%' }}
       >
-        <AttributionControl compact position="bottom-right" />
+        {attribution && <AttributionControl compact position="bottom-right" />}
         {controls && interactive && <NavigationControl position="bottom-right" visualizePitch />}
         {children}
       </Map>
