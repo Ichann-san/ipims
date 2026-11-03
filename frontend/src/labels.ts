@@ -22,16 +22,6 @@ export const STATUS_LABEL: Record<Status, string> = {
 }
 export const STATUSES = Object.keys(STATUS_LABEL) as Status[]
 
-export const STATUS_CLASS: Record<Status, string> = {
-  reported: 'bg-slate-100 text-slate-700',
-  ai_verified: 'bg-sky-100 text-sky-800',
-  gov_approved: 'bg-indigo-100 text-indigo-800',
-  assigned: 'bg-amber-100 text-amber-800',
-  in_repair: 'bg-orange-100 text-orange-800',
-  completed: 'bg-emerald-100 text-emerald-800',
-  rejected: 'bg-rose-100 text-rose-800',
-}
-
 export const SEVERITY_LABEL: Record<Severity, string> = { low: 'Ringan', mid: 'Sedang', high: 'Berat' }
 
 export const CRITERION_LABEL: Record<Criterion, string> = {

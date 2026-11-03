@@ -53,6 +53,7 @@ export interface Stats {
   median_hours_to_verify: number | null
   median_hours_to_complete: number | null
   monthly: { month: string; reported: number; completed: number }[]
+  by_kecamatan?: Record<string, number>
 }
 
 export type Weights = Record<Criterion, number>
@@ -68,6 +69,8 @@ export interface WhatIfResult {
   cost_estimate_idr: number
   duration_days: number
   assumptions: string[]
+  node_changes?: { lng: number; lat: number; minutes_gained: number; population: number }[]
+  repaired_segments?: string[]
 }
 
 export interface Recommendation {
@@ -171,6 +174,7 @@ export const api = {
   getReport: (code: string) => request<ReportDetail>(`/reports/${encodeURIComponent(code)}`),
   stats: () => request<Stats>('/stats'),
   segments: (bbox: string) => request<FeatureCollection<SegmentProps>>('/segments' + qs({ bbox })),
+  activeSegments: () => request<FeatureCollection<SegmentProps>>('/segments' + qs({ active: '1' })),
   facilities: (bbox: string) => request<FeatureCollection<FacilityProps>>('/facilities' + qs({ bbox })),
 
   async login(username: string, password: string) {
