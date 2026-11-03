@@ -23,8 +23,9 @@ class Segment(Base):
     traffic_proxy: Mapped[float] = mapped_column(Float)
     population_proxy: Mapped[float] = mapped_column(Float)
     facility_proxy: Mapped[float] = mapped_column(Float)
-    impact_score: Mapped[float] = mapped_column(Float, default=0.0)       # GNN prediction, 0..100
-    impact_score_sim: Mapped[float] = mapped_column(Float, default=0.0)   # simulation ground truth, 0..100
+    impact_score: Mapped[float] = mapped_column(Float, default=0.0)       # used for priority: simulation, 0..100
+    impact_score_sim: Mapped[float] = mapped_column(Float, default=0.0)   # accessibility simulation, 0..100
+    impact_score_gnn: Mapped[float | None] = mapped_column(Float)         # GNN out-of-fold prediction, 0..100
     geom = mapped_column(Geometry("LINESTRING", srid=4326, spatial_index=True))
 
 

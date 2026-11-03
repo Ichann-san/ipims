@@ -37,7 +37,8 @@ def load_graph(db) -> int:
             id=p["segment_id"], name=p.get("name"), highway=p["highway"], road_group=p["road_group"],
             kecamatan=p.get("kecamatan"), length_m=p["length_m"], traffic_proxy=p["traffic_proxy"],
             population_proxy=p["population_proxy"], facility_proxy=p["facility_proxy"],
-            impact_score_sim=sim, impact_score=float(gnn.get(p["segment_id"], sim)),
+            impact_score_sim=sim, impact_score=sim,
+            impact_score_gnn=float(gnn[p["segment_id"]]) if p["segment_id"] in gnn else None,
             geom=from_shape(shape(f["geometry"]), srid=4326),
         ))
     for f in _features(graph_dir / "facilities.geojson"):

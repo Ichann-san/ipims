@@ -55,7 +55,7 @@ The backend imports ML code as a library through small adapters; the ML packages
 
 **StatusEvent** — `id`, `report_id`, `from_status`, `to_status`, `actor` (`system`, `citizen`, `admin:<username>`), `note`, `created_at`. Every status change writes one event; the public timeline is this table.
 
-**Segment** (road asset) — `id` (stable OSM-derived id), `name`, `highway`, `road_group` (`utama` | `lingkungan`), `length_m`, `geom` (LineString 4326), `traffic_proxy`, `population_proxy`, `facility_proxy`, `impact_score` (GNN), `impact_score_sim` (simulation ground truth), `kecamatan`.
+**Segment** (road asset) — `id` (stable OSM-derived id), `name`, `highway`, `road_group` (`utama` | `lingkungan`), `length_m`, `geom` (LineString 4326), `traffic_proxy`, `population_proxy`, `facility_proxy`, `impact_score` (value used for priority), `impact_score_sim` (simulation), `impact_score_gnn` (GNN prediction), `kecamatan`.
 
 **Facility** — `id`, `kind` (`health`, `school`, `market`, `government`), `name`, `geom` (Point 4326).
 
@@ -112,7 +112,7 @@ Ground truth comes from simulation, not from guessed labels:
 - Damage on a segment multiplies its travel time (default ×5 for severe, i.e. effectively impassable for normal traffic; configurable).
 - `impact_score_sim(e)` = relative increase of `A` when segment `e` alone is damaged, rank-normalised to 0–100 within the area.
 
-The GNN (plain PyTorch message passing, no PyG) predicts `impact_score_sim` from local graph structure and node/edge features (road class, length, degree, distances to facilities, building counts). Train/test split is spatial (by kecamatan) so the model is tested on roads it never saw. It is compared with baselines (road class only, degree, edge betweenness on a sample). Metrics: Spearman correlation and top-10% overlap with simulation. Its use in the product: instant impact scores for every segment without rerunning the full simulation, and scores for areas where the simulation is too expensive.
+The GNN (plain PyTorch message passing, no PyG) predicts `impact_score_sim` from local graph structure and node/edge features (road class, length, degree, distances to facilities, building counts). Train/test split is spatial (by kecamatan) so the model is tested on roads it never saw. It is compared with baselines: the road class proxy alone, and a linear model on the same segment features without message passing. Metrics: Spearman correlation and top-10% overlap with simulation. Its use in the product: instant impact scores without the per-segment simulation (only one shortest-path run per facility kind), for new areas or edited networks. In the pilot area the exact simulation is available for every segment, so the Priority Score uses `impact_score_sim`; the GNN out-of-fold prediction is stored as `impact_score_gnn` and its agreement with the simulation is reported in `ml/gnn/EVAL.md`.
 
 What-if simulation uses the exact accessibility simulation on the current damage state (all active reports): given a set of segments to repair it returns accessibility before/after, change per facility kind, people-weighted origins that regain access, a rough cost and duration estimate (constants labelled as assumptions), and a greedy recommended repair order by gain per cost.
 
