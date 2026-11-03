@@ -4,15 +4,15 @@ import { STATUS_LABEL } from '../labels'
 
 export const STAGES: Status[] = ['reported', 'ai_verified', 'gov_approved', 'assigned', 'in_repair', 'completed']
 const SHORT: Record<Status, string> = {
-  reported: 'Masuk', ai_verified: 'AI', gov_approved: 'Disetujui', assigned: 'Ditugaskan',
-  in_repair: 'Perbaikan', completed: 'Selesai', rejected: 'Ditolak',
+  reported: 'Reported', ai_verified: 'AI', gov_approved: 'Approved', assigned: 'Assigned',
+  in_repair: 'Repair', completed: 'Done', rejected: 'Rejected',
 }
 
 /** Six-stage tracker. Stages the report passed are filled; a skipped AI step stays hollow. */
 export function StageTracker({ status, reached, compact = false }: { status: Status; reached?: Set<Status>; compact?: boolean }) {
   const current = status === 'rejected' ? -1 : STAGES.indexOf(status)
   return (
-    <ol className="flex w-full items-center" aria-label={`Tahap: ${STATUS_LABEL[status]}`}>
+    <ol className="flex w-full items-center" aria-label={`Stage: ${STATUS_LABEL[status]}`}>
       {STAGES.map((s, i) => {
         const done = reached ? reached.has(s) : i <= current
         const isCurrent = i === current
@@ -35,7 +35,7 @@ export function StageTracker({ status, reached, compact = false }: { status: Sta
         )
       })}
       {status === 'rejected' && (
-        <li className="ml-2 flex items-center gap-1 text-xs font-semibold text-st-rejected"><X size={14} weight="bold" />Ditolak</li>
+        <li className="ml-2 flex items-center gap-1 text-xs font-semibold text-st-rejected"><X size={14} weight="bold" />Rejected</li>
       )}
     </ol>
   )

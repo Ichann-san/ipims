@@ -23,19 +23,19 @@ CV_DIR = REPO_DIR / "ml" / "data" / "cv"
 CATEGORY_OF = {"jalan": "jalan", "trotoar": "trotoar", "drainase": "drainase", "lampu_jalan": "lampu_jalan",
                "halte": "halte", "jembatan": "jembatan"}
 DESCRIPTIONS = {
-    "jalan": ["Lubang cukup dalam, membahayakan pengendara motor saat malam.", "Aspal retak memanjang, makin parah saat hujan.", "Jalan berlubang di depan pertokoan."],
-    "trotoar": ["Paving trotoar terangkat, pejalan kaki terpaksa turun ke jalan.", "Trotoar rusak dekat sekolah."],
-    "drainase": ["Saluran tersumbat sampah, air meluap ke jalan saat hujan.", "Selokan dangkal, sering banjir."],
-    "lampu_jalan": ["Lampu jalan mati sejak seminggu, area gelap.", "PJU berkedip dan sering padam."],
-    "halte": ["Atap halte bocor dan bangku rusak.", "Halte tidak terawat."],
-    "jembatan": ["Pagar pengaman jembatan patah.", "Retakan pada lantai jembatan kecil."],
+    "jalan": ["Deep pothole, dangerous for motorcyclists at night.", "Long crack in the asphalt, worse when it rains.", "Potholes in front of the shops."],
+    "trotoar": ["Sidewalk paving lifted, pedestrians have to walk on the road.", "Broken sidewalk near a school."],
+    "drainase": ["Drain blocked by rubbish, water floods the road when it rains.", "Shallow gutter, floods often."],
+    "lampu_jalan": ["Street light out for a week, the area is dark.", "Street light flickers and often goes out."],
+    "halte": ["Bus stop roof leaks and the bench is broken.", "Bus stop is poorly maintained."],
+    "jembatan": ["Bridge guard rail is broken.", "Cracks in the deck of a small bridge."],
 }
 # (status path after reporting, weight)
 PATHS = [
     ([], 6), (["gov_approved"], 4), (["gov_approved", "assigned"], 4),
     (["gov_approved", "assigned", "in_repair"], 3), (["gov_approved", "assigned", "in_repair", "completed"], 6), (["rejected"], 1),
 ]
-OPD = {"lampu_jalan": "Dinas Perkim (PJU)", "halte": "Dinas Perhubungan"}
+OPD = {"halte": "Dinas Perhubungan"}
 
 
 def load_photos():
@@ -86,7 +86,7 @@ def main():
             lat += rng.uniform(-0.00008, 0.00008)
             lng += rng.uniform(-0.00008, 0.00008)
             cls = photo["class"]
-            desc = rng.choice(DESCRIPTIONS[cls]) + f" [Data demo. Foto: {photo['author'] or 'Wikimedia Commons'}, {photo['license']}, Wikimedia Commons]"
+            desc = rng.choice(DESCRIPTIONS[cls]) + f" [Demo data. Photo: {photo['author'] or 'Wikimedia Commons'}, {photo['license']}, Wikimedia Commons]"
             img = Image.open(CV_DIR / photo["file"]).convert("RGB")
             report = svc.create_report(db, img=img, lat=lat, lng=lng, manual_pin=False, gps_accuracy_m=rng.choice([5, 8, 12]),
                                        category=None, description=desc, is_seed=True)
@@ -100,10 +100,10 @@ def main():
                     t += timedelta(hours=rng.uniform(2, 60))
                     if t > now:
                         break
-                    note = {"gov_approved": "Valid, sesuai foto dan lokasi.", "rejected": "Duplikat laporan sebelumnya.",
-                            "completed": "Perbaikan selesai, sudah dicek di lapangan."}.get(status)
+                    note = {"gov_approved": "Valid, matches the photo and location.", "rejected": "Duplicate of an earlier report.",
+                            "completed": "Repair finished and checked on site."}.get(status)
                     if status == "assigned":
-                        report.assigned_to = OPD.get(report.category, "Dinas PUPR")
+                        report.assigned_to = OPD.get(report.category, "Dinas Sumber Daya Air dan Bina Marga")
                     svc.add_event(db, report, status, "admin:demo", note)
                     db.flush()
                     report.events[-1].created_at = t

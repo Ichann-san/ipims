@@ -130,3 +130,15 @@ body {
     display: none;
   }
 }
+
+/* Home: the footer covers the bottom edge, so lift the Mapbox wordmark and attribution above it. */
+.home-map .mapboxgl-ctrl-bottom-left,
+.home-map .mapboxgl-ctrl-bottom-right {
+  bottom: 44px;
+}
+@media (max-width: 767px) {
+  .home-map .mapboxgl-ctrl-bottom-left,
+  .home-map .mapboxgl-ctrl-bottom-right {
+    bottom: 64px;
+  }
+}

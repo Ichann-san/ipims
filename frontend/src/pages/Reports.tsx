@@ -9,21 +9,22 @@ import { MapCanvas } from '../map/MapCanvas'
 import { SegmentsLayer, useSegments } from '../map/layers'
 import { useRegion } from '../region'
 import { Button, Chip, Empty, ErrorNote, Field, Panel, Sheet, Skeleton, StatusBadge, inputCls } from '../ui/core'
+import { Footer } from '../ui/Footer'
 import { StageTracker, reachedStages } from '../ui/Progress'
 
 const ACTIVE: Status[] = ['reported', 'ai_verified', 'gov_approved', 'assigned', 'in_repair']
-type Scope = 'semua' | 'aktif' | 'selesai'
+type Scope = 'all' | 'active' | 'completed'
 
 export default function Reports() {
   const [params, setParams] = useSearchParams()
   const { code } = useParams()
   const nav = useNavigate()
-  const [scope, setScope] = useState<Scope>('semua')
+  const [scope, setScope] = useState<Scope>('all')
   const [category, setCategory] = useState<Category | ''>('')
   const [sort, setSort] = useState<'newest' | 'priority'>('newest')
   const [q, setQ] = useState('')
   const [limit, setLimit] = useState(24)
-  const status = scope === 'aktif' ? ACTIVE : scope === 'selesai' ? (['completed'] as Status[]) : []
+  const status = scope === 'active' ? ACTIVE : scope === 'completed' ? (['completed'] as Status[]) : []
   const list = useAsync(
     () => api.listReports({ status, category: category ? [category] : [], q, sort, limit }),
     [scope, category, q, sort, limit],
@@ -35,31 +36,32 @@ export default function Reports() {
   }
 
   return (
-    <div className="mx-auto max-w-6xl px-3 pb-10 pt-20 md:px-6">
+    <>
+    <div className="mx-auto max-w-6xl px-3 pb-10 pt-24 md:px-6">
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
-        <h1 className="text-2xl font-bold tracking-tight">Laporan</h1>
-        <p className="num text-sm text-muted">{list.data?.total ?? 0} laporan</p>
+        <h1 className="text-2xl font-bold tracking-tight">Reports</h1>
+        <p className="num text-sm text-muted">{list.data?.total ?? 0} {list.data?.total === 1 ? 'report' : 'reports'}</p>
       </div>
 
       <div className="mb-4 grid grid-cols-1 gap-2 md:grid-cols-[1fr_auto_auto_auto]">
         <label className="relative">
-          <span className="sr-only">Cari</span>
+          <span className="sr-only">Search</span>
           <MagnifyingGlass size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
-          <input className={`${inputCls} h-11 pl-10`} placeholder="Cari kode, jalan, keterangan"
+          <input className={`${inputCls} h-11 pl-10`} placeholder="Search code, road, note"
             defaultValue={q} onKeyDown={(e) => e.key === 'Enter' && setQ((e.target as HTMLInputElement).value.trim())} />
         </label>
         <div className="flex gap-1.5">
-          {(['semua', 'aktif', 'selesai'] as Scope[]).map((s) => (
+          {(['all', 'active', 'completed'] as Scope[]).map((s) => (
             <Chip key={s} active={scope === s} onClick={() => setScope(s)}>{s[0].toUpperCase() + s.slice(1)}</Chip>
           ))}
         </div>
-        <select aria-label="Kategori" className={`${inputCls} h-11 md:w-44`} value={category} onChange={(e) => setCategory(e.target.value as Category | '')}>
-          <option value="">Semua kategori</option>
+        <select aria-label="Category" className={`${inputCls} h-11 md:w-44`} value={category} onChange={(e) => setCategory(e.target.value as Category | '')}>
+          <option value="">All categories</option>
           {CATEGORIES.map((c) => <option key={c} value={c}>{CATEGORY_LABEL[c]}</option>)}
         </select>
-        <select aria-label="Urutan" className={`${inputCls} h-11 md:w-36`} value={sort} onChange={(e) => setSort(e.target.value as 'newest' | 'priority')}>
-          <option value="newest">Terbaru</option>
-          <option value="priority">Prioritas</option>
+        <select aria-label="Sort" className={`${inputCls} h-11 md:w-36`} value={sort} onChange={(e) => setSort(e.target.value as 'newest' | 'priority')}>
+          <option value="newest">Newest</option>
+          <option value="priority">Priority</option>
         </select>
       </div>
 
@@ -68,22 +70,24 @@ export default function Reports() {
         <div className="grid gap-2 md:grid-cols-2">{Array.from({ length: 6 }, (_, i) => <Skeleton key={i} className="h-24" />)}</div>
       )}
       {list.data?.items.length === 0 && (
-        <Empty title="Belum ada laporan yang cocok." action={<Button variant="primary" onClick={() => setParams({ buat: '1' })}>Lapor</Button>} />
+        <Empty title="No matching reports." action={<Button variant="primary" onClick={() => setParams({ buat: '1' })}>Report</Button>} />
       )}
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
         {list.data?.items.map((r) => <ReportRow key={r.code} report={r} />)}
       </div>
       {list.data && list.data.total > list.data.items.length && (
-        <div className="mt-4 flex justify-center"><Button onClick={() => setLimit((l) => l + 24)}>Muat lagi</Button></div>
+        <div className="mt-4 flex justify-center"><Button onClick={() => setLimit((l) => l + 24)}>Load more</Button></div>
       )}
 
-      <Sheet open={creating} onClose={closeForm} title="Lapor kerusakan">
+      <Sheet open={creating} onClose={closeForm} title="Report damage">
         <ReportForm onDone={(r) => { list.reload(); nav(`/laporan/${r.code}`, { replace: true }) }} />
       </Sheet>
       <Sheet open={!!code} onClose={() => nav('/laporan')} title={code ?? ''} wide>
         {code && <ReportDetailView code={code} />}
       </Sheet>
     </div>
+    <Footer />
+    </>
   )
 }
 
@@ -94,11 +98,11 @@ function ReportRow({ report: r }: { report: Report }) {
       <img src={r.photo_url} alt="" loading="lazy" className="size-20 flex-none rounded-xl object-cover" />
       <div className="min-w-0 flex-1 py-0.5">
         <div className="flex items-center justify-between gap-2">
-          <p className="truncate font-semibold">{r.segment ? roadName(r.segment.name) : 'Di luar jaringan jalan'}</p>
+          <p className="truncate font-semibold">{r.segment ? roadName(r.segment.name) : 'Outside the road network'}</p>
           <StatusBadge status={r.status} />
         </div>
         <p className="mt-0.5 truncate text-[13px] text-muted">
-          {CATEGORY_LABEL[r.category]}{r.ai ? `, kerusakan ${SEVERITY_LABEL[r.ai.severity].toLowerCase()}` : ''}
+          {CATEGORY_LABEL[r.category]}{r.ai ? `, ${SEVERITY_LABEL[r.ai.severity].toLowerCase()} damage` : ''}
         </p>
         <div className="mt-2 flex items-center justify-between text-xs text-muted">
           <span className="num">{formatDate(r.created_at)}</span>
@@ -116,21 +120,21 @@ export function ReportDetailView({ code }: { code: string }) {
   const d = r.data
   return (
     <div className="grid gap-4">
-      <img src={d.photo_url} alt="Foto laporan" className="max-h-72 w-full rounded-xl object-cover" />
+      <img src={d.photo_url} alt="Report photo" className="max-h-72 w-full rounded-xl object-cover" />
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="min-w-0">
-          <p className="truncate text-lg font-bold">{d.segment ? roadName(d.segment.name) : 'Di luar jaringan jalan'}</p>
+          <p className="truncate text-lg font-bold">{d.segment ? roadName(d.segment.name) : 'Outside the road network'}</p>
           <p className="text-[13px] text-muted">{CATEGORY_LABEL[d.category]} · {formatDate(d.created_at)}</p>
         </div>
         <StatusBadge status={d.status} />
       </div>
       <Panel className="px-3 py-3"><StageTracker status={d.status} reached={reachedStages(d.timeline)} /></Panel>
       <dl className="grid grid-cols-3 gap-3 text-sm">
-        <Fact label="Prioritas" value={d.priority_score?.toFixed(0) ?? '-'} />
-        <Fact label="Dampak ruas" value={d.impact_score?.toFixed(0) ?? '-'} />
-        <Fact label="Kerusakan" value={d.ai ? SEVERITY_LABEL[d.ai.severity] : '-'} />
+        <Fact label="Priority" value={d.priority_score?.toFixed(0) ?? '-'} />
+        <Fact label="Road impact" value={d.impact_score?.toFixed(0) ?? '-'} />
+        <Fact label="Damage" value={d.ai ? SEVERITY_LABEL[d.ai.severity] : '-'} />
       </dl>
-      {d.assigned_to && <p className="text-sm text-muted">Ditangani <span className="font-semibold text-fg">{d.assigned_to}</span></p>}
+      {d.assigned_to && <p className="text-sm text-muted">Handled by <span className="font-semibold text-fg">{d.assigned_to}</span></p>}
       {d.description && <p className="text-sm">{d.description}</p>}
       <ol className="grid gap-2 border-l border-line pl-4">
         {d.timeline.map((e, i) => (
@@ -140,7 +144,7 @@ export function ReportDetailView({ code }: { code: string }) {
           </li>
         ))}
       </ol>
-      <Link to={`/peta?r=${d.code}`}><Button className="w-full" icon={<MapPin size={18} />}>Lihat di peta</Button></Link>
+      <Link to={`/peta?r=${d.code}`}><Button className="w-full" icon={<MapPin size={18} />}>View on map</Button></Link>
     </div>
   )
 }
@@ -192,10 +196,10 @@ function ReportForm({ onDone }: { onDone: (r: ReportDetail) => void }) {
 
   const locate = () => {
     setGpsError(null)
-    if (!navigator.geolocation) return setGpsError('GPS tidak tersedia. Ketuk peta.')
+    if (!navigator.geolocation) return setGpsError('GPS unavailable. Tap the map.')
     navigator.geolocation.getCurrentPosition(
       (p) => { setPos([p.coords.longitude, p.coords.latitude]); setAccuracy(Math.round(p.coords.accuracy)); setManual(false) },
-      () => setGpsError('GPS tidak tersedia. Ketuk peta.'),
+      () => setGpsError('GPS unavailable. Tap the map.'),
       { enableHighAccuracy: true, timeout: 15000 },
     )
   }
@@ -227,7 +231,7 @@ function ReportForm({ onDone }: { onDone: (r: ReportDetail) => void }) {
         category: ai && ai.category === category ? undefined : category, description: note.trim() || undefined,
       }))
     } catch (e) {
-      setError(e instanceof ApiError ? e.message : 'Gagal mengirim. Periksa koneksi.')
+      setError(e instanceof ApiError ? e.message : 'Could not send. Check your connection.')
     } finally {
       setSending(false)
     }
@@ -236,24 +240,24 @@ function ReportForm({ onDone }: { onDone: (r: ReportDetail) => void }) {
   const center = region.center
   return (
     <div className="grid gap-5">
-      <Field label="Foto">
+      <Field label="Photo">
         <span className="relative grid aspect-[4/3] cursor-pointer place-items-center overflow-hidden rounded-xl border border-dashed border-line-strong bg-ink-900/60">
-          {preview ? <img src={preview} alt="Pratinjau" className="absolute inset-0 size-full object-cover" />
-            : <span className="flex flex-col items-center gap-2 text-sm text-muted"><Camera size={28} />Ambil foto</span>}
+          {preview ? <img src={preview} alt="Preview" className="absolute inset-0 size-full object-cover" />
+            : <span className="flex flex-col items-center gap-2 text-sm text-muted"><Camera size={28} />Take a photo</span>}
           <input type="file" accept="image/*" capture="environment" className="absolute inset-0 opacity-0" onChange={(e) => onFile(e.target.files?.[0])} />
         </span>
       </Field>
       {aiState !== 'idle' && (
         <div className="rounded-xl border border-line bg-ink-900/60 px-3 py-2 text-sm" aria-live="polite">
-          {aiState === 'running' && <span className="text-muted">AI menilai foto…</span>}
-          {aiState === 'off' && <span className="text-muted">AI tidak tersedia. Pilih kategori.</span>}
+          {aiState === 'running' && <span className="text-muted">AI is checking the photo…</span>}
+          {aiState === 'off' && <span className="text-muted">AI unavailable. Pick a category.</span>}
           {aiState === 'done' && ai && (ai.is_infrastructure
-            ? <span>AI: <b>{CATEGORY_LABEL[ai.category]}</b>, kerusakan {SEVERITY_LABEL[ai.severity].toLowerCase()}{ai.damage_type ? ` (${DAMAGE_LABEL[ai.damage_type] ?? ai.damage_type})` : ''}</span>
-            : <span className="text-st-rejected">AI: foto ini mungkin bukan infrastruktur.</span>)}
+            ? <span>AI: <b>{CATEGORY_LABEL[ai.category]}</b>, {SEVERITY_LABEL[ai.severity].toLowerCase()} damage{ai.damage_type ? ` (${DAMAGE_LABEL[ai.damage_type] ?? ai.damage_type})` : ''}</span>
+            : <span className="text-st-rejected">AI: this photo may not show infrastructure.</span>)}
         </div>
       )}
 
-      <Field label="Lokasi" hint={pos ? (manual ? 'Dipilih di peta' : `GPS ±${accuracy ?? '?'} m`) : 'Mencari lokasi…'} error={gpsError}>
+      <Field label="Location" hint={pos ? (manual ? 'Picked on the map' : `GPS ±${accuracy ?? '?'} m`) : 'Finding location…'} error={gpsError}>
         <div className="h-56 overflow-hidden rounded-xl">
           <MapCanvas mapRef={mapRef} controls={false}
             initialViewState={{ longitude: center[0], latitude: center[1], zoom: 11.5, pitch: 0 }}
@@ -263,21 +267,21 @@ function ReportForm({ onDone }: { onDone: (r: ReportDetail) => void }) {
             {pos && <Marker longitude={pos[0]} latitude={pos[1]}><span className="block size-4 rounded-full border-2 border-white bg-coral shadow" /></Marker>}
           </MapCanvas>
         </div>
-        <Button type="button" size="sm" variant="ghost" icon={<Crosshair size={16} />} onClick={locate} className="justify-self-start">Pakai GPS</Button>
+        <Button type="button" size="sm" variant="ghost" icon={<Crosshair size={16} />} onClick={locate} className="justify-self-start">Use GPS</Button>
       </Field>
 
-      <Field label="Kategori">
+      <Field label="Category">
         <select className={`${inputCls} h-11`} value={category} onChange={(e) => setCategory(e.target.value as Category)}>
-          <option value="" disabled>Pilih kategori</option>
+          <option value="" disabled>Choose a category</option>
           {CATEGORIES.map((c) => <option key={c} value={c}>{CATEGORY_LABEL[c]}{ai?.is_infrastructure && ai.category === c ? ' (AI)' : ''}</option>)}
         </select>
       </Field>
-      <Field label="Keterangan (opsional)">
+      <Field label="Note (optional)">
         <textarea className={`${inputCls} py-2`} rows={3} maxLength={1000} value={note} onChange={(e) => setNote(e.target.value)} />
       </Field>
       {error && <ErrorNote message={error} />}
       <Button variant="primary" disabled={!photo || !pos || !category || sending || aiState === 'running'} onClick={submit}>
-        {sending ? 'Mengirim…' : 'Kirim laporan'}
+        {sending ? 'Sending…' : 'Send report'}
       </Button>
     </div>
   )

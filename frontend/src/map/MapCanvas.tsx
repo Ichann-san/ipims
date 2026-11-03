@@ -26,7 +26,7 @@ export function MapCanvas({
   if (!TOKEN) {
     return (
       <div className={`grid place-items-center bg-ink-900 text-sm text-muted ${className}`}>
-        Peta butuh VITE_MAPBOX_TOKEN di frontend/.env.local
+        The map needs VITE_MAPBOX_TOKEN in frontend/.env.local
       </div>
     )
   }

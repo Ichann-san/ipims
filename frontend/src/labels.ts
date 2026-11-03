@@ -1,59 +1,59 @@
 import type { Category, Criterion, Severity, Status } from './api'
 
 export const CATEGORY_LABEL: Record<Category, string> = {
-  jalan: 'Jalan',
-  trotoar: 'Trotoar',
-  drainase: 'Drainase',
-  lampu_jalan: 'Lampu Jalan',
-  halte: 'Halte',
-  jembatan: 'Jembatan',
-  lainnya: 'Lainnya',
+  jalan: 'Road',
+  trotoar: 'Sidewalk',
+  drainase: 'Drainage',
+  lampu_jalan: 'Street light',
+  halte: 'Bus stop',
+  jembatan: 'Bridge',
+  lainnya: 'Other',
 }
 export const CATEGORIES = Object.keys(CATEGORY_LABEL) as Category[]
 
 export const STATUS_LABEL: Record<Status, string> = {
-  reported: 'Dilaporkan',
-  ai_verified: 'Terverifikasi AI',
-  gov_approved: 'Disetujui Pemerintah',
-  assigned: 'Ditugaskan',
-  in_repair: 'Dalam Perbaikan',
-  completed: 'Selesai',
-  rejected: 'Ditolak',
+  reported: 'Reported',
+  ai_verified: 'AI verified',
+  gov_approved: 'Approved',
+  assigned: 'Assigned',
+  in_repair: 'In repair',
+  completed: 'Completed',
+  rejected: 'Rejected',
 }
 export const STATUSES = Object.keys(STATUS_LABEL) as Status[]
 
-export const SEVERITY_LABEL: Record<Severity, string> = { low: 'Ringan', mid: 'Sedang', high: 'Berat' }
+export const SEVERITY_LABEL: Record<Severity, string> = { low: 'Minor', mid: 'Moderate', high: 'Severe' }
 
 export const CRITERION_LABEL: Record<Criterion, string> = {
-  severity: 'Tingkat kerusakan',
-  traffic: 'Kepadatan lalu lintas',
-  population: 'Penduduk terdampak',
-  facility: 'Kepentingan fasilitas',
-  impact: 'Impact Score (jaringan)',
-  reports: 'Jumlah laporan',
+  severity: 'Damage severity',
+  traffic: 'Traffic',
+  population: 'People affected',
+  facility: 'Facility importance',
+  impact: 'Network impact',
+  reports: 'Report count',
 }
 
 export const FACILITY_LABEL: Record<string, string> = {
-  health: 'Kesehatan',
-  school: 'Sekolah',
-  market: 'Pasar',
-  government: 'Pemerintahan',
+  health: 'Health',
+  school: 'School',
+  market: 'Market',
+  government: 'Government',
 }
 
 export const DAMAGE_LABEL: Record<string, string> = {
-  pothole: 'Lubang',
-  alligator_crack: 'Retak buaya',
-  crack: 'Retak',
+  pothole: 'Pothole',
+  alligator_crack: 'Alligator crack',
+  crack: 'Crack',
 }
 
 export function formatDate(iso: string) {
-  return new Date(iso).toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
+  return new Date(iso).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short' })
 }
 
 export function formatIdr(n: number) {
-  return 'Rp' + n.toLocaleString('id-ID')
+  return 'Rp' + n.toLocaleString('en-US')
 }
 
 export function roadName(name: string | null | undefined) {
-  return name || 'Jalan tanpa nama'
+  return name || 'Unnamed road'
 }

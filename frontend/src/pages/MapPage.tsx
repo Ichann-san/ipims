@@ -60,8 +60,8 @@ export default function MapPage() {
                   <p className="truncate font-semibold">{CATEGORY_LABEL[pick.report.category]}</p>
                   <StatusBadge status={pick.report.status} />
                 </div>
-                <p className="truncate text-[13px] text-muted">{pick.report.segment ? roadName(pick.report.segment.name) : 'Di luar jaringan jalan'}</p>
-                <Link to={`/laporan/${pick.report.code}`} className="mt-1 text-[13px] font-semibold text-cyan">Lihat detail</Link>
+                <p className="truncate text-[13px] text-muted">{pick.report.segment ? roadName(pick.report.segment.name) : 'Outside the road network'}</p>
+                <Link to={`/laporan/${pick.report.code}`} className="mt-1 text-[13px] font-semibold text-cyan">View details</Link>
               </div>
             </Panel>
           </Popup>
@@ -71,7 +71,7 @@ export default function MapPage() {
             <Panel strong className="grid w-60 gap-1 p-3 text-fg">
               <p className="truncate font-semibold">{roadName(pick.seg.name)}</p>
               <p className="text-[13px] text-muted">{pick.seg.highway}</p>
-              <p className="num text-sm">Dampak <b>{Number(pick.seg.impact_score).toFixed(0)}</b> · {pick.seg.active_reports} laporan aktif</p>
+              <p className="num text-sm">Impact <b>{Number(pick.seg.impact_score).toFixed(0)}</b> · {pick.seg.active_reports} active reports</p>
             </Panel>
           </Popup>
         )}
@@ -79,15 +79,15 @@ export default function MapPage() {
 
       <Panel className="absolute bottom-3 left-3 grid gap-3 p-3 md:bottom-6 md:left-6">
         <div className="flex flex-wrap gap-1.5">
-          <Chip active={layers.reports} onClick={() => toggle('reports')}>Laporan</Chip>
-          <Chip active={layers.impact} onClick={() => toggle('impact')}>Dampak jalan</Chip>
-          <Chip active={layers.facilities} onClick={() => toggle('facilities')}>Fasilitas</Chip>
+          <Chip active={layers.reports} onClick={() => toggle('reports')}>Reports</Chip>
+          <Chip active={layers.impact} onClick={() => toggle('impact')}>Road impact</Chip>
+          <Chip active={layers.facilities} onClick={() => toggle('facilities')}>Facilities</Chip>
         </div>
         {layers.impact && (
           <div className="grid gap-1">
             <div className="h-1.5 w-52 rounded-full" style={{ background: `linear-gradient(90deg, ${IMPACT_RAMP.map(([, c]) => c).join(',')})` }} />
-            <div className="flex w-52 justify-between text-[11px] text-muted"><span>Dampak rendah</span><span>Kritis</span></div>
-            {view && view.zoom < 13 && <p className="text-[11px] text-muted">Perbesar untuk melihat ruas jalan</p>}
+            <div className="flex w-52 justify-between text-[11px] text-muted"><span>Low impact</span><span>Critical</span></div>
+            {view && view.zoom < 13 && <p className="text-[11px] text-muted">Zoom in to see road segments</p>}
           </div>
         )}
       </Panel>
