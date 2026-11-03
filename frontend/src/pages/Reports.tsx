@@ -1,6 +1,6 @@
 import { Camera, Crosshair, MagnifyingGlass, MapPin } from '@phosphor-icons/react'
-import { useEffect, useMemo, useState } from 'react'
-import { Marker } from 'react-map-gl/mapbox'
+import { useEffect, useMemo, useRef, useState } from 'react'
+import { Marker, type MapRef } from 'react-map-gl/mapbox'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { api, ApiError, type AIResult, type Category, type Report, type ReportDetail, type Status } from '../api'
 import { useAsync } from '../hooks'
@@ -182,8 +182,13 @@ function ReportForm({ onDone }: { onDone: (r: ReportDetail) => void }) {
   const [error, setError] = useState<string | null>(null)
   const [view, setView] = useState<{ bbox: string; zoom: number } | null>(null)
   const segments = useSegments(view)
+  const mapRef = useRef<MapRef>(null)
 
   useEffect(() => () => { if (preview) URL.revokeObjectURL(preview) }, [preview])
+  // Follow GPS fixes; a manual pin keeps the camera where the user put it.
+  useEffect(() => {
+    if (pos && !manual) mapRef.current?.flyTo({ center: pos, zoom: 16.5, duration: 1200 })
+  }, [pos, manual])
 
   const locate = () => {
     setGpsError(null)
@@ -228,7 +233,7 @@ function ReportForm({ onDone }: { onDone: (r: ReportDetail) => void }) {
     }
   }
 
-  const center = pos ?? region.center
+  const center = region.center
   return (
     <div className="grid gap-5">
       <Field label="Foto">
@@ -250,8 +255,8 @@ function ReportForm({ onDone }: { onDone: (r: ReportDetail) => void }) {
 
       <Field label="Lokasi" hint={pos ? (manual ? 'Dipilih di peta' : `GPS ±${accuracy ?? '?'} m`) : 'Mencari lokasi…'} error={gpsError}>
         <div className="h-56 overflow-hidden rounded-xl">
-          <MapCanvas key={pos ? 'located' : 'default'} controls={false}
-            initialViewState={{ longitude: center[0], latitude: center[1], zoom: pos ? 16.5 : 11.5, pitch: 0 }}
+          <MapCanvas mapRef={mapRef} controls={false}
+            initialViewState={{ longitude: center[0], latitude: center[1], zoom: 11.5, pitch: 0 }}
             onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
             onClick={(e) => { setPos([e.lngLat.lng, e.lngLat.lat]); setManual(true) }}>
             {segments && <SegmentsLayer data={segments} />}
