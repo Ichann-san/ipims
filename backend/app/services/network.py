@@ -20,7 +20,7 @@ def _properties(path) -> pd.DataFrame:
 def network():
     from ml.graph.sim import Network
 
-    graph_dir = settings.artifacts_dir / "graph"
+    graph_dir = settings.graph_dir
     nodes = pd.read_csv(graph_dir / "nodes.csv")
     segments = _properties(graph_dir / "segments.geojson")
     facilities = _properties(graph_dir / "facilities.geojson")

@@ -1,11 +1,12 @@
 """Train and evaluate the Impact Score GNN against the accessibility simulation.
 
-Protocol: leave-one-kecamatan-out. For each kecamatan, train on segments of the other three and
-predict the held-out one, so every segment gets an out-of-fold prediction from a model that never
-saw labels from its area. Compared with feature baselines that ignore graph structure.
+Protocol: leave-area-out. Kecamatan are grouped into spatial folds (config FOLDS; one kecamatan per
+fold when there are few). For each fold, train on the other folds and predict the held-out one, so every
+segment gets an out-of-fold prediction from a model that never saw labels from its area. Compared with
+feature baselines that ignore graph structure.
 Features use only one Dijkstra per facility kind (no per-segment simulation), so they are cheap.
 
-Writes ml/artifacts/gnn/eval.json and predictions.json (out-of-fold scores 0..100).
+Writes ml/artifacts/<region>/gnn/eval.json and predictions.json (out-of-fold scores 0..100).
 Run: python -m ml.gnn.train
 """
 import json
@@ -21,7 +22,7 @@ from ..graph import config as C
 from ..graph.impact import load_network
 from .model import ImpactGNN
 
-OUT = C.ML_DIR / "artifacts" / "gnn"
+OUT = C.GNN_DIR
 HIGHWAYS = ["trunk", "primary", "secondary", "tertiary", "unclassified", "residential"]
 EPOCHS = 400
 VERSION = "impact-gnn-v1"
@@ -80,6 +81,35 @@ def linear_baseline(edge_x, y, train_idx):
     return A @ w
 
 
+def spatial_folds(net, seg: pd.DataFrame, n_folds: int) -> dict:
+    """Kecamatan name -> fold name. Kecamatan are ordered by angle around the region centre and cut into
+    n_folds contiguous sectors of similar segment counts, so each fold is one connected part of the city."""
+    kec = seg["kecamatan"].to_numpy()
+    mid_lon = (net.lon[net.u] + net.lon[net.v]) / 2
+    mid_lat = (net.lat[net.u] + net.lat[net.v]) / 2
+    names = [k for k in C.KECAMATAN if (kec == k).any()]
+    if n_folds >= len(names):
+        return {k: k for k in names}
+    cx, cy = np.nanmean(mid_lon), np.nanmean(mid_lat)
+    stats = []
+    for k in names:
+        sel = kec == k
+        stats.append((np.arctan2(mid_lat[sel].mean() - cy, mid_lon[sel].mean() - cx), k, int(sel.sum())))
+    stats.sort()
+    total, target = sum(n for *_, n in stats), sum(n for *_, n in stats) / n_folds
+    folds, acc, fold = {}, 0, 0
+    for _, k, n in stats:
+        folds[k] = fold
+        acc += n
+        if acc >= target * (fold + 1) and fold < n_folds - 1:
+            fold += 1
+    members = {}
+    for k, f in folds.items():
+        members.setdefault(f, []).append(k)
+    return {k: " + ".join(sorted(members[f])) if len(members[f]) <= 2 else f"fold {f + 1} ({len(members[f])} kecamatan)"
+            for k, f in folds.items()}
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     net, seg = load_network()
@@ -88,11 +118,12 @@ def main():
     t0 = time.time()
     node_x, edge_x = features(net, seg)
     feature_seconds = time.time() - t0
-    kec = seg["kecamatan"].fillna("outside").to_numpy()
+    fold_of = spatial_folds(net, seg, C.FOLDS)
+    kec = seg["kecamatan"].map(fold_of).fillna("outside").to_numpy()
 
     oof = {"gnn": np.zeros(len(y)), "linear_features": np.zeros(len(y))}
     folds = {}
-    for area in C.KECAMATAN:
+    for area in dict.fromkeys(fold_of.values()):
         test = np.flatnonzero(kec == area)
         train = np.flatnonzero((kec != area) & (kec != "outside"))
         t1 = time.time()
@@ -101,6 +132,7 @@ def main():
         lin = linear_baseline(edge_x, y, train)
         oof["gnn"][test], oof["linear_features"][test] = pred[test], lin[test]
         folds[area] = {
+            "kecamatan": sorted(k for k, f in fold_of.items() if f == area),
             "test_segments": int(len(test)),
             "gnn": metrics(pred[test], y[test]),
             "linear_features": metrics(lin[test], y[test]),
@@ -113,7 +145,8 @@ def main():
     sim_info = json.loads((C.ARTIFACTS_DIR / "impact_info.json").read_text())
     result = {
         "version": VERSION,
-        "protocol": "leave-one-kecamatan-out; metrics on the held-out kecamatan",
+        "region": C.REGION,
+        "protocol": "leave-area-out over spatial folds of kecamatan; metrics on the held-out area",
         "folds": folds,
         "test": {
             "gnn": metrics(oof["gnn"][inside], y[inside]),

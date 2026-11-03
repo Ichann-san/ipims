@@ -22,10 +22,10 @@ def _features(path):
 
 
 def load_graph(db) -> int:
-    graph_dir = settings.artifacts_dir / "graph"
-    impact_path = settings.artifacts_dir / "graph" / "impact.json"
+    graph_dir = settings.graph_dir
+    impact_path = graph_dir / "impact.json"
     impact = json.loads(impact_path.read_text()) if impact_path.exists() else {}
-    gnn_path = settings.artifacts_dir / "gnn" / "predictions.json"
+    gnn_path = settings.gnn_dir / "predictions.json"
     gnn = json.loads(gnn_path.read_text()) if gnn_path.exists() else {}
 
     db.execute(delete(Segment))

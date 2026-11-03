@@ -6,7 +6,8 @@ from ml.graph.sim import Network, impact_to_score, recommend, single_segment_imp
 
 def toy_network() -> Network:
     # 0 - 1 - 2 - 3 (hospital at 3), plus a slow detour 1 - 4 - 2. Everyone lives at node 0.
-    nodes = pd.DataFrame({"node_id": [10, 11, 12, 13, 14], "population": [100, 0, 0, 0, 0]})
+    nodes = pd.DataFrame({"node_id": [10, 11, 12, 13, 14], "population": [100, 0, 0, 0, 0],
+                          "lon": [112.70, 112.71, 112.72, 112.73, 112.715], "lat": [-7.25] * 5})
     segments = pd.DataFrame({
         "segment_id": ["a", "b", "c", "d1", "d2"],
         "u": [10, 11, 12, 11, 14],
@@ -49,3 +50,22 @@ def test_whatif_and_recommend():
     assert np.isclose(full["accessibility_after"], 3.0) and full["improvement_pct"] == 100.0
     rec = recommend(net, damage)
     assert [r["segment_id"] for r in rec["order"]] == ["a", "b"]
+    assert res["repaired_segments"] == ["a"]
+    # Only the populated origin changes: 9 min before, 5 min after repairing "a".
+    assert res["node_changes"] == [{"lng": 112.7, "lat": -7.25, "minutes_gained": 4.0, "population": 100}]
+
+
+def test_parallel_segment_is_used_as_detour():
+    net = toy_network()
+    nodes = pd.DataFrame({"node_id": list(net.node_index), "population": net.pop})
+    segments = pd.DataFrame({
+        "segment_id": list(net.seg_ids) + ["a2"],
+        "u": [10, 11, 12, 11, 14, 10], "v": [11, 12, 13, 14, 12, 11],
+        "travel_min": [1.0, 1.0, 1.0, 1.5, 1.5, 3.0],
+        "length_m": [500] * 6,
+        "road_group": ["utama"] * 6,
+    })
+    par = Network.from_frames(nodes, segments, pd.DataFrame({"kind": ["health"], "node_id": [13]}))
+    by_id = dict(zip(par.seg_ids, single_segment_impact(par, factor=5.0)))
+    assert by_id["a"] == 2.0      # parallel road (3 min) replaces 1 min instead of 5
+    assert by_id["a2"] == 0.0     # slower parallel road is not on the shortest path

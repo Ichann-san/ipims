@@ -110,7 +110,7 @@ def graph_summary(db: Session = Depends(get_db), _: str = Depends(require_admin)
     kinds = dict(db.execute(select(Facility.kind, func.count()).group_by(Facility.kind)).all())
     areas = [a for (a,) in db.execute(select(Segment.kecamatan).distinct()).all() if a]
     model = {"version": None, "spearman": None}
-    info = settings.artifacts_dir / "gnn" / "eval.json"
+    info = settings.gnn_dir / "eval.json"
     if info.exists():
         data = json.loads(info.read_text())
         model = {"version": data.get("version"), "spearman": data.get("test", {}).get("gnn", {}).get("spearman")}

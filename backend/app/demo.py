@@ -4,7 +4,7 @@ Photos are freely licensed Wikimedia Commons images from the CV evaluation set (
 each report description carries the photo attribution. The real CV model analyses every photo.
 Statuses and timestamps are spread over the last 60 days so the dashboards have history.
 
-Run from backend/: python -m app.demo [--count 30] [--reset]
+Run from backend/: python -m app.demo [--count 40] [--reset]
 """
 import argparse
 import csv
@@ -50,7 +50,7 @@ def load_photos():
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--count", type=int, default=30)
+    ap.add_argument("--count", type=int, default=40)
     ap.add_argument("--reset", action="store_true", help="delete previous seed reports first")
     args = ap.parse_args()
     rng = random.Random(42)
@@ -61,18 +61,26 @@ def main():
             db.execute(delete(StatusEvent).where(StatusEvent.report_id.in_(ids)))
             db.execute(delete(Report).where(Report.is_seed.is_(True)))
             db.commit()
-        segments = db.scalars(select(Segment).where(Segment.name.is_not(None), Segment.length_m > 80)).all()
+        segments = db.scalars(select(Segment).where(
+            Segment.name.is_not(None), Segment.kecamatan.is_not(None), Segment.length_m > 80)).all()
         if not segments:
             raise SystemExit("no segments loaded; run python -m app.seed first")
-        # Favour roads that matter, but keep some local roads.
-        weighted = sorted(segments, key=lambda s: -s.impact_score)
-        pool = weighted[: max(60, len(weighted) // 10)] + rng.sample(weighted, min(60, len(weighted)))
+        # Spread over the region: walk the kecamatan in turn, favouring roads that matter but keeping
+        # some local roads.
+        by_area: dict[str, list] = {}
+        for seg in segments:
+            by_area.setdefault(seg.kecamatan, []).append(seg)
+        pools = []
+        for area in sorted(by_area):
+            ranked = sorted(by_area[area], key=lambda s: -s.impact_score)
+            pools.append(ranked[: max(10, len(ranked) // 10)] + rng.sample(ranked, min(10, len(ranked))))
+        rng.shuffle(pools)
         photos = load_photos()
         rng.shuffle(photos)
         now = datetime.now(timezone.utc)
         for i in range(args.count):
             photo = photos[i % len(photos)]
-            seg = rng.choice(pool)
+            seg = rng.choice(pools[i % len(pools)])
             lng, lat = db.execute(select(func.ST_X(func.ST_LineInterpolatePoint(Segment.geom, 0.5)),
                                          func.ST_Y(func.ST_LineInterpolatePoint(Segment.geom, 0.5))).where(Segment.id == seg.id)).one()
             lat += rng.uniform(-0.00008, 0.00008)

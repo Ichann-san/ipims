@@ -1,4 +1,7 @@
-# IPIMS API contract v1
+# IPIMS API contract v1 (revision 1.1)
+
+v1.1 (2026-11-04) adds, without breaking v1: `GET /region`, `GET /segments?active=1` without bbox,
+`by_kecamatan` in `/stats`, `repaired_segments` and `node_changes` in `POST /admin/whatif`.
 
 Base path: `/api/v1`. JSON unless noted. Times are ISO 8601 UTC. Coordinates are WGS84 (`lat`, `lng`).
 Errors: `{"detail": "<message>"}` with HTTP 400 (bad input), 401 (no/invalid token), 404, 409 (invalid status transition), 422 (validation).
@@ -71,6 +74,12 @@ Query: `status` (repeatable), `category` (repeatable), `q` (text in description/
 
 `GET /reports/{code}` → `ReportDetail`
 
+`GET /region` → the area the deployment covers (env `IPIMS_REGION`, default `surabaya`):
+```json
+{"name": "Kota Surabaya", "center": [112.7, -7.27], "bbox": [112.6, -7.35, 112.85, -7.18], "kecamatan": ["Asemrowo", "..."]}
+```
+`center` and `bbox` (`[minLng, minLat, maxLng, maxLat]`) come from the loaded road segments; both are `null` before the graph is seeded.
+
 `GET /stats` →
 ```json
 {
@@ -78,6 +87,7 @@ Query: `status` (repeatable), `category` (repeatable), `q` (text in description/
   "active": 0,
   "by_status": {"reported": 0, "...": 0},
   "by_category": {"jalan": 0, "...": 0},
+  "by_kecamatan": {"Sukolilo": 0, "...": 0, "lainnya": 0},   // kecamatan of the snapped segment; "lainnya" = not snapped or outside
   "completed_rate": 0.0,             // completed / (completed + rejected)
   "median_hours_to_verify": null,
   "median_hours_to_complete": null,
@@ -85,7 +95,8 @@ Query: `status` (repeatable), `category` (repeatable), `q` (text in description/
 }
 ```
 
-`GET /segments` → GeoJSON FeatureCollection of segments in `bbox` (required), properties = `SegmentRef` + `active_reports`. Max 5000 features.
+`GET /segments` → GeoJSON FeatureCollection, properties = `SegmentRef` + `active_reports`. Max 5000 features.
+Query: `bbox` (required unless `active=1`), `active` (`1` = only segments with at least one active report). Without either → 400.
 
 `GET /facilities` → GeoJSON FeatureCollection of facilities in `bbox`, properties `{id, kind, name}`.
 
@@ -109,6 +120,7 @@ Query: `status` (repeatable), `category` (repeatable), `q` (text in description/
 ```json
 {
   "damaged_segments": 0,
+  "repaired_segments": ["..."],        // the requested ids that exist, in request order, duplicates removed
   "accessibility_before": 0.0,
   "accessibility_after": 0.0,
   "accessibility_baseline": 0.0,
@@ -117,9 +129,11 @@ Query: `status` (repeatable), `category` (repeatable), `q` (text in description/
   "people_weight_regained": 0.0,
   "cost_estimate_idr": 0,
   "duration_days": 0,
+  "node_changes": [{"lng": 112.7, "lat": -7.27, "minutes_gained": 0.42, "population": 35}],
   "assumptions": ["..."]
 }
 ```
 Accessibility values are population-weighted mean travel time in minutes (lower is better). `baseline` is the network with no damage.
+`node_changes`: graph nodes (road intersections) whose facility-weighted travel time differs between before and after, `minutes_gained` > 0 = faster after the repairs; `population` = buildings assigned to the node. Sorted by |minutes_gained| × (population + 1), at most 3000.
 
 `GET /admin/whatif/recommend?budget_idr=` → `{"order": [{"segment_id","name","gain_minutes","cost_idr","cumulative_cost_idr"}], "assumptions": [...]}`

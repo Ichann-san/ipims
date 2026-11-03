@@ -1,9 +1,10 @@
 """Compute simulation Impact Scores for every segment (ground truth for the GNN).
 
-Writes ml/artifacts/graph/impact.json {segment_id: score 0..100} and impact_raw.csv
-(segment_id, impact_minutes). Run: python -m ml.graph.impact
+Writes ml/artifacts/<region>/graph/impact.json {segment_id: score 0..100} and impact_raw.csv
+(segment_id, impact_minutes). Run: python -m ml.graph.impact  (IPIMS_WORKERS sets the process count)
 """
 import json
+import os
 import time
 
 import pandas as pd
@@ -22,12 +23,13 @@ def load_network() -> tuple[Network, pd.DataFrame]:
 def main():
     net, seg = load_network()
     t0 = time.time()
-    raw = single_segment_impact(net, DAMAGE_FACTOR["high"])
+    workers = int(os.environ.get("IPIMS_WORKERS", max(1, (os.cpu_count() or 2) - 4)))
+    raw = single_segment_impact(net, DAMAGE_FACTOR["high"], workers=workers)
     elapsed = time.time() - t0
     score = impact_to_score(raw)
     pd.DataFrame({"segment_id": net.seg_ids, "impact_minutes": raw}).to_csv(C.ARTIFACTS_DIR / "impact_raw.csv", index=False)
     (C.ARTIFACTS_DIR / "impact.json").write_text(json.dumps(dict(zip(net.seg_ids.tolist(), score.round(2).tolist()))))
-    info = {"segments": int(len(raw)), "nonzero": int((raw > 0).sum()), "seconds": round(elapsed, 1),
+    info = {"region": C.REGION, "workers": workers, "segments": int(len(raw)), "nonzero": int((raw > 0).sum()), "seconds": round(elapsed, 1),
             "max_minutes": float(raw.max()), "mean_minutes": float(raw.mean())}
     (C.ARTIFACTS_DIR / "impact_info.json").write_text(json.dumps(info, indent=2))
     print(json.dumps(info, indent=2))

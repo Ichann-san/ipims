@@ -7,6 +7,7 @@ from geoalchemy2.functions import ST_AsGeoJSON, ST_Intersects, ST_MakeEnvelope
 from sqlalchemy import func, or_, select, text
 from sqlalchemy.orm import Session
 
+from ..config import settings
 from ..db import get_db
 from ..models import Facility, Report, Segment
 from ..services import network, reports as svc, vision
@@ -119,6 +120,7 @@ def stats(db: Session = Depends(get_db)):
     rows = db.scalars(select(Report)).unique().all()
     by_status = Counter(r.status for r in rows)
     by_category = Counter(r.category for r in rows)
+    by_kecamatan = Counter((r.segment.kecamatan if r.segment and r.segment.kecamatan else "lainnya") for r in rows)
     to_verify, to_complete = [], []
     monthly = defaultdict(lambda: {"reported": 0, "completed": 0})
     for r in rows:
@@ -136,6 +138,7 @@ def stats(db: Session = Depends(get_db)):
         "total": len(rows),
         "by_status": {s: by_status.get(s, 0) for s in STATUSES},
         "by_category": {c: by_category.get(c, 0) for c in svc.CATEGORIES},
+        "by_kecamatan": dict(by_kecamatan.most_common()),
         "completed_rate": round(by_status.get("completed", 0) / closed, 3) if closed else 0.0,
         "active": sum(by_status.get(s, 0) for s in ACTIVE),
         "median_hours_to_verify": _median_hours(to_verify),
@@ -144,21 +147,41 @@ def stats(db: Session = Depends(get_db)):
     }
 
 
+@router.get("/region")
+def region(db: Session = Depends(get_db)):
+    from ml.graph.config import REGIONS
+
+    cfg = REGIONS[settings.region]
+    box = db.execute(select(func.ST_XMin(func.ST_Extent(Segment.geom)), func.ST_YMin(func.ST_Extent(Segment.geom)),
+                            func.ST_XMax(func.ST_Extent(Segment.geom)), func.ST_YMax(func.ST_Extent(Segment.geom)))).one()
+    bbox = [round(x, 5) for x in box] if box[0] is not None else None
+    return {
+        "name": cfg["name"],
+        "center": [round((bbox[0] + bbox[2]) / 2, 5), round((bbox[1] + bbox[3]) / 2, 5)] if bbox else None,
+        "bbox": bbox,
+        "kecamatan": sorted(cfg["kecamatan"]),
+    }
+
+
 @router.get("/segments")
-def segments(bbox: str, db: Session = Depends(get_db)):
-    env = parse_bbox(bbox)
-    active = (
+def segments(bbox: str | None = None, active: bool = False, db: Session = Depends(get_db)):
+    if bbox is None and not active:
+        raise HTTPException(400, "bbox is required unless active=1")
+    active_counts = (
         select(Report.segment_id, func.count().label("n"))
         .where(Report.status.in_(ACTIVE))
         .group_by(Report.segment_id)
         .subquery()
     )
-    rows = db.execute(
-        select(Segment, ST_AsGeoJSON(Segment.geom), func.coalesce(active.c.n, 0))
-        .outerjoin(active, active.c.segment_id == Segment.id)
-        .where(ST_Intersects(Segment.geom, env))
-        .limit(5000)
-    ).all()
+    stmt = (
+        select(Segment, ST_AsGeoJSON(Segment.geom), func.coalesce(active_counts.c.n, 0))
+        .outerjoin(active_counts, active_counts.c.segment_id == Segment.id)
+    )
+    if bbox is not None:
+        stmt = stmt.where(ST_Intersects(Segment.geom, parse_bbox(bbox)))
+    if active:
+        stmt = stmt.where(active_counts.c.n > 0)
+    rows = db.execute(stmt.limit(5000)).all()
     return {"type": "FeatureCollection", "features": [
         {"type": "Feature", "geometry": json.loads(g), "properties": {
             "id": s.id, "name": s.name, "highway": s.highway, "road_group": s.road_group,

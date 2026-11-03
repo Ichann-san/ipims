@@ -1,10 +1,11 @@
-"""Build the pilot infrastructure graph from OpenStreetMap.
+"""Build the infrastructure graph of the active region (IPIMS_REGION) from OpenStreetMap.
 
-Writes to ml/artifacts/graph/:
+Uses the local extract written by ml.graph.extract when present, otherwise Overpass.
+Writes to ml/artifacts/<region>/graph/:
   nodes.csv            node_id, lon, lat, population (buildings assigned to the node)
   segments.geojson     one feature per physical road segment (undirected edge)
   facilities.geojson   facility points with their nearest graph node
-  area.geojson         pilot kecamatan polygons
+  area.geojson         kecamatan polygons
   build_info.json      counts and sources
 
 Run: python -m ml.graph.build
@@ -20,7 +21,7 @@ import pandas as pd
 from shapely.strtree import STRtree
 
 from . import config as C
-from .extract import FEATURES as FEATURES_XML, ROADS as ROADS_XML
+from .extract import BUILDINGS as BUILDINGS_CSV, FACILITIES as FACILITIES_CSV, ROADS as ROADS_XML
 
 
 def _first(value):
@@ -37,18 +38,21 @@ def load_area() -> gpd.GeoDataFrame:
     return gpd.GeoDataFrame({"kecamatan": list(C.KECAMATAN)}, geometry=gdf.geometry.values, crs=4326)
 
 
-def _features(polygon, tags):
-    """Features from the local extract when present (ml.graph.extract), otherwise from Overpass."""
-    if FEATURES_XML.exists():
-        return ox.features_from_xml(FEATURES_XML, polygon=polygon, tags=tags)
-    return ox.features_from_polygon(polygon, tags=tags)
+def _points_csv(path, polygon) -> gpd.GeoDataFrame:
+    df = pd.read_csv(path, keep_default_na=False)
+    pts = gpd.GeoDataFrame(df, geometry=gpd.points_from_xy(df["lon"], df["lat"]), crs=4326)
+    return pts[pts.within(polygon)].reset_index(drop=True)
 
 
 def load_facilities(polygon) -> gpd.GeoDataFrame:
+    if FACILITIES_CSV.exists():
+        fac = _points_csv(FACILITIES_CSV, polygon)
+        fac["name"] = fac["name"].replace("", None)
+        return fac[["fid", "kind", "name", "geometry"]]
     frames = []
     for kind, tags in C.FACILITY_TAGS.items():
         try:
-            f = _features(polygon, tags)
+            f = ox.features_from_polygon(polygon, tags=tags)
         except ox._errors.InsufficientResponseError:
             continue
         f = f.reset_index()
@@ -65,7 +69,9 @@ def load_facilities(polygon) -> gpd.GeoDataFrame:
 
 
 def load_buildings(polygon) -> gpd.GeoSeries:
-    b = _features(polygon, {"building": True})
+    if BUILDINGS_CSV.exists():
+        return _points_csv(BUILDINGS_CSV, polygon).to_crs(C.METRIC_CRS).geometry
+    b = ox.features_from_polygon(polygon, tags={"building": True})
     b = b[b.geom_type.isin(["Polygon", "MultiPolygon"])]
     return b.to_crs(C.METRIC_CRS).geometry.centroid.reset_index(drop=True)
 
@@ -94,7 +100,7 @@ def build():
     U = ox.convert.to_undirected(G)
     nodes_gdf, edges_gdf = ox.convert.graph_to_gdfs(U)
 
-    print("downloading facilities and buildings…")
+    print("loading facilities and buildings…")
     facilities = load_facilities(clip)
     buildings = load_buildings(clip)
 
@@ -170,6 +176,7 @@ def build():
     info = {
         "built_at": datetime.now(timezone.utc).isoformat(),
         "source": "OpenStreetMap contributors (ODbL), " + ("openstreetmap.fr East Java extract" if ROADS_XML.exists() else "Overpass API"),
+        "region": C.REGION,
         "kecamatan": list(C.KECAMATAN),
         "nodes": int(len(node_ids)),
         "segments": int(len(seg_gdf)),

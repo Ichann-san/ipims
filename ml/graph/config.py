@@ -1,18 +1,46 @@
-"""Pilot area and modelling assumptions for the Kediri infrastructure graph."""
+"""Regions and modelling assumptions for the infrastructure graph.
+
+The active region comes from the environment variable IPIMS_REGION (default "surabaya").
+Each region has its own artifacts under ml/artifacts/<region>/.
+"""
+import os
 from pathlib import Path
 
 ML_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = ML_DIR / "data"
-ARTIFACTS_DIR = ML_DIR / "artifacts" / "graph"
+OSM_DIR = DATA_DIR / "osm"
 
-
-# OSM relation ids of kecamatan (admin_level 6) in Kabupaten Kediri.
-KECAMATAN = {
-    "Pare": 16834524,
-    "Badas": 16814394,
-    "Plemahan": 15626570,
-    "Gurah": 19613669,
+# OSM relation ids of kecamatan (admin_level 6). `folds` = spatial folds for GNN evaluation.
+REGIONS = {
+    "surabaya": {
+        "name": "Kota Surabaya",
+        "folds": 5,
+        "kecamatan": {
+            "Asemrowo": 8224843, "Benowo": 8225081, "Bubutan": 8224671, "Bulak": 8224593,
+            "Dukuh Pakis": 8225347, "Gayungan": 8225520, "Genteng": 8224396, "Gubeng": 8225432,
+            "Gunung Anyar": 8225536, "Jambangan": 8225829, "Karang Pilang": 8225765, "Kenjeran": 8224558,
+            "Krembangan": 8224636, "Lakarsantri": 8225133, "Mulyorejo": 8225259, "Pabean Cantian": 8225858,
+            "Pakal": 8224860, "Rungkut": 8225437, "Sambikerep": 8225358, "Sawahan": 8224735,
+            "Semampir": 8224478, "Simokerto": 8224405, "Sukolilo": 8225175, "Sukomanunggal": 8224825,
+            "Tambaksari": 8225121, "Tandes": 8225068, "Tegalsari": 8225844, "Tenggilis Mejoyo": 8225522,
+            "Wiyung": 8225727, "Wonocolo": 8225558, "Wonokromo": 8225796,
+        },
+    },
+    "kediri": {
+        "name": "Kabupaten Kediri (Pare dan sekitarnya)",
+        "folds": 4,
+        "kecamatan": {"Pare": 16834524, "Badas": 16814394, "Plemahan": 15626570, "Gurah": 19613669},
+    },
 }
+
+REGION = os.environ.get("IPIMS_REGION", "surabaya")
+if REGION not in REGIONS:
+    raise ValueError(f"unknown IPIMS_REGION {REGION!r}; choose one of {', '.join(REGIONS)}")
+REGION_NAME = REGIONS[REGION]["name"]
+KECAMATAN = REGIONS[REGION]["kecamatan"]
+FOLDS = REGIONS[REGION]["folds"]
+ARTIFACTS_DIR = ML_DIR / "artifacts" / REGION / "graph"
+GNN_DIR = ML_DIR / "artifacts" / REGION / "gnn"
 
 # Assumed free-flow speeds (km/h) per OSM highway class.
 SPEED_KMH = {

@@ -121,3 +121,24 @@ def test_weights_update_rescores(client, admin_headers):
 def test_whatif_without_graph_is_503(client, admin_headers):
     r = client.post("/api/v1/admin/whatif", json={"repair_segment_ids": []}, headers=admin_headers)
     assert r.status_code == 503
+
+
+def test_region(client):
+    body = client.get("/api/v1/region").json()
+    assert body["name"] == "Kota Surabaya" and len(body["kecamatan"]) == 31
+    assert body["bbox"] == [112.19, -7.765, 112.2, -7.765]          # extent of the test segment
+    assert body["center"] == [112.195, -7.765]
+
+
+def test_stats_by_kecamatan(client):
+    post_report(client, category="jalan")
+    post_report(client, FAR_AWAY, category="drainase")
+    assert client.get("/api/v1/stats").json()["by_kecamatan"] == {"Pare": 1, "lainnya": 1}
+
+
+def test_active_segments_without_bbox(client):
+    assert client.get("/api/v1/segments").status_code == 400
+    assert client.get("/api/v1/segments", params={"active": 1}).json()["features"] == []
+    post_report(client, category="jalan")
+    feats = client.get("/api/v1/segments", params={"active": 1}).json()["features"]
+    assert [f["properties"]["id"] for f in feats] == ["1-2-0"] and feats[0]["properties"]["active_reports"] == 1
