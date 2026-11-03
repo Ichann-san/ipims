@@ -19,10 +19,11 @@ docker compose up -d db                      # PostGIS on port 5433
 python -m venv --system-site-packages .venv
 .venv/Scripts/pip install -r backend/requirements.txt -r ml/requirements.txt transformers osmium
 
-# 1. Road graph for the pilot area (Pare, Badas, Plemahan, Gurah)
-.venv/Scripts/python -m ml.graph.build       # Overpass; if it is down, download the East Java extract
-                                             # into ml/data/osm/ and run python -m ml.graph.extract first
-.venv/Scripts/python -m ml.graph.impact      # simulation Impact Score per segment
+# 1. Road graph for the region: IPIMS_REGION=surabaya (default, 31 kecamatan) or kediri (Pare pilot)
+#    Download https://download.openstreetmap.fr/extracts/asia/indonesia/east_java.osm.pbf into ml/data/osm/
+.venv/Scripts/python -m ml.graph.extract     # cut the region out of the extract (Overpass is the fallback)
+.venv/Scripts/python -m ml.graph.build       # graph, buildings, facilities -> ml/artifacts/<region>/graph
+.venv/Scripts/python -m ml.graph.impact      # simulation Impact Score per segment (IPIMS_WORKERS processes)
 .venv/Scripts/python -m ml.gnn.train         # GNN surrogate + evaluation
 
 # 2. CV evaluation data and numbers (optional; the model itself downloads on first use)

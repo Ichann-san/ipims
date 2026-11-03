@@ -254,15 +254,29 @@ def node_changes(net: Network, before: dict, after: dict, limit: int = MAX_NODE_
 
 
 def recommend(net: Network, damage: dict, budget_idr: float | None = None) -> dict:
-    """Order damaged segments by individual accessibility gain per rupiah."""
-    current_A, _ = net.accessibility(net.weights_with(damage))
+    """Order damaged segments by individual accessibility gain per rupiah.
+
+    Repairing a segment lowers its travel time, which changes distances towards a facility kind only
+    if the gap between its endpoints' distances exceeds the repaired time; other kinds are reused.
+    """
+    current_w = net.weights_with(damage)
+    current_dist = net.distances(current_w)
+    current_A, _ = net.combine(current_dist)
     rows = []
     for sid in damage:
         pos = net.seg_pos.get(sid)
         if pos is None:
             continue
-        rest = {s: f for s, f in damage.items() if s != sid}
-        A, _ = net.accessibility(net.weights_with(rest))
+        w = current_w.copy()
+        w[pos] = net.base[pos]
+        m = None
+        dist = dict(current_dist)
+        for kind, d in current_dist.items():
+            if abs(d[net.u[pos]] - d[net.v[pos]]) > net.base[pos] + 1e-9:
+                m = net.matrix(w) if m is None else m
+                dist[kind] = np.minimum(dijkstra(m, directed=False, indices=net.sources[kind], min_only=True),
+                                        UNREACHABLE_MIN)
+        A, _ = net.combine(dist)
         cost = float(net.length_m[pos] * COST_IDR_PER_M[net.road_group[pos]])
         rows.append({"segment_id": sid, "gain_minutes": max(current_A - A, 0.0), "cost_idr": cost})
     rows.sort(key=lambda r: r["gain_minutes"] / max(r["cost_idr"], 1.0), reverse=True)
