@@ -1,20 +1,24 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import { getToken } from './api'
-import DevUI from './pages/DevUI'
-import Home from './pages/Home'
-import MapPage from './pages/MapPage'
-import Reports from './pages/Reports'
-import Transparency from './pages/Transparency'
-import Dashboard, { Login } from './pages/admin/Dashboard'
-import Operations from './pages/admin/Operations'
 import { AdminNavbar, PublicNavbar } from './ui/Navbar'
+
+// Pages load on demand so the map library does not delay the first paint.
+const Home = lazy(() => import('./pages/Home'))
+const Reports = lazy(() => import('./pages/Reports'))
+const MapPage = lazy(() => import('./pages/MapPage'))
+const Transparency = lazy(() => import('./pages/Transparency'))
+const DevUI = lazy(() => import('./pages/DevUI'))
+const Dashboard = lazy(() => import('./pages/admin/Dashboard'))
+const Login = lazy(() => import('./pages/admin/Dashboard').then((m) => ({ default: m.Login })))
+const Operations = lazy(() => import('./pages/admin/Operations'))
 
 function PublicLayout() {
   const nav = useNavigate()
   return (
     <>
       <PublicNavbar onReport={() => nav('/laporan?buat=1')} />
-      <main><Outlet /></main>
+      <main><Suspense fallback={null}><Outlet /></Suspense></main>
     </>
   )
 }
@@ -24,7 +28,7 @@ function AdminLayout() {
   return (
     <>
       <AdminNavbar />
-      <main><Outlet /></main>
+      <main><Suspense fallback={null}><Outlet /></Suspense></main>
     </>
   )
 }
@@ -41,7 +45,7 @@ export default function App() {
           <Route path="transparansi" element={<Transparency />} />
           <Route path="dev/ui" element={<DevUI />} />
         </Route>
-        <Route path="admin/login" element={<Login />} />
+        <Route path="admin/login" element={<Suspense fallback={null}><Login /></Suspense>} />
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="laporan/:code" element={<Dashboard />} />
