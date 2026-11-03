@@ -52,6 +52,7 @@ export function SegmentsLayer({ data, highlight = [], id = 'segments' }: { data:
           'line-width': ['interpolate', ['linear'], ['zoom'], 13, ['case', ['>', ['get', 'active_reports'], 0], 3, 1.2], 17,
             ['case', ['>', ['get', 'active_reports'], 0], 8, 3.5]] as unknown as number,
           'line-opacity': 0.9,
+          'line-emissive-strength': 1,
         }}
       />
     </Source>
@@ -70,6 +71,7 @@ export function FacilitiesLayer({ data }: { data: FeatureCollection<FacilityProp
           'circle-color': ['match', ['get', 'kind'], ...Object.entries(FACILITY_HEX).flat(), '#93a1bc'] as unknown as string,
           'circle-stroke-color': '#08101f',
           'circle-stroke-width': 1.5,
+          'circle-emissive-strength': 1,
         }}
       />
     </Source>
@@ -93,13 +95,14 @@ export function ReportsLayer({ reports, selected }: { reports: Report[]; selecte
   return (
     <Source id="reports" type="geojson" data={reportsGeoJSON(reports)}>
       <Layer id="reports-halo" type="circle" slot="top"
-        paint={{ 'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 8, 16, 22] as unknown as number, 'circle-color': color, 'circle-opacity': 0.18, 'circle-blur': 0.6 }} />
+        paint={{ 'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 8, 16, 22] as unknown as number, 'circle-color': color, 'circle-opacity': 0.18, 'circle-blur': 0.6, 'circle-emissive-strength': 1 }} />
       <Layer id="reports" type="circle" slot="top"
         paint={{
           'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 3.5, 16, 8] as unknown as number,
           'circle-color': color,
           'circle-stroke-color': ['case', ['==', ['get', 'code'], selected ?? ''], '#ffffff', '#08101f'] as unknown as string,
           'circle-stroke-width': ['case', ['==', ['get', 'code'], selected ?? ''], 3, 1.5] as unknown as number,
+          'circle-emissive-strength': 1,
         }} />
     </Source>
   )

@@ -19,11 +19,11 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 
 | ID | Track | Task | Status | Done when |
 |---|---|---|---|---|
-| S0 | ML/Backend | Region switch to Surabaya, faster simulation, GNN folds, demo data, API v1.1 | doing | Surabaya live in the API; eval docs updated |
-| U0 | Website | Design system, glass components, navbar, Mapbox base, `/dev/ui` | doing | style page + map render; screenshots reviewed |
-| U1 | Website | Beranda, Laporan (single page), Peta | todo | screenshots 390/1366 reviewed; e2e passes |
-| U1b | Website | Transparansi with progress | todo | same |
-| U2 | Website | Dasbor | todo | same |
-| U2b | Website | Peta Operasi with live simulation + comparison | todo | click recolours map; swipe works |
-| U4 | Website | Quality pass + PWA | todo | checklist green |
+| S0 | ML/Backend | Region switch to Surabaya, faster simulation, GNN folds, demo data, API v1.1 | done | Surabaya live in the API; eval docs updated |
+| U0 | Website | Design system, glass components, navbar, Mapbox base, `/dev/ui` | done | style page + map render; screenshots reviewed |
+| U1 | Website | Beranda, Laporan (single page), Peta | done | screenshots 390/1366 reviewed; e2e passes |
+| U1b | Website | Transparansi with progress | done | same |
+| U2 | Website | Dasbor | done | same |
+| U2b | Website | Peta Operasi with live simulation + comparison | done | click recolours map; before/after toggle (swipe dropped, user OK) |
+| U4 | Website | Quality pass + PWA | done | axe: no serious/critical issues; phone layouts checked; lazy-loaded map chunk; manifest + icons |
 | U5 | Demo | Real phone test, demo video run | todo | demo script runs |

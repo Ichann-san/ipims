@@ -1,25 +1,23 @@
-# Handoff — 2026-11-04 (Claude Code), end of build stage
+# Handoff — 2026-11-04 (Claude Code), end of stage 2 build
 
 ## State
 
-The build stage (shifts 1–5) is complete. The whole closed loop runs on real Kediri OSM data and is checked in a real browser.
+Stage 2 (Surabaya + UI) is built; only U5 (real phone test and demo video) is left for the team.
 
-- Checks: backend `pytest` 12 passed, `pytest ml` 4 passed, `npm run build` ok, `e2e/smoke.py` 14/14 (Edge, HTTPS, phone emulation with GPS, then officer flow on desktop).
-- Evaluation: CV 95.0% ± 1.8% category accuracy on 157 hand-checked Commons photos (`ml/cv/EVAL.md`); GNN Spearman 0.784 on held-out kecamatan (`ml/gnn/EVAL.md`). Priority uses the exact simulation inside the pilot.
-- Demo: `docs/DEMO.md` (5-minute script, expected questions, fallbacks). DB reset to 30 demo reports.
+- Region: Kota Surabaya (default, `IPIMS_REGION`), all 31 kecamatan. 42,724 intersections, 58,445 segments, 660,208 buildings, 3,218 facilities. Kediri stays reproducible with `IPIMS_REGION=kediri`.
+- Simulation: Surabaya 700.7 s (10 processes); what-if about 0.3 s over HTTP. GNN Spearman 0.690 on held-out sectors (linear 0.387, road class 0.102) — `ml/gnn/EVAL.md`.
+- UI: dark matte-glass design on Mapbox Standard (night, 3D, globe). Public: Beranda, Laporan (form sheet + detail drawer), Peta, Transparansi. Officer: Dasbor (queue, drawer, weights modal), Peta Operasi (queue + live what-if with before/after toggle and regained-access heatmap). Design reference at `/dev/ui`.
+- Checks: `e2e/smoke.py` 11/11 with no browser errors (Edge, HTTPS, phone emulation with GPS), backend pytest 15, `pytest ml` 5, `npm run build`, axe-core: no serious/critical issues on any page.
+- DB reset to 40 Surabaya demo reports.
 
-## Fixed this session
+## Notes
 
-- CV model could fail to load when `/health` was polled during startup (concurrent first import of transformers; the failure was cached). Loading is now locked and `/health` never blocks (`backend/app/services/vision.py`).
-- `/stats.active` added to the contract.
+- Mapbox token lives in `frontend/.env.local` (gitignored). Restrict it to localhost URLs in the Mapbox account.
+- Custom map layers need `*-emissive-strength: 1`, otherwise the Standard night lighting renders them almost black.
+- Facilities that OSM maps only as relation polygons are not counted (totals slightly low).
+- Dev ports: web 5288, API 8000, PostGIS 5433. Another project on this machine uses 5173/5174.
 
 ## Open
 
-- Real phone test by the team (`npm run dev:https`, open the "Network" URL, accept the certificate).
-- Deployment (stable public URL) not done.
-- U1 visual design pass (direction A) is the next stage. `e2e/smoke.py` locates elements by visible Indonesian labels; update it when labels change.
-- Severity is not evaluated; CV numbers are not from Kediri citizen photos yet.
-
-## Dev environment
-
-Ports: web 5288 (5173/5174 belong to another project), API 8000, PostGIS 5433. Docker Desktop must be running.
+- U5: real phone test (`npm run dev:https`, open the Network URL), demo video following `docs/DEMO.md`.
+- Photo AI not measured on Surabaya citizen photos; severity not evaluated.

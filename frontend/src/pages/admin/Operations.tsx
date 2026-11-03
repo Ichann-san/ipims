@@ -73,7 +73,21 @@ export default function Operations() {
 
   async function recommend() {
     const rec = await api.recommend()
-    setRepairs(rec.order.slice(0, 3).map((o) => o.segment_id))
+    const ids = rec.order.slice(0, 3).map((o) => o.segment_id)
+    setRepairs(ids)
+    frame(ids)
+  }
+
+  // Bring the chosen repairs into view.
+  const frame = (ids: string[]) => {
+    const coords = (damaged.data?.features ?? [])
+      .filter((f) => ids.includes(f.properties.id))
+      .flatMap((f) => (f.geometry as GeoJSON.LineString).coordinates)
+    if (!coords.length) return
+    const lngs = coords.map((c) => c[0])
+    const lats = coords.map((c) => c[1])
+    mapRef.current?.fitBounds([[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
+      { padding: { top: 120, bottom: 80, left: 420, right: 80 }, maxZoom: 15.5, duration: 1600 })
   }
 
   const nodeData = useMemo<GeoJSON.FeatureCollection>(() => ({
@@ -89,27 +103,38 @@ export default function Operations() {
   return (
     <div className="relative h-[100dvh]">
       <MapCanvas mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
-        interactiveLayerIds={mode === 'simulasi' ? ['damaged', 'reports'] : ['reports', ...(segments ? ['segments'] : [])]}
+        interactiveLayerIds={mode === 'simulasi' ? ['damaged', 'damaged-glow', 'reports'] : ['reports', ...(segments ? ['segments'] : [])]}
         initialViewState={{ longitude: region.center[0], latitude: region.center[1], zoom: 12.3, pitch: 45, bearing: -10 }}>
         {mode === 'antrian' && segments && <SegmentsLayer data={segments} />}
         {damaged.data && (
           <Source id="damaged" type="geojson" data={damaged.data as unknown as GeoJSON.FeatureCollection}>
+            <Layer id="damaged-glow" type="line" slot="middle" layout={{ 'line-cap': 'round' }}
+              paint={{
+                'line-color': ['case', ['in', ['get', 'id'], ['literal', showAfter ? repairs : []]], '#5bb6e6', '#f08a64'] as unknown as string,
+                'line-width': ['interpolate', ['linear'], ['zoom'], 11, 16, 16, 28] as unknown as number,
+                'line-blur': 8,
+                'line-opacity': mode === 'simulasi' ? 0.45 : 0.25,
+                'line-emissive-strength': 1,
+              }} />
             <Layer id="damaged" type="line" slot="middle" layout={{ 'line-cap': 'round' }}
               paint={{
                 'line-color': ['case', ['in', ['get', 'id'], ['literal', showAfter ? repairs : []]], '#5bb6e6', '#f08a64'] as unknown as string,
-                'line-width': ['interpolate', ['linear'], ['zoom'], 11, 4, 16, 10] as unknown as number,
+                'line-width': ['interpolate', ['linear'], ['zoom'], 11, 5, 16, 10] as unknown as number,
                 'line-opacity': mode === 'simulasi' ? 0.95 : 0.7,
+                'line-emissive-strength': 1,
               }} />
           </Source>
         )}
         {showAfter && (
           <Source id="gain" type="geojson" data={nodeData}>
-            <Layer id="gain" type="circle" slot="top"
+            <Layer id="gain" type="heatmap" slot="middle"
               paint={{
-                'circle-radius': ['interpolate', ['linear'], ['get', 'gain'], 0, 2, 2, 6, 8, 12] as unknown as number,
-                'circle-color': '#5bb6e6',
-                'circle-opacity': ['interpolate', ['linear'], ['get', 'gain'], 0, 0.25, 3, 0.75] as unknown as number,
-                'circle-blur': 0.4,
+                'heatmap-weight': ['interpolate', ['linear'], ['get', 'weight'], 0, 0, 20, 1] as unknown as number,
+                'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 10, 12, 15, 40] as unknown as number,
+                'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 10, 1, 15, 2] as unknown as number,
+                'heatmap-color': ['interpolate', ['linear'], ['heatmap-density'],
+                  0, 'rgba(91,182,230,0)', 0.3, 'rgba(91,182,230,0.35)', 0.7, 'rgba(91,182,230,0.7)', 1, 'rgba(214,240,255,0.9)'] as unknown as string,
+                'heatmap-opacity': 0.85,
               }} />
           </Source>
         )}

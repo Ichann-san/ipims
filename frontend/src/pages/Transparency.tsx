@@ -71,18 +71,24 @@ export default function Transparency() {
       <Panel className="grid grid-cols-2 gap-4 p-4 md:grid-cols-5">
         <Stat label="Total laporan" value={s?.total ?? '-'} />
         <Stat label="Sedang ditangani" value={s?.active ?? '-'} />
-        <Stat label="Tingkat selesai" value={s ? `${Math.round(s.completed_rate * 100)}%` : '-'} tone="var(--color-st-completed)" />
+        <Stat label="Sudah selesai" value={s && s.total ? `${Math.round((100 * s.by_status.completed) / s.total)}%` : '-'} tone="var(--color-st-completed)" />
         <Stat label="Median hingga disetujui" value={s?.median_hours_to_verify != null ? `${s.median_hours_to_verify} jam` : '-'} />
         <Stat label="Median hingga selesai" value={s?.median_hours_to_complete != null ? `${s.median_hours_to_complete} jam` : '-'} />
       </Panel>
 
       <div className="grid gap-4 lg:grid-cols-[1fr_1.15fr]">
+        <div className="grid content-start gap-4">
         <Panel className="p-4">
           <h2 className="mb-3 text-sm font-semibold">Posisi laporan</h2>
           {s ? (
             <HBars rows={[...STAGES, 'rejected' as Status].map((st) => ({ label: STATUS_LABEL[st], value: s.by_status[st], color: statusColor(st) }))} />
           ) : <Skeleton className="h-48" />}
         </Panel>
+        <Panel className="p-4">
+          <h2 className="mb-3 text-sm font-semibold">Tren 6 bulan</h2>
+          {s ? <Trend monthly={s.monthly} /> : <Skeleton className="h-48" />}
+        </Panel>
+        </div>
 
         <Panel className="p-4">
           <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
@@ -111,11 +117,7 @@ export default function Transparency() {
         </Panel>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-3">
-        <Panel className="p-4">
-          <h2 className="mb-3 text-sm font-semibold">Tren 6 bulan</h2>
-          {s ? <Trend monthly={s.monthly} /> : <Skeleton className="h-48" />}
-        </Panel>
+      <div className="grid gap-4 lg:grid-cols-2">
         <Panel className="p-4">
           <h2 className="mb-3 text-sm font-semibold">Kategori</h2>
           {s ? (

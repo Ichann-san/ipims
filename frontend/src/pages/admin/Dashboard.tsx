@@ -26,7 +26,7 @@ export function Login() {
     }
   }
   return (
-    <div className="grid min-h-[100dvh] place-items-center px-4">
+    <main className="grid min-h-[100dvh] place-items-center px-4">
       <Panel strong className="w-full max-w-sm p-6">
         <form onSubmit={submit} className="grid gap-4">
           <h1 className="text-xl font-bold">Masuk petugas</h1>
@@ -37,7 +37,7 @@ export function Login() {
           <Button variant="primary" type="submit">Masuk</Button>
         </form>
       </Panel>
-    </div>
+    </main>
   )
 }
 
@@ -95,7 +95,7 @@ export default function Dashboard() {
                 <th className="px-3 py-2.5 font-medium">Laporan</th>
                 <th className="hidden px-3 py-2.5 font-medium md:table-cell">Kerusakan</th>
                 <th className="hidden px-3 py-2.5 font-medium md:table-cell">Dampak</th>
-                <th className="px-3 py-2.5 font-medium">Tahap</th>
+                <th className="hidden px-3 py-2.5 font-medium sm:table-cell">Tahap</th>
                 <th className="hidden px-3 py-2.5 text-right font-medium sm:table-cell">Umur</th>
               </tr>
             </thead>
@@ -109,13 +109,14 @@ export default function Dashboard() {
                       <img src={r.photo_url} alt="" loading="lazy" className="size-10 flex-none rounded-lg object-cover" />
                       <div className="min-w-0">
                         <p className="max-w-[16rem] truncate font-semibold">{r.segment ? roadName(r.segment.name) : 'Tidak terhubung'}</p>
-                        <p className="text-xs text-muted">{CATEGORY_LABEL[r.category]} · {r.code}</p>
+                        <p className="text-xs text-muted">{CATEGORY_LABEL[r.category]}<span className="hidden sm:inline"> · {r.code}</span></p>
+                        <span className="mt-1 inline-block sm:hidden"><StatusBadge status={r.status} /></span>
                       </div>
                     </div>
                   </td>
                   <td className="hidden px-3 py-2 md:table-cell">{r.ai ? SEVERITY_LABEL[r.ai.severity] : '-'}{r.needs_review && <span className="ml-2 text-xs text-st-assigned">cek</span>}</td>
                   <td className="num hidden px-3 py-2 md:table-cell">{r.impact_score?.toFixed(0) ?? '-'}</td>
-                  <td className="px-3 py-2"><StatusBadge status={r.status} /></td>
+                  <td className="hidden px-3 py-2 sm:table-cell"><StatusBadge status={r.status} /></td>
                   <td className="num hidden px-3 py-2 text-right text-muted sm:table-cell">{age(r)} hari</td>
                 </tr>
               ))}

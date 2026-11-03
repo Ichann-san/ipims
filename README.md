@@ -1,6 +1,7 @@
 # IPIMS — Intelligent Public Infrastructure Management System
 
-Decision support for public infrastructure in Kabupaten Kediri (Lomba Kediri Cerdas 2026, Kategori Digital).
+Decision support for public infrastructure in Kota Surabaya (Inovboyo 2.0 showcase). The region is a config switch;
+the original Kabupaten Kediri pilot (Lomba Kediri Cerdas 2026) stays reproducible with `IPIMS_REGION=kediri`.
 Citizens report damage with a photo; a vision transformer classifies it; the report is snapped to the OSM road
 graph; an accessibility simulation (and a GNN surrogate) scores the network impact; an MCDM Priority Score ranks
 the queue; officers move each report through approval, assignment and repair while the public follows progress.
@@ -37,6 +38,7 @@ cd backend
 
 # 4. Web app (second terminal)
 cd frontend && npm ci && npm run dev         # http://localhost:5288, officer login at /admin
+# The map needs a Mapbox token: frontend/.env.local -> VITE_MAPBOX_TOKEN=pk....  (never commit it)
 ```
 
 Default officer login is `admin` / `admin123`; set `IPIMS_ADMIN_PASSWORD` and `IPIMS_JWT_SECRET` in `backend/.env`

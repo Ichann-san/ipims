@@ -123,3 +123,10 @@ body {
 .mapboxgl-popup-tip {
   display: none;
 }
+
+/* Phones zoom with gestures; the zoom buttons would collide with bottom panels. */
+@media (max-width: 767px) {
+  .mapboxgl-ctrl-bottom-right .mapboxgl-ctrl-group {
+    display: none;
+  }
+}
