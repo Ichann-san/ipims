@@ -14,4 +14,16 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | C2 | ML | CV: CLIP ViT category + zero-shot damage type and severity, eval (YOLO dropped: untrusted pickle weights) | done | `ml/cv/EVAL.md` with held-out numbers |
 | C3b | ML | GNN surrogate trained on simulation labels, eval vs baselines | done | `ml/gnn/EVAL.md` |
 | D1 | Integration | Wire CV + GNN into backend, seed demo data, docs, phone test | done | `docs/DEMO.md`; `e2e/smoke.py` 14/14 in Edge over HTTPS with phone emulation + GPS (real phone: team) |
-| U1 | Website | Visual design pass (direction A) | todo | next stage; keep `e2e/smoke.py` passing (update selectors if labels change) |
+
+## Stage 2 (see `docs/plans/2026-11-04-stage2-ui-design.md`)
+
+| ID | Track | Task | Status | Done when |
+|---|---|---|---|---|
+| S0 | ML/Backend | Region switch to Surabaya, faster simulation, GNN folds, demo data, API v1.1 | doing | Surabaya live in the API; eval docs updated |
+| U0 | Website | Design system, glass components, navbar, Mapbox base, `/dev/ui` | doing | style page + map render; screenshots reviewed |
+| U1 | Website | Beranda, Laporan (single page), Peta | todo | screenshots 390/1366 reviewed; e2e passes |
+| U1b | Website | Transparansi with progress | todo | same |
+| U2 | Website | Dasbor | todo | same |
+| U2b | Website | Peta Operasi with live simulation + comparison | todo | click recolours map; swipe works |
+| U4 | Website | Quality pass + PWA | todo | checklist green |
+| U5 | Demo | Real phone test, demo video run | todo | demo script runs |
