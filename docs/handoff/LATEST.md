@@ -17,7 +17,18 @@ Stage 2 (Surabaya + UI) is built; only U5 (real phone test and demo video) is le
 - Facilities that OSM maps only as relation polygons are not counted (totals slightly low).
 - Dev ports: web 5288, API 8000, PostGIS 5433. Another project on this machine uses 5173/5174.
 
+## Since the stage 2 build (2026-11-04)
+
+- UI is English (headline "Broken Infrastructure, Fixed." is the user's; keep it). Demo seed data is English.
+- Navbar one size larger; footer over the home map; home map dimmed; stats panel in the hero column with centred content.
+- Home map hides the (i) attribution button because the footer carries "© Mapbox © OpenStreetMap · Improve this map". The Mapbox wordmark must stay on every map (Mapbox terms).
+- e2e updated to English labels: 11/11.
+
 ## Open
 
-- U5: real phone test (`npm run dev:https`, open the Network URL), demo video following `docs/DEMO.md`.
-- Photo AI not measured on Surabaya citizen photos; severity not evaluated.
+- Real phone test. Plain `npm run dev` works on a phone except GPS (needs HTTPS or localhost); `npm run dev:https` gives GPS.
+- Record the demo video following `docs/DEMO.md` (update its button names to the English UI first: Report, Top 3 repairs, Before/After, Approved, Assigned, In repair, Completed).
+- Restrict the Mapbox token to localhost URLs in the Mapbox account.
+- Optional: rename URLs (`/laporan`, `/peta`, `/transparansi`) to English.
+- Known limits: photo AI not measured on Surabaya citizen photos; severity not evaluated; impact uses assumed speeds and buildings, not observed traffic; OSM facilities mapped only as relation polygons are not counted.
+- Nothing is pushed; all work is on branch `rebuild/v1`.
