@@ -8,8 +8,7 @@ Run: python -m ml.graph.extract
 import re
 
 import osmium
-from osmium.filter import GeoInterfaceFilter, KeyFilter
-from shapely.geometry import box
+from osmium.filter import KeyFilter
 
 from . import config as C
 
@@ -34,17 +33,26 @@ def is_drivable(tags) -> bool:
     return not _NOT_DRIVE_SERVICE.search(tags.get("service", ""))
 
 
+def _inside(obj, bounds) -> bool:
+    min_lng, min_lat, max_lng, max_lat = bounds
+    if obj.is_node():
+        locs = [obj.location]
+    else:
+        locs = [n.location for n in obj.nodes if n.location.valid()]
+    return any(min_lng <= l.lon <= max_lng and min_lat <= l.lat <= max_lat for l in locs)
+
+
 def extract(bounds: tuple[float, float, float, float]) -> None:
-    area = box(*bounds)
     with osmium.BackReferenceWriter(str(ROADS), ref_src=str(SOURCE), overwrite=True, remove_tags=False) as roads, \
          osmium.BackReferenceWriter(str(FEATURES), ref_src=str(SOURCE), overwrite=True, remove_tags=False) as feats:
         processor = (
             osmium.FileProcessor(str(SOURCE), osmium.osm.NODE | osmium.osm.WAY)
             .with_locations()
             .with_filter(KeyFilter("highway", *FEATURE_KEYS))
-            .with_filter(GeoInterfaceFilter(area))
         )
         for obj in processor:
+            if not _inside(obj, bounds):
+                continue
             if obj.is_way() and is_drivable(obj.tags):
                 roads.add(obj)
             elif any(k in obj.tags for k in FEATURE_KEYS):

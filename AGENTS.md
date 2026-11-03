@@ -8,7 +8,7 @@ IPIMS is a decision support system for public infrastructure in Kabupaten Kediri
 
 ## Layout
 
-- `frontend/` — Vite + React + TypeScript + Tailwind. `npm run dev` (port 5174, proxies `/api` and `/media` to 8000).
+- `frontend/` — Vite + React + TypeScript + Tailwind. `npm run dev` (port 5288, proxies `/api` and `/media` to 8000).
 - `backend/` — FastAPI + SQLAlchemy + GeoAlchemy2 on PostGIS. `uvicorn app.main:app --reload --port 8000` from `backend/`.
 - `ml/` — `graph/` (OSM graph + accessibility simulation), `gnn/`, `cv/`. Pure Python packages; never import backend code.
 - `legacy/` — old static prototype, reference only.

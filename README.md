@@ -35,7 +35,7 @@ cd backend
 ../.venv/Scripts/python -m uvicorn app.main:app --port 8000
 
 # 4. Web app (second terminal)
-cd frontend && npm ci && npm run dev         # http://localhost:5174, officer login at /admin
+cd frontend && npm ci && npm run dev         # http://localhost:5288, officer login at /admin
 ```
 
 Default officer login is `admin` / `admin123`; set `IPIMS_ADMIN_PASSWORD` and `IPIMS_JWT_SECRET` in `backend/.env`
