@@ -1,5 +1,7 @@
 # IPIMS stage 2 — Surabaya + UI design
 
+> Historical design record. Current scope/model terminology is clarified by the [2026-11-05 addendum](../concept/2026-11-05-scope-clarification.md): Intelligence Public Infrastructure Management System; shared multi-category workflow plus road analytical pilot; Surabaya current, Kediri reproducible; CLIP inference supersedes earlier YOLO plans. Preserve the original design and evaluation results below.
+
 Status: approved 2026-11-04. Builds on `2026-11-03-ipims-design.md` (stage 1, system working end to end).
 
 ## Context

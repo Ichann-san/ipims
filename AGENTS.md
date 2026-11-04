@@ -1,10 +1,20 @@
 # Working on IPIMS (Claude Code and Codex)
 
-IPIMS is a decision support system for public infrastructure in Kabupaten Kediri (Lomba Kediri Cerdas 2026). Read before working:
+IPIMS = **Intelligence Public Infrastructure Management System**. It supports public infrastructure reporting, assessment, prioritization, maintenance coordination and transparency. Current deployment: Kota Surabaya (Inovboyo 2.0); the original Kabupaten Kediri pilot remains reproducible with `IPIMS_REGION=kediri`. Shift One is a shared multi-category workflow plus a road analytical pilot.
 
-1. `docs/plans/2026-11-03-ipims-design.md` — scope, data model, lifecycle, scoring, ML approach.
+Read before working:
+
+1. `docs/concept/2026-11-05-scope-clarification.md` — current scope, capability matrix and metric dictionary. `docs/plans/2026-11-03-ipims-design.md` is the historical system design; preserve its results.
 2. `docs/contracts/v1/api.md` — the only interface between frontend, backend and ML adapters.
 3. `docs/TASKS.md` — pick one task; `docs/handoff/LATEST.md` — what the previous shift left.
+
+## Capability boundaries
+
+- Current intake: Road, Sidewalk, Drainage, Street light, Bus stop, Bridge, Other. Broader public infrastructure is the platform subject; intake coverage is not validated analytics for every asset.
+- Current CV uses CLIP, not historical YOLO plans. Six infrastructure classes plus non-infrastructure; Other remains manual. AI assessed (`ai_verified`) is not officer-validated damage. Category evaluation does not validate damage/severity or field performance.
+- Exact road simulation supplies seeded impact/priority; GNN predicts simulation labels. Nearby roads are context; facility POIs are accessibility destinations, not managed assets. Keep buildings/traffic proxies and rough road cost/duration assumptions explicit.
+- Current category-independent road disruption, shared segment counts, road-based priority and off-network fallback are known limitations. Review also misses some confidence/disagreement cases and retains old severity after category correction. Follow `docs/concept/analytical-followups.md` for separate C04-C09 work; copy edits do not fix these algorithms.
+- Preserve historic evaluations. Keep synthetic seed photo/location/status provenance and fallback department assignments explicit; do not claim real local incidents or verified responsibility.
 
 ## Layout
 

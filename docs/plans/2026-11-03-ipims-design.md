@@ -1,5 +1,7 @@
 # IPIMS v1 — Concept and system design
 
+> Historical design record. Current scope/model terminology is clarified by the [2026-11-05 addendum](../concept/2026-11-05-scope-clarification.md): Intelligence Public Infrastructure Management System; shared multi-category workflow plus road analytical pilot; Surabaya current, Kediri reproducible; CLIP inference supersedes earlier YOLO plans. Preserve the original design and evaluation results below.
+
 Status: approved direction 2026-11-03 (plan C, React rebuild, UI design pass later with direction A: calm civic public app + dense admin ops console).
 Source of requirements: `PROPOSAL DIGITAL (1).pdf` (Lomba Kediri Cerdas 2026, Kategori Digital).
 

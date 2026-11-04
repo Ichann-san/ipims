@@ -1,12 +1,24 @@
-# IPIMS — Intelligent Public Infrastructure Management System
+# IPIMS — Intelligence Public Infrastructure Management System
 
-Decision support for public infrastructure in Kota Surabaya (Inovboyo 2.0 showcase). The region is a config switch;
-the original Kabupaten Kediri pilot (Lomba Kediri Cerdas 2026) stays reproducible with `IPIMS_REGION=kediri`.
-Citizens report damage with a photo; a vision transformer classifies it; the report is snapped to the OSM road
-graph; an accessibility simulation (and a GNN surrogate) scores the network impact; an MCDM Priority Score ranks
-the queue; officers move each report through approval, assignment and repair while the public follows progress.
+Decision support for public infrastructure in Kota Surabaya (Inovboyo 2.0 showcase).
+The original Kabupaten Kediri pilot (Lomba Kediri Cerdas 2026) stays reproducible with
+`IPIMS_REGION=kediri`.
 
-Design: [docs/plans/2026-11-03-ipims-design.md](docs/plans/2026-11-03-ipims-design.md) ·
+Shift One delivered a shared reporting/lifecycle workflow for Road, Sidewalk,
+Drainage, Street light, Bus stop, Bridge and Other, plus a road-network accessibility
+analytical pilot. Citizens submit photos and locations; CLIP provides advisory
+category/severity suggestions; officers approve, assign and track repair while the
+public follows progress. A nearby road is context, not the reported asset's identity.
+
+Road simulation supplies the current impact score; the GNN is its evaluated learned
+surrogate. Existing priority and disruption calculations still apply road assumptions
+across report categories, including unsupported cases. They are not validated
+multi-asset urgency or damage models. AI assessed does not mean officer-validated
+damage; Other is manual intake. See the [current scope, capability matrix and metric
+dictionary](docs/concept/2026-11-05-scope-clarification.md) and [separate analytical
+follow-ups](docs/concept/analytical-followups.md).
+
+Historical design: [docs/plans/2026-11-03-ipims-design.md](docs/plans/2026-11-03-ipims-design.md) ·
 API: [docs/contracts/v1/api.md](docs/contracts/v1/api.md) ·
 Tasks: [docs/TASKS.md](docs/TASKS.md) ·
 Agent guide: [AGENTS.md](AGENTS.md)
@@ -55,11 +67,11 @@ cd frontend && npm run build
 .venv/Scripts/python e2e/layout.py              # chrome/map checks + mocked 137-report pagination (no report writes)
 ```
 
-Demo: [docs/DEMO.md](docs/DEMO.md). For a phone on the same Wi-Fi run `npm run dev:https` (GPS needs HTTPS).
+Demo: [docs/DEMO.md](docs/DEMO.md). Seed reports use attributed Commons photos with synthetic incidents, locations and lifecycle events; photos do not evidence those exact local assets. Facility POIs are accessibility destinations, not a managed asset inventory. For a phone on the same Wi-Fi run `npm run dev:https` (GPS needs HTTPS).
 
 ## Evaluation
 
-- CV: [ml/cv/EVAL.md](ml/cv/EVAL.md)
-- GNN: [ml/gnn/EVAL.md](ml/gnn/EVAL.md)
+- CV category classification on 157 Commons photos; damage/severity and local field performance remain unvalidated: [ml/cv/EVAL.md](ml/cv/EVAL.md)
+- GNN agreement with road simulation labels, not observed traffic: [ml/gnn/EVAL.md](ml/gnn/EVAL.md)
 
 Map data © OpenStreetMap contributors (ODbL). The earlier static prototype is kept in `legacy/` for reference.
