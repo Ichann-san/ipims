@@ -1,3 +1,11 @@
+# Handoff - optical footer logo sizing
+
+- Replaced equal-height logo sizing with individually balanced sizes and a shared flex centerline.
+- ITS source has large empty headroom; object-cover/object-bottom frames the complete lower artwork in a 125x48 desktop / 94x36 phone box. Source PNG remains intact.
+- Pemkot is 40px desktop/36px phone; BRIDA 40px/28px; Inovboyo 40px/32px. Phone gaps reduced to 8px so all logos fit 320px without wrapping.
+- Production build passes. Browser checks at 1366, 768, 390 and 320px confirm all logos loaded, their centerlines match within 1px, ITS is larger than BRIDA, and links/logos fit the footer. Desktop and phone footer screenshots visually reviewed.
+- Other user edits remain untouched. Previous context follows.
+
 # Handoff - footer logo proportions fixed
 
 - User added Pemkot, ITS and BRIDA logos. All source files were valid and returned HTTP 200; sizing used square size-10 boxes for wide marks.
