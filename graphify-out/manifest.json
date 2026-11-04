@@ -1,0 +1,128 @@
+{
+  "App.tsx": {
+    "mtime": 1793733330.524526,
+    "seen": 1793810180.601332,
+    "ast_hash": "b09e967d50cce912241221a7cb58225a",
+    "semantic_hash": "b09e967d50cce912241221a7cb58225a"
+  },
+  "api.ts": {
+    "mtime": 1793808053.8136683,
+    "seen": 1793810180.601332,
+    "ast_hash": "8ab693ada30818c4a183fd92c7de8a37",
+    "semantic_hash": "8ab693ada30818c4a183fd92c7de8a37"
+  },
+  "hooks.ts": {
+    "mtime": 1793732498.9734242,
+    "seen": 1793810180.601332,
+    "ast_hash": "1b48093bb4f1c55476c5a70614b2c089",
+    "semantic_hash": "1b48093bb4f1c55476c5a70614b2c089"
+  },
+  "labels.ts": {
+    "mtime": 1793738110.9354713,
+    "seen": 1793810180.601332,
+    "ast_hash": "cd1b59a2be6e85f9ee77cebdc930ae11",
+    "semantic_hash": "cd1b59a2be6e85f9ee77cebdc930ae11"
+  },
+  "main.tsx": {
+    "mtime": 1793721250.8490722,
+    "seen": 1793810180.601332,
+    "ast_hash": "787e5a07efeb2bf6209d5937195f2f68",
+    "semantic_hash": "787e5a07efeb2bf6209d5937195f2f68"
+  },
+  "map/MapCanvas.tsx": {
+    "mtime": 1793808560.3689394,
+    "seen": 1793810180.601332,
+    "ast_hash": "05cdcccbe6bf73f6d4b2b4d6d31663db",
+    "semantic_hash": "05cdcccbe6bf73f6d4b2b4d6d31663db"
+  },
+  "map/layers.tsx": {
+    "mtime": 1793808054.0030754,
+    "seen": 1793810180.601332,
+    "ast_hash": "e5ca9e59a3e4607c1824f73887cd84ba",
+    "semantic_hash": "e5ca9e59a3e4607c1824f73887cd84ba"
+  },
+  "pages/DevUI.tsx": {
+    "mtime": 1793738253.8951657,
+    "seen": 1793810180.601332,
+    "ast_hash": "3a7db0137166686ae4f4b220a04e2938",
+    "semantic_hash": "3a7db0137166686ae4f4b220a04e2938"
+  },
+  "pages/Home.tsx": {
+    "mtime": 1793809055.603723,
+    "seen": 1793810180.601332,
+    "ast_hash": "8d54e79ca65385fa65d8d2a4e7c199f2",
+    "semantic_hash": "8d54e79ca65385fa65d8d2a4e7c199f2"
+  },
+  "pages/MapPage.tsx": {
+    "mtime": 1793808053.366456,
+    "seen": 1793810180.601332,
+    "ast_hash": "52e1cca53916ef0260fc9be3e94bfbed",
+    "semantic_hash": "52e1cca53916ef0260fc9be3e94bfbed"
+  },
+  "pages/Reports.tsx": {
+    "mtime": 1793738361.5238128,
+    "seen": 1793810180.601332,
+    "ast_hash": "af264c323067fab9cdfe754c53e6ce14",
+    "semantic_hash": "af264c323067fab9cdfe754c53e6ce14"
+  },
+  "pages/Transparency.tsx": {
+    "mtime": 1793808181.2111113,
+    "seen": 1793810180.601332,
+    "ast_hash": "fa8865b90cc08260920da8ac81807dba",
+    "semantic_hash": "fa8865b90cc08260920da8ac81807dba"
+  },
+  "pages/admin/Dashboard.tsx": {
+    "mtime": 1793808163.8942366,
+    "seen": 1793810180.601332,
+    "ast_hash": "e14b298eacdd02d2f6f3594859869e3a",
+    "semantic_hash": "e14b298eacdd02d2f6f3594859869e3a"
+  },
+  "pages/admin/Operations.tsx": {
+    "mtime": 1793808053.5748696,
+    "seen": 1793810180.601332,
+    "ast_hash": "9dd5e71be3817a4730677ed9c6133f7a",
+    "semantic_hash": "9dd5e71be3817a4730677ed9c6133f7a"
+  },
+  "region.ts": {
+    "mtime": 1793732474.105023,
+    "seen": 1793810180.601332,
+    "ast_hash": "7e5cc6dc1d9c592ccf9a6e0a2d3d6046",
+    "semantic_hash": "7e5cc6dc1d9c592ccf9a6e0a2d3d6046"
+  },
+  "statistics.ts": {
+    "mtime": 1793808163.4490383,
+    "seen": 1793810180.601332,
+    "ast_hash": "aa123affdca569f049cd51824c44b20a",
+    "semantic_hash": "aa123affdca569f049cd51824c44b20a"
+  },
+  "ui/Charts.tsx": {
+    "mtime": 1793808560.8197777,
+    "seen": 1793810180.601332,
+    "ast_hash": "c7265224737b84f793ef959d8e334018",
+    "semantic_hash": "c7265224737b84f793ef959d8e334018"
+  },
+  "ui/Footer.tsx": {
+    "mtime": 1793739027.236585,
+    "seen": 1793810180.601332,
+    "ast_hash": "3f5f37fb328b60c0500d0970ff0298c2",
+    "semantic_hash": "3f5f37fb328b60c0500d0970ff0298c2"
+  },
+  "ui/Navbar.tsx": {
+    "mtime": 1793738253.869036,
+    "seen": 1793810180.601332,
+    "ast_hash": "819d03dd02ad8d9221657291f42bbe9c",
+    "semantic_hash": "819d03dd02ad8d9221657291f42bbe9c"
+  },
+  "ui/Progress.tsx": {
+    "mtime": 1793738230.0234418,
+    "seen": 1793810180.601332,
+    "ast_hash": "3553c74c5082df48c8f8fd71966e8c51",
+    "semantic_hash": "3553c74c5082df48c8f8fd71966e8c51"
+  },
+  "ui/core.tsx": {
+    "mtime": 1793809055.3498,
+    "seen": 1793810180.601332,
+    "ast_hash": "7edfada5acd8142bfee5629ff218c7db",
+    "semantic_hash": "7edfada5acd8142bfee5629ff218c7db"
+  }
+}

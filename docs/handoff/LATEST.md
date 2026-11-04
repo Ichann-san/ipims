@@ -1,4 +1,20 @@
-# Handoff - 2026-11-04 (Codex), statistics alignment and component/map review
+# Handoff - 2026-11-04 (Codex), shared-shell/map/report planning
+
+## Latest follow-up (R4 - planning only)
+
+- User approved deferred homepage report-layer mounting, then requested a plan for
+  consistent always-visible footer/navbar, 10% bottom map overflow, common credits,
+  redesigned control placement and compact paginated report cards.
+- User clarified: map canvas 110% tall, clipped below the viewport; no extra page scroll.
+- Plan: `docs/plans/2026-11-04-shell-map-reports-plan.md`. Proposed shared route shell,
+  measured chrome insets, one matte-glass dock, three-column wrapping reports and
+  server pagination using the existing limit/offset API. New layout awaits review.
+- No application code changed in R4; no build/test rerun needed for planning artifacts.
+- Graphify frontend index saved under `graphify-out/`: 21 files, 160 nodes, 426 edges,
+  zero extraction LLM/API tokens. Integrity warning: 41 dangling endpoints and 3
+  collapsed relations; route/component decisions also verified directly in source.
+- Next implementation order after plan review: shared shell/insets; map viewport and
+  credits; dock; approved homepage staging; report cards/pager; focused and e2e checks.
 
 ## Latest follow-up (R3)
 
