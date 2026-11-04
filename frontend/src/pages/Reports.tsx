@@ -4,7 +4,8 @@ import { Marker, type MapRef } from 'react-map-gl/mapbox'
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { api, ApiError, type AIResult, type Category, type Report, type ReportDetail, type Status } from '../api'
 import { useAsync } from '../hooks'
-import { CATEGORIES, CATEGORY_LABEL, DAMAGE_LABEL, SEVERITY_LABEL, METRIC_LABEL, formatScore } from '../labels'
+import { useCompactLayout } from '../responsive'
+import { CATEGORIES, CATEGORY_LABEL, DAMAGE_LABEL, SEVERITY_LABEL, METRIC_LABEL, formatDate, formatScore } from '../labels'
 import { MapCanvas } from '../map/MapCanvas'
 import { SegmentsLayer, useSegments } from '../map/layers'
 import { useRegion } from '../region'
@@ -18,6 +19,8 @@ const ACTIVE: Status[] = ['reported', 'ai_verified', 'gov_approved', 'assigned',
 type Scope = 'all' | 'active' | 'completed'
 
 export default function Reports() {
+  const compact = useCompactLayout()
+  const [filtersOpen, setFiltersOpen] = useState(false)
   const [params, setParams] = useSearchParams()
   const { code } = useParams()
   const nav = useNavigate()
@@ -69,6 +72,21 @@ export default function Reports() {
         <h1 className="type-page">Reports</h1>
         <p className="num type-body text-muted">{data ? `${data.total} ${data.total === 1 ? 'report' : 'reports'}` : list.error ? 'Report count unavailable' : 'Loading reports...'}</p>
       </div>
+      {compact ? <div className="reports-mobile-filters mb-4 grid gap-2">
+        <div className="flex min-w-0 gap-2">
+          <label className="relative min-w-0 flex-1">
+            <span className="sr-only">Search reports</span>
+            <MagnifyingGlass size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
+            <input key={q} className={`${controlCls()} pl-10`} placeholder="Search reports" defaultValue={q}
+              onKeyDown={(e) => e.key === 'Enter' && change({ q: (e.target as HTMLInputElement).value.trim() })} />
+          </label>
+          <Button onClick={() => setFiltersOpen(true)}>Filters</Button>
+        </div>
+        <div role="group" aria-label="Report scope" className="reports-scope grid gap-1.5">
+          {(['all', 'active', 'completed'] as Scope[]).map((s) => <Button key={s} aria-pressed={scope === s} variant={scope === s ? 'blue' : 'secondary'} className="!px-2" onClick={() => change({ scope: s })}>{s[0].toUpperCase() + s.slice(1)}</Button>)}
+        </div>
+        {(q || category || sort !== 'newest') && <p className="break-words type-meta text-muted">{[q && `Search: ${q}`, category && CATEGORY_LABEL[category], sort === 'priority' && 'Priority first'].filter(Boolean).join(' / ')} <button className="min-h-11 px-1 text-coral" onClick={() => change({ q: '', category: '', sort: '' })}>Clear filters</button></p>}
+      </div> : <>
       <div className="reports-filters mb-4 flex flex-wrap items-center gap-2">
         <label className="relative min-w-0 flex-1 basis-64">
           <span className="sr-only">Search</span>
@@ -92,12 +110,27 @@ export default function Reports() {
           </select>
         </label>
       </div>
+      </>}
+      <Sheet open={filtersOpen} onClose={() => setFiltersOpen(false)} title="Report filters">
+        <div className="grid gap-4">
+          <Field label="Category"><select className={controlCls()} value={category} onChange={(e) => change({ category: e.target.value })}>
+            <option value="">All categories</option>{CATEGORIES.map((c) => <option key={c} value={c}>{CATEGORY_LABEL[c]}</option>)}
+          </select></Field>
+          <Field label="Sort"><select className={controlCls()} value={sort} onChange={(e) => change({ sort: e.target.value })}>
+            <option value="newest">Newest</option><option value="priority">Priority</option>
+          </select></Field>
+          <Field label="Reports per page"><select className={controlCls()} value={pageSize} onChange={(e) => change({ size: e.target.value })}>
+            {PAGE_SIZES.map((size) => <option key={size} value={size}>{size}</option>)}
+          </select></Field>
+          <Button variant="primary" onClick={() => setFiltersOpen(false)}>Show reports</Button>
+        </div>
+      </Sheet>
       {list.error && <ErrorNote message={list.error} onRetry={list.reload} />}
       {list.loading && !data && <div className="report-cards">{Array.from({ length: pageSize }, (_, i) => <Skeleton key={i} className="report-card h-28" />)}</div>}
       {data?.items.length === 0 && <Empty title="No matching reports." action={<Button variant="primary" onClick={() => change({ buat: '1' }, false)}>Report</Button>} />}
-      <div className="report-cards">{data?.items.map((r) => <ReportRow key={r.code} report={r} search={search} />)}</div>
+      <div className="report-cards">{data?.items.map((r) => <ReportRow key={r.code} report={r} search={search} compact={compact} />)}</div>
       <div className="reports-pagination glass-strong rounded-2xl px-3 py-2">
-        <Pagination page={page} pageSize={pageSize} total={data?.total ?? null} loading={list.loading || (!data && !list.error)} onChange={(p) => change({ page: String(p) }, false)} />
+        <Pagination compact={compact} page={page} pageSize={pageSize} total={data?.total ?? null} loading={list.loading || (!data && !list.error)} onChange={(p) => change({ page: String(p) }, false)} />
       </div>
       <Sheet open={creating} onClose={closeForm} title="Report damage">
         <ReportForm onDone={(r) => { list.reload(); nav(`/laporan/${r.code}${search}`, { replace: true }) }} />
@@ -109,13 +142,17 @@ export default function Reports() {
   )
 }
 
-export function ReportRow({ report: r, search = '' }: { report: Report; search?: string }) {
+export function ReportRow({ report: r, search = '', compact = false }: { report: Report; search?: string; compact?: boolean }) {
   return (
     <Link to={`/laporan/${r.code}${search}`}
       className="report-card group flex min-w-0 gap-3 rounded-2xl border border-line bg-ink-900/60 p-3 transition hover:border-line-strong hover:bg-ink-800">
       <img src={r.photo_url} alt="" loading="lazy" className="size-16 flex-none rounded-xl object-cover" />
       <div className="min-w-0 flex-1 py-0.5">
-        <ReportIdentity report={r} compact />
+        {compact ? <div className="min-w-0 [overflow-wrap:anywhere]">
+          <p className="type-label font-semibold">{CATEGORY_LABEL[r.category]}</p>
+          <p className="num type-meta text-muted">{r.code}</p>
+          <time className="num type-meta text-muted" dateTime={r.created_at}>{formatDate(r.created_at)}</time>
+        </div> : <ReportIdentity report={r} compact />}
         <span className="mt-1 inline-block"><StatusBadge status={r.status} /></span>
         <p className="mt-2 num type-meta text-muted">{METRIC_LABEL.roadPriority} <span className="font-semibold text-fg">{formatScore(r.priority_score)}</span></p>
       </div>

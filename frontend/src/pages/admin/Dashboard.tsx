@@ -3,6 +3,7 @@ import { useMemo, useState, type FormEvent } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { api, ApiError, type Category, type Criterion, type Report, type RoadGroup, type Status, type Weights } from '../../api'
 import { useAsync } from '../../hooks'
+import { useCompactLayout } from '../../responsive'
 import { CATEGORIES, CATEGORY_LABEL, CRITERION_LABEL, SEVERITY_LABEL, STATUS_ACTION_LABEL, METRIC_LABEL, formatHours, formatScore } from '../../labels'
 import { Button, Chip, Empty, ErrorNote, Field, Modal, Panel, Sheet, Skeleton, Stat, StatusBadge, controlCls, inputCls } from '../../ui/core'
 import { StageTracker, reachedStages } from '../../ui/Progress'
@@ -44,6 +45,8 @@ export function Login() {
 }
 
 export default function Dashboard() {
+  const compact = useCompactLayout()
+  const [filtersOpen, setFiltersOpen] = useState(false)
   const { code } = useParams()
   const nav = useNavigate()
   const [filter, setFilter] = useState<Filter>('all')
@@ -64,20 +67,40 @@ export default function Dashboard() {
   const refresh = () => { queue.reload(); stats.reload() }
 
   return (
-    <div className="mx-auto page-content max-w-7xl px-3 md:px-6">
+    <div className="dashboard-page mx-auto page-content max-w-7xl px-3 md:px-6">
       <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h1 className="type-page">Dashboard</h1>
-        <Button size="sm" icon={<Sliders size={16} />} onClick={() => setWeightsOpen(true)}>Road-context weights</Button>
+        {!compact && <Button size="sm" icon={<Sliders size={16} />} onClick={() => setWeightsOpen(true)}>Road-context weights</Button>}
       </div>
 
-      <Panel className="mb-4 grid grid-cols-2 gap-4 p-4 md:grid-cols-5">
+      <Panel className={compact ? "dashboard-summary mb-3 grid grid-cols-3 gap-2 p-3" : "mb-4 grid grid-cols-2 gap-4 p-4 md:grid-cols-5"}>
         <Stat label="Active reports" value={stats.data?.active ?? '-'} />
         <Stat label="Awaiting approval" value={stats.data ? toCheck : '-'} tone="var(--color-st-verified)" />
         <Stat label="Open over 7 days" value={stats.data ? overdue : '-'} tone={overdue ? 'var(--color-coral-soft)' : undefined} />
+        {!compact && <>
         <Stat label={METRIC_LABEL.medianApproval} value={formatHours(stats.data?.median_hours_to_verify)} />
         <Stat label="Completed this month" value={stats.data ? doneThisMonth : '-'} tone="var(--color-st-completed)" />
+        </>}
       </Panel>
 
+      {compact ? <>
+        <div className="mb-2 flex items-center justify-between gap-2">
+          <h2 className="type-section">Report queue</h2>
+          <Button onClick={() => setFiltersOpen(true)} icon={<Sliders size={16} />}>Filters</Button>
+        </div>
+        <p className="mb-3 type-meta text-muted">{queue.data ? `${items.length} of ${queue.data.total} queued reports` : 'Loading queue...'}{filter !== 'all' ? ' / Filtered' : ''}</p>
+        <Sheet open={filtersOpen} onClose={() => setFiltersOpen(false)} title="Queue filters and context">
+          <div className="grid gap-4">
+            <Field label="Queue"><select className={controlCls()} value={filter} onChange={(e) => setFilter(e.target.value as Filter)}>
+              {([['all', 'All'], ['check', 'Awaiting approval'], ['utama', 'Nearby main roads'], ['lingkungan', 'Nearby local roads'], ['unknown', 'Unlinked / unknown']] as [Filter, string][]).map(([k, l]) => <option key={k} value={k}>{l}</option>)}
+            </select></Field>
+            <p className="type-body text-muted">Up to 200 queued reports are loaded. Road groups describe nearby-road context, not the reported asset. Priority and impact use the road-context pilot model and are provisional across infrastructure categories.</p>
+            <p className="type-meta text-muted">{METRIC_LABEL.medianApproval}: {formatHours(stats.data?.median_hours_to_verify)} / Completed this month: {stats.data ? doneThisMonth : '-'}</p>
+            <Button onClick={() => { setFiltersOpen(false); setWeightsOpen(true) }}>Road-context weights</Button>
+            <Button variant="primary" onClick={() => setFiltersOpen(false)}>Show queue</Button>
+          </div>
+        </Sheet>
+      </> : <>
       <div className="mb-3 flex flex-wrap gap-1.5">
         {([['all', 'All'], ['check', 'Awaiting approval'], ['utama', 'Nearby main roads'], ['lingkungan', 'Nearby local roads'], ['unknown', 'Unlinked / unknown']] as [Filter, string][]).map(([k, l]) => (
           <Chip key={k} active={filter === k} onClick={() => setFilter(k)}>{l}</Chip>
@@ -85,12 +108,27 @@ export default function Dashboard() {
       </div>
 
       <p className="mb-3 type-meta text-muted">{queue.data ? `Showing ${items.length} of ${queue.data.total} queued reports (up to 200 loaded).` : 'Queue count unavailable.'} Road groups describe nearby-road context, not the reported asset. Priority and impact use the road-context pilot model and are provisional across infrastructure categories.</p>
+      </>}
       {queue.error && <ErrorNote message={queue.error} onRetry={queue.reload} />}
       {stats.error && <ErrorNote message={stats.error} onRetry={stats.reload} />}
       {queue.loading && !queue.data && <div className="grid gap-2">{Array.from({ length: 6 }, (_, i) => <Skeleton key={i} className="h-14" />)}</div>}
       {queue.data && items.length === 0 && <Empty title="No reports in this queue." />}
 
-      {items.length > 0 && (
+      {compact && items.length > 0 && <ul aria-label="Officer report queue" className="grid gap-3">
+        {items.map((r) => <li key={r.code}>
+          <Link to={`/admin/laporan/${r.code}`} className="flex min-w-0 gap-3 rounded-2xl border border-line bg-ink-950/40 p-3 hover:bg-ink-800">
+            <img src={r.photo_url} alt="" loading="lazy" className="size-14 flex-none rounded-lg object-cover" />
+            <div className="min-w-0 flex-1 [overflow-wrap:anywhere]">
+              <p className="type-label font-semibold">{CATEGORY_LABEL[r.category]}</p>
+              <p className="num type-meta text-muted">{r.code}</p>
+              <div className="my-2 flex flex-wrap items-center gap-2"><StatusBadge status={r.status} />{r.needs_review && <span className="type-meta text-st-assigned">Needs review</span>}</div>
+              <p className="num type-meta text-muted">{METRIC_LABEL.roadPriority}: <b className="text-fg">{formatScore(r.priority_score)}</b> / {age(r)} d old</p>
+              <p className="mt-1 type-meta text-muted">AI damage suggestion: {r.ai ? SEVERITY_LABEL[r.ai.severity] : '-'} / {METRIC_LABEL.roadImpact}: {formatScore(r.impact_score)}</p>
+            </div>
+          </Link>
+        </li>)}
+      </ul>}
+      {!compact && items.length > 0 && (
         <div className="overflow-x-auto rounded-2xl border border-line">
           <table className="w-full type-body">
             <caption className="sr-only">Officer report queue ordered by road-context priority. Scores are provisional outside the road pilot.</caption>

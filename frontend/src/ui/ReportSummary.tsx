@@ -1,13 +1,10 @@
 import type { Report, StatusEvent } from '../api'
-import { formatDate, nearbyRoad, reportLocation, reportTitle } from '../labels'
+import { formatDate, reportTitle } from '../labels'
 import { StatusBadge } from './core'
 
 export function ReportIdentity({ report, compact = false, className = '' }: { report: Report; compact?: boolean; className?: string }) {
-  const road = nearbyRoad(report)
   return <div className={`min-w-0 ${className}`}>
     <p className={`${compact ? 'type-label' : 'type-section'} break-words text-fg`}>{reportTitle(report)}</p>
-    {/* <p className="type-meta text-muted">{reportLocation(report)}</p> */}
-    {/* {road && <p className="type-meta break-words text-muted">{road}</p>} */}
     <time className="type-meta num text-muted" dateTime={report.created_at}>{formatDate(report.created_at)}</time>
   </div>
 }

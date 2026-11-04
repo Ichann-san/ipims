@@ -15,7 +15,7 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | C3b | ML | GNN surrogate trained on simulation labels, eval vs baselines | done | `ml/gnn/EVAL.md` |
 | D1 | Integration | Wire CV + GNN into backend, seed demo data, docs, phone test | done | `docs/DEMO.md`; `e2e/smoke.py` 14/14 in Edge over HTTPS with phone emulation + GPS (real phone: team) |
 
-## Stage 2 (see `docs/plans/2026-11-04-stage2-ui-design.md`)
+## Stage 2 (historical delivery; current behavior in `docs/frontend.md`)
 
 | ID | Track | Task | Status | Done when |
 |---|---|---|---|---|
@@ -32,10 +32,10 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 
 | ID | Track | Task | Status | Done when |
 |---|---|---|---|---|
-| R1 | Review | Restore prior session; review map performance and statistics ideas | done | Source findings, build baseline, alternatives and chart mapping recorded in `docs/plans/2026-11-04-performance-statistics-review.md` |
+| R1 | Review | Restore prior session; review map performance and statistics ideas | done | Source findings, build baseline, alternatives and chart mapping recorded in `docs/frontend.md` |
 | R2 | Concept/Website | Implement approved working-map performance controls and Chart.js statistics; preserve original homepage map | done | Bounded city working maps, optional 3D, cancelled stale requests, five accessible charts, WIB calendar and full-dataset KPI fixes; contract updated; frontend build/tests, backend 16 tests and e2e 11 steps pass |
-| R3 | Website/Review | Center shared statistics; audit component reuse; review custom 3D and delayed homepage overlays | done | All 16 Stat instances centered at desktop/mobile widths; frontend build passes; findings and proposed experiments in `docs/plans/2026-11-04-component-map-review.md`; homepage timing changes remain proposed |
-| R4 | Planning | Shared fixed footer, map overflow/controls/credits, staged homepage overlays and paginated Reports | done | `docs/plans/2026-11-04-shell-map-reports-plan.md` contains source-verified scope, alternatives, delivery order and acceptance gates; user confirmed clipped 110% canvas; homepage staging approved, new layout proposal awaits review |
+| R3 | Website/Review | Center shared statistics; audit component reuse; review custom 3D and delayed homepage overlays | done | All 16 Stat instances centered at desktop/mobile widths; frontend build passes; findings and proposed experiments in `docs/frontend.md`; homepage timing changes remain proposed |
+| R4 | Planning | Shared fixed footer, map overflow/controls/credits, staged homepage overlays and paginated Reports | done | `docs/frontend.md` contains source-verified scope, alternatives, delivery order and acceptance gates; user confirmed clipped 110% canvas; homepage staging approved, approved layout implemented in R5 |
 | R5 | Website | Implement approved shared shell, map dock/overflow, staged homepage layers and paginated report cards | done | Build and 8 frontend tests pass; 16 route checks and 137-report pagination scenarios pass; e2e 11 steps pass; required attribution retained in shared footer; no backend migration |
 
 | R6 | Website | Use supplied SVG favicon with PNG fallback | done | HTML references supplied assets; production build passes |
@@ -45,8 +45,10 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | R10 | Website | Balance footer logos by visible artwork and center alignment | done | ITS headroom framed without asset edits; four viewport checks and build pass |
 | R11 | Website | Divider after Pemkot footer mark | done | Centered decorative divider added; production build passes |
 | R12 | Website | Fix footer team-name placement | done | Names, copyright and credits stacked without grid overlap; build and four viewport checks pass |
-| R13 | Concept/Planning | Audit Shift One scope and frontend consistency; propose two-track plan | done | 19 concept mismatches and 28 UI findings recorded in docs/plans/2026-11-05-concept-consistency-proposal.md; implementation awaits approval |
+| R13 | Concept/Planning | Audit Shift One scope and frontend consistency; propose two-track plan | done | 19 concept mismatches retained in docs/concept/shift-one-audit.md; current UI rules in docs/frontend.md; original 28-finding proposal remains in Git history |
 | R14 | Concept | Clarify public infrastructure scope and Shift One road-pilot limits | done | Canonical glossary, capability matrix, C01-C19 corrections and explicit analytical follow-up specification delivered |
 | R15 | Website | Implement approved U01-U28 consistency refactor | done | Build/lint/11 tests; 16 layout checks, 40 consistency checks and 11-step smoke pass; behavior and user styling preferences preserved |
 | R16 | Documentation | Refresh Graphify for integrated frontend source | done | 30 source files, 210 nodes, 595 edges; snapshot tagged to 8ae4f4a; raw extraction limits and coverage recorded |
-| R17 | Planning/Website | Audit mobile UI and propose dedicated responsive repair | done | 57 page/state samples across six phones, landscape, tablet and desktop; measured obstruction findings and mobile-only layout proposal recorded; implementation awaits approval |
+| R17 | Planning/Website | Audit mobile UI and propose dedicated responsive repair | done | 57 page/state samples across six phones, landscape, tablet and desktop; measured obstruction findings and mobile-only layout proposal recorded; approved implementation followed |
+| R18 | Website | Repair mobile shell, page hierarchy, maps and overlays | done | Build/11 unit tests; 63 route samples over nine sizes plus final edge-case confirmation; 40 consistency checks and 11-step smoke pass |
+| R19 | Documentation | Refresh Graphify and remove superseded plans/generated audits | doing | Source commit tagged, coverage honest, current references resolve, unused artifacts removed |

@@ -126,11 +126,11 @@ body {
 
 .map-viewport { position: relative; overflow: hidden; }
 .map-render-surface { position: absolute; inset: 0; }
-.map-overscan { --map-extra: 10dvh; }
 .map-overscan > .map-render-surface { bottom: auto; height: 110%; }
-/* .map-viewport[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left {
-  bottom: calc(var(--footer-height) + var(--map-extra, 0px) + 8px);
-} */
+/* Initial placement works before the map load callback measures its canvas.
+   A 110% surface clips 1/11 of its own height below the workspace. */
+.map-viewport[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: calc(var(--footer-height) + 8px); }
+.map-viewport.map-overscan[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: calc(100% / 11 + var(--footer-height) + 8px); }
 .map-control-position { position: absolute; right: 24px; bottom: calc(var(--footer-height) + 20px); z-index: 10; }
 .map-dock { flex-direction: column; }
 .map-dock-divider { height: 1px; margin: 2px 3px; }
@@ -153,19 +153,149 @@ body {
   .operations-panel, .sheet-panel { top: var(--header-space); max-height: none; }
   .operations-panel { top: calc(var(--header-space) + 32px); }
 }
-@media (max-width: 767px) {
-  .site-frame { --footer-height: 64px; }
-  .map-dock { flex-direction: row; }
-  .map-dock-divider { width: 1px; height: auto; margin: 3px 2px; }
-  .map-control-position { right: 12px; bottom: calc(var(--footer-height) + var(--map-panel-height, 0px) + 48px); }
-  .operations-panel { max-height: min(46dvh, calc(100dvh - var(--header-space) - var(--footer-height) - 132px)); }
-  .map-layer-panel { max-height: calc(100dvh - var(--header-space) - var(--footer-height) - 132px); overflow-y: auto; }
-  .reports-pagination nav { justify-content: center; }
-}
-@media (max-width: 359px) {
-  .navbar-report-label { display: none; }
-  .navbar-report { gap: 0; }
-}
 @media (max-height: 650px) {
   .home-content { top: var(--header-space); overflow-y: auto; align-content: start; }
+}
+
+/* One compact workspace, also used by phones rotated to short landscape.
+   Keep this condition aligned with COMPACT_QUERY in responsive.ts. */
+@media (max-width: 767px), (max-width: 1023px) and (max-height: 500px) {
+  .site-frame {
+    --header-space: calc(3.5rem + env(safe-area-inset-top, 0px));
+    --footer-height: calc(3rem + env(safe-area-inset-bottom, 0px));
+    --page-gutter: clamp(.75rem, 3.8vw, 1.25rem);
+    --section-gap: clamp(.75rem, 2.5vw, 1.25rem);
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+  }
+  .site-workspace {
+    position: absolute;
+    inset: var(--header-space) 0 var(--footer-height);
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    min-width: 0;
+  }
+  .compact-navbar {
+    inset: 0 0 auto;
+    transform: none;
+    translate: none;
+    width: 100%;
+    max-width: none;
+    min-height: 3.5rem;
+    border-radius: 0;
+    padding: env(safe-area-inset-top, 0px) max(var(--page-gutter), env(safe-area-inset-right, 0px)) 0 max(var(--page-gutter), env(safe-area-inset-left, 0px));
+    background: rgb(8 16 31 / .97);
+    border-width: 0 0 1px;
+    box-shadow: none;
+    gap: .5rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .compact-navbar .navbar-brand { min-width: 0; }
+  .compact-navbar .navbar-brand > span { padding-inline: 0; gap: .375rem; }
+  .compact-navbar .navbar-brand img { width: 2rem; height: 2rem; }
+  .compact-navbar .navbar-brand-text { display: inline; font-size: .875rem; }
+  .compact-navbar .navbar-brand-text > span { font-size: .875rem; }
+  .compact-navbar .navbar-report { height: 2.75rem !important; padding-inline: .875rem !important; }
+  .compact-navbar .navbar-menu-button { padding-inline: .5rem; gap: .375rem; }
+  .navbar-menu-links { display: grid; gap: .5rem; }
+  .navbar-menu-link { display: flex; align-items: center; gap: .75rem; min-height: 3rem; padding: .75rem; border-radius: .75rem; }
+  .site-footer-compact { padding-inline: max(var(--page-gutter), env(safe-area-inset-left, 0px)); }
+  .compact-footer-row { display: flex; align-items: center; justify-content: space-between; gap: .5rem; min-height: 3rem; }
+  .compact-footer-meta { min-width: 0; font-size: .6875rem; line-height: 1rem; }
+  .compact-footer-credits { display: flex; flex-wrap: wrap; column-gap: .5rem; font-size: .625rem; line-height: 1rem; }
+  .compact-footer-about { min-width: 2.75rem; min-height: 2.75rem; flex-shrink: 0; }
+  .footer-about-content > div { display: block; padding: 0; }
+  .footer-about-content > div > div + div { margin-top: 1.5rem; text-align: left; }
+  .footer-about-content > div > div + div > div { justify-content: start; }
+  .page-content { padding: var(--section-gap) var(--page-gutter) 1.5rem; }
+  .login-page { min-height: 100%; }
+  .home-map, .public-map, .operations-map { height: 100% !important; min-height: 0; }
+  .home-map { isolation: isolate; overflow-y: auto; }
+  .home-map > .map-viewport { position: absolute; inset: 0; z-index: -3; }
+  .home-scrim { z-index: -2; background: rgb(8 16 31 / .58); }
+  .home-content-scrim { z-index: -1; background: linear-gradient(180deg, rgb(8 16 31 / .05) 0%, rgb(8 16 31 / .6) 28%, rgb(8 16 31 / .96) 70%); }
+  .home-content {
+    position: relative;
+    inset: auto;
+    width: auto;
+    max-width: 34rem;
+    min-height: 100%;
+    margin-inline: auto;
+    padding: clamp(1.5rem, 10dvh, 6rem) var(--page-gutter) 1.25rem;
+    align-content: end;
+    gap: .75rem;
+    overflow: visible;
+  }
+  .home-content h1 { font-size: clamp(1.875rem, 8.5vw, 2.625rem); line-height: 1.08; overflow-wrap: anywhere; }
+  .home-description { font-size: .8125rem; line-height: 1.25rem; color: var(--color-fg); opacity: .8; }
+  .home-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .home-actions > * { min-width: 0; padding-inline: .5rem; }
+  .home-stats { padding: .75rem .5rem; gap: .375rem; background: var(--color-ink-900); }
+  .home-stats .num { font-size: clamp(1.25rem, 5.5vw, 1.625rem); }
+  .home-stats .type-meta { font-size: .6875rem; line-height: 1rem; }
+  .reports-page .report-cards { display: grid; grid-template-columns: minmax(0, 1fr); justify-content: stretch; }
+  .reports-page .report-card { width: 100%; max-width: none; flex-basis: auto; }
+  .reports-page .report-card > img { width: clamp(2rem, 20vw, 4rem); height: clamp(2rem, 20vw, 4rem); }
+  .reports-scope { grid-template-columns: repeat(auto-fit, minmax(min(100%, 5.5rem), 1fr)); }
+  .reports-scope button { white-space: normal; height: auto; min-height: 2.75rem; }
+  .status-badge { height: auto; min-height: 1.5rem; max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+  .map-mobile-peek .status-badge { justify-self: start; }
+  .reports-page .reports-pagination { position: static; transform: none; width: 100%; margin-top: 1rem; }
+  .reports-pagination nav { justify-content: space-between; }
+  .map-control-position { top: .75rem; right: .75rem; bottom: auto; }
+  .map-viewport[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: 8px; }
+  .map-viewport.map-overscan[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: calc(100% / 11 + 8px); }
+  .map-dock { flex-direction: row; }
+  .map-panel-entry { position: absolute; left: .75rem; bottom: 2.75rem; z-index: 15; min-height: 2.75rem; background: var(--color-ink-900); border-color: var(--color-line-strong); }
+  .map-mobile-panel {
+    position: absolute;
+    inset: auto .75rem 2.75rem;
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    max-height: min(55%, 24rem);
+    overflow-y: auto;
+    min-width: 0;
+  }
+  .map-mobile-peek { max-height: min(45%, 18rem); }
+  .operations-mobile-panel { max-height: 60%; }
+  .map-mobile-panel button { min-height: 2.75rem; }
+  .sheet-overlay, .modal-overlay { padding: 0; }
+  .sheet-panel, .modal-panel {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    border-radius: 0;
+    background: var(--color-ink-900);
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .overlay-header { flex-shrink: 0; }
+  .overlay-header h2 { min-width: 0; overflow-wrap: anywhere; }
+  .overlay-body, .modal-content { flex: 1; min-height: 0; max-height: none; overflow-y: auto; overscroll-behavior: contain; }
+  input:not([type=checkbox]):not([type=radio]):not([type=file]), textarea, select { font-size: 1rem; }
+}
+@media (min-width: 640px) and (max-width: 1023px) and (max-height: 500px) {
+  .reports-mobile-filters { grid-template-columns: minmax(0, 1fr) minmax(16rem, .9fr); align-items: center; }
+  .reports-mobile-filters > p { grid-column: 1 / -1; }
+  .dashboard-page { display: grid; grid-template-columns: minmax(14rem, .7fr) minmax(0, 1fr); column-gap: 1rem; align-content: start; }
+  .dashboard-page > div:first-child { grid-column: 1; margin-bottom: .5rem; }
+  .dashboard-summary { grid-column: 1; grid-row: 2 / 5; align-self: start; }
+  .dashboard-page > ul { grid-column: 2; grid-row: 3 / 8; }
+  .home-content { margin-inline: 0; max-width: 40rem; padding-block: 1rem; grid-template-columns: 1fr 1fr; column-gap: 1.25rem; align-content: center; }
+  .home-content > p:first-child, .home-content h1, .home-description { grid-column: 1; }
+  .home-actions, .home-stats { grid-column: 2; }
+  .home-actions { grid-row: 2; }
+  .home-stats { grid-row: 3; align-self: start; }
+  .map-mobile-panel { inset: .75rem auto .75rem .75rem; width: min(20rem, 45%); max-height: none; }
+  .map-mobile-peek { bottom: auto; max-height: calc(100% - 1.5rem); }
+  .public-map:has([data-map-panel-active]) .mapboxgl-ctrl-bottom-left,
+  .operations-map:has([data-map-panel-active]) .mapboxgl-ctrl-bottom-left { left: calc(min(20rem, 45%) + 1.25rem); }
 }

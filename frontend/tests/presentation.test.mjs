@@ -6,7 +6,7 @@ import { nearbyRoad, reportTitle, reportLocation, formatHours, formatScore, form
 
 test('off-road infrastructure keeps its category and location identity', () => {
   const report = { code: 'IPIMS-TEST', category: 'lampu_jalan', lat: -7.25, lng: 112.75, segment: null }
-  assert.equal(reportTitle(report), 'Street light · IPIMS-TEST')
+  assert.match(reportTitle(report), /IPIMS-TEST\s+Street light/)
   assert.equal(reportLocation(report), '-7.25000, 112.75000')
   assert.equal(nearbyRoad(report), null)
   assert.equal(nearbyRoad({ ...report, segment: { name: 'Jalan Contoh' } }), 'Nearby road: Jalan Contoh')

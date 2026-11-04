@@ -2,6 +2,8 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode, type
 import Map, { AttributionControl, type MapMouseEvent, type MapRef, type ViewState } from 'react-map-gl/mapbox'
 import { useRegion } from '../region'
 import { MapDock } from './MapDock'
+import { cameraPadding } from './layout'
+import { useCompactLayout } from '../responsive'
 
 const TOKEN = import.meta.env.VITE_MAPBOX_TOKEN as string | undefined
 const BASEMAP_CONFIG = { lightPreset: 'night', theme: 'faded', showPointOfInterestLabels: false, showTransitLabels: false }
@@ -27,6 +29,7 @@ export function MapCanvas({ initialViewState, children, className = 'h-full w-fu
   onClick, onMoveEnd, onLoad, controls = true, attribution = true, mapRef, constrainToRegion = false, presentation = false, overscan = false,
 }: MapCanvasProps) {
   const region = useRegion()
+  const compact = useCompactLayout()
   const [detailed, setDetailed] = useState(false)
   const [camera, setCamera] = useState({ bearing: initialViewState.bearing ?? 0, zoom: initialViewState.zoom ?? 0 })
   const localRef = useRef<MapRef>(null)
@@ -48,18 +51,38 @@ export function MapCanvas({ initialViewState, children, className = 'h-full w-fu
     const element = root.current
     const map = ref.current?.getMap()
     if (!element || !map || !fullScreen) return
-    const css = getComputedStyle(element)
-    const footer = parseFloat(css.getPropertyValue('--footer-height')) || 48
-    const header = parseFloat(css.getPropertyValue('--header-space')) || 94
-    map.setPadding({ top: header, bottom: footer + 16 + (overscan ? element.clientHeight * 0.1 : 0), left: 16, right: 16 })
-  }, [fullScreen, overscan, ref])
+    const workspace = element.closest<HTMLElement>('.public-map, .operations-map') ?? element
+    const panel = workspace.querySelector<HTMLElement>('[data-map-panel-active]')
+    if (compact) map.setPadding(cameraPadding(element, panel))
+    else {
+      const css = getComputedStyle(element)
+      map.setPadding({ top: parseFloat(css.getPropertyValue('--header-space')) || 94,
+        bottom: (parseFloat(css.getPropertyValue('--footer-height')) || 48) + 16 + (overscan ? element.clientHeight * .1 : 0), left: 16, right: 16 })
+    }
+    const extra = Math.max(0, map.getContainer().getBoundingClientRect().bottom - element.getBoundingClientRect().bottom)
+    const footer = compact ? 0 : Math.max(0, element.getBoundingClientRect().bottom - (document.querySelector('.site-footer')?.getBoundingClientRect().top ?? element.getBoundingClientRect().bottom))
+    // The native Mapbox wordmark belongs above the actual clipped canvas bottom.
+    const panelBounds = compact ? panel?.getBoundingClientRect() : undefined
+    const bounds = element.getBoundingClientRect()
+    const panelBottom = panelBounds && panelBounds.width >= bounds.width * .55 ? bounds.bottom - panelBounds.top + 8 : 0
+    const nativeBottom = extra + footer + Math.max(8, panelBottom)
+    element.style.setProperty('--map-native-bottom', `${nativeBottom}px`)
+    const nativeControls = element.querySelector<HTMLElement>('.mapboxgl-ctrl-bottom-left')
+    if (nativeControls) {
+      nativeControls.style.bottom = `${nativeBottom}px`
+      nativeControls.style.left = panelBounds && panelBounds.width < bounds.width * .55 ? `${panelBounds.right - bounds.left + 8}px` : '0px'
+    }
+  }, [fullScreen, compact, overscan, ref])
   useEffect(() => {
     if (!root.current || !fullScreen) return
     const observer = new ResizeObserver(padVisibleArea)
     observer.observe(root.current)
     const footer = document.querySelector('footer')
     if (footer) observer.observe(footer)
-    return () => observer.disconnect()
+    const workspace = root.current.closest<HTMLElement>('.public-map, .operations-map')
+    workspace?.addEventListener('ipims-map-panel', padVisibleArea)
+    padVisibleArea()
+    return () => { observer.disconnect(); workspace?.removeEventListener('ipims-map-panel', padVisibleArea) }
   }, [fullScreen, padVisibleArea])
 
   if (!TOKEN) return <div role="status" className={`grid place-items-center bg-ink-900 text-sm text-muted ${className}`}>Map unavailable. Please try again later.</div>

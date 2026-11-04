@@ -7,6 +7,7 @@ Read before working:
 1. `docs/concept/2026-11-05-scope-clarification.md` — current scope, capability matrix and metric dictionary. `docs/plans/2026-11-03-ipims-design.md` is the historical system design; preserve its results.
 2. `docs/contracts/v1/api.md` — the only interface between frontend, backend and ML adapters.
 3. `docs/TASKS.md` — pick one task; `docs/handoff/LATEST.md` — what the previous shift left.
+4. `docs/frontend.md` — current responsive shell, map, reports and validation rules; replaces completed UI proposals.
 
 ## Capability boundaries
 

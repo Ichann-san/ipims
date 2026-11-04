@@ -2,7 +2,7 @@
 
 Specification only, 2026-11-05. Implements none of these changes. Read the
 [scope clarification](2026-11-05-scope-clarification.md) and C04-C09 in the
-[approved proposal](../plans/2026-11-05-concept-consistency-proposal.md).
+[Shift One audit](shift-one-audit.md).
 Backend, API, schema, scoring, model and dataset changes require a separate Concept/API
 task with compatible contract updates and regression proof.
 

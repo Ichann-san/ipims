@@ -30,7 +30,7 @@ export const STATUS_ACTION_LABEL: Record<Status, string> = {
 }
 export const METRIC_LABEL = {
   medianApproval: 'Approval median', medianCompletion: 'Completion median',
-  roadPriority: 'Priority: ', roadImpact: 'Access impact: ',
+  roadPriority: 'Priority', roadImpact: 'Access impact',
   modeledImprovement: 'Modeled access gap reduced',
 } as const
 export const ROAD_ANALYTICS_NOTE = 'Road-context estimates are provisional for non-road reports. Unlinked assets need manual review.'

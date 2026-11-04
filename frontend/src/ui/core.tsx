@@ -55,7 +55,7 @@ export const statusColor = (s: Status) => STATUS_COLOR[s]
 export function StatusBadge({ status }: { status: Status }) {
   const c = STATUS_COLOR[status]
   return (
-    <span className="inline-flex h-6 items-center whitespace-nowrap rounded-full px-2.5 text-xs font-semibold"
+    <span className="status-badge inline-flex h-6 items-center whitespace-nowrap rounded-full px-2.5 text-xs font-semibold"
       style={{ color: c, background: `color-mix(in srgb, ${c} 14%, transparent)` }}>
       {STATUS_LABEL[status]}
     </span>
@@ -194,30 +194,34 @@ function useOverlay(open: boolean, onClose: () => void) {
       if (wasTop) {
         const parent = overlays.at(-1)?.element
         const target = entry.previous
-        if (target?.isConnected && (!parent || parent.contains(target))) target.focus()
-        else if (parent) (focusables(parent)[0] ?? parent).focus()
+        // A user may already have focused the newly revealed page before effect
+        // cleanup runs. Do not steal that focus back to an old opener.
+        const active = document.activeElement
+        const needsReturn = !active || active === document.body || element.contains(active)
+        if (needsReturn && target?.isConnected && (!parent || parent.contains(target))) target.focus()
+        else if (needsReturn && parent) (focusables(parent)[0] ?? parent).focus()
       }
     }
   }, [open])
   return ref
 }
 
-/** Right-side panel on desktop, bottom sheet on phones. */
+/** Right-side panel on desktop, full-screen workspace on compact screens. */
 export function Sheet({ open, onClose, title, children, wide = false }: {
   open: boolean; onClose: () => void; title: string; children: ReactNode; wide?: boolean
 }) {
   const ref = useOverlay(open, onClose)
   if (!open) return null
   return (
-    <div className="fixed inset-0 z-40">
+    <div className="overlay-root sheet-overlay fixed inset-0 z-40">
       <div className="absolute inset-0 bg-ink-950/60" onClick={onClose} />
       <div ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title}
         className={`glass-strong sheet-panel absolute inset-x-0 flex flex-col rounded-t-2xl outline-none md:left-auto md:right-3 md:rounded-2xl ${wide ? 'md:w-[560px]' : 'md:w-[440px]'}`}>
-        <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-2">
+        <div className="overlay-header flex shrink-0 items-center justify-between gap-3 border-b border-line px-4 py-2">
           <h2 className="type-dialog">{title}</h2>
           <IconButton label="Close" onClick={onClose}><X size={20} /></IconButton>
         </div>
-        <div className="min-h-0 flex-1 overflow-y-auto p-4">{children}</div>
+        <div className="overlay-body min-h-0 flex-1 overflow-y-auto p-4">{children}</div>
       </div>
     </div>
   )
@@ -227,14 +231,14 @@ export function Modal({ open, onClose, title, children }: { open: boolean; onClo
   const ref = useOverlay(open, onClose)
   if (!open) return null
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center p-4">
+    <div className="overlay-root modal-overlay fixed inset-0 z-50 grid place-items-center p-4">
       <div className="absolute inset-0 bg-ink-950/70" onClick={onClose} />
       <div ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title} className="glass-strong modal-panel relative w-full max-w-2xl rounded-2xl">
-        <div className="flex items-center justify-between border-b border-line px-4 py-2">
+        <div className="overlay-header flex shrink-0 items-center justify-between border-b border-line px-4 py-2">
           <h2 className="type-dialog">{title}</h2>
           <IconButton label="Close" onClick={onClose}><X size={20} /></IconButton>
         </div>
-        <div className="modal-content overflow-y-auto p-4">{children}</div>
+        <div className="overlay-body modal-content overflow-y-auto p-4">{children}</div>
       </div>
     </div>
   )

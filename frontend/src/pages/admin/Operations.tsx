@@ -1,4 +1,4 @@
-import { ArrowCounterClockwise, Lightning } from '@phosphor-icons/react'
+import { ArrowCounterClockwise, Lightning, X } from '@phosphor-icons/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Layer, Source, type MapMouseEvent, type MapRef } from 'react-map-gl/mapbox'
 import { api, type FeatureCollection, type Report, type SegmentProps, type WhatIfResult } from '../../api'
@@ -8,22 +8,26 @@ import { MapCanvas } from '../../map/MapCanvas'
 import { ReportsLayer, SegmentsLayer, useSegmentData } from '../../map/layers'
 import { cameraPadding, useMapPanel } from '../../map/layout'
 import { ReportIdentity } from '../../ui/ReportSummary'
+import { useCompactLayout } from '../../responsive'
+import { MobileMapPanel } from '../../map/MobileMapPanel'
 import { useRegion } from '../../region'
-import { Button, ButtonLink, Empty, ErrorNote, Panel, SegmentedControl, Skeleton, StatusBadge } from '../../ui/core'
+import { Button, ButtonLink, Empty, ErrorNote, IconButton, Panel, SegmentedControl, Skeleton, StatusBadge } from '../../ui/core'
 
 type Mode = 'queue' | 'simulate'
 type Side = 'before' | 'after'
 
 export default function Operations() {
   const region = useRegion()
+  const compact = useCompactLayout()
+  const [panelOpen, setPanelOpen] = useState(true)
   const mapRef = useRef<MapRef>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
-  useMapPanel(panelRef)
   const [mode, setMode] = useState<Mode>('queue')
   const [side, setSide] = useState<Side>('after')
   const [view, setView] = useState<{ bbox: string; zoom: number } | null>(null)
   const [selected, setSelected] = useState<string | null>(null)
+  useMapPanel(panelRef, `${compact}:${panelOpen}:${selected ?? ""}`)
   const [repairs, setRepairs] = useState<string[]>([])
   const [result, setResult] = useState<WhatIfResult | null>(null)
   const [running, setRunning] = useState(false)
@@ -78,6 +82,7 @@ export default function Operations() {
   const focus = (r?: Report) => {
     if (!r) return
     setSelected(r.code)
+    if (compact) setPanelOpen(false)
     mapRef.current?.flyTo({ center: [r.lng, r.lat], zoom: 16, duration: 700 })
   }
 
@@ -121,7 +126,7 @@ export default function Operations() {
   const sel = selected ? byCode.get(selected) : undefined
   return (
     <div ref={containerRef} className="operations-map relative h-[100dvh] overflow-hidden">
-      <MapCanvas constrainToRegion mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
+      <MapCanvas constrainToRegion overscan={compact} mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
         interactiveLayerIds={mode === 'simulate' ? ['damaged', 'damaged-glow', 'reports'] : ['reports', ...(segments.data ? ['segments'] : [])]}
         initialViewState={{ longitude: region.center[0], latitude: region.center[1], zoom: 12.3, pitch: 25, bearing: -10 }}>
         {mode === 'queue' && segments.data && <SegmentsLayer data={segments.data} />}
@@ -160,11 +165,12 @@ export default function Operations() {
         <ReportsLayer reports={reports} selected={selected} />
       </MapCanvas>
 
-      <div ref={panelRef} className="operations-panel absolute inset-x-3 flex max-h-[46dvh] flex-col md:inset-x-auto md:left-6 md:max-h-none md:w-[22rem]">
+      {(!compact || panelOpen) && <div ref={panelRef} data-map-panel-active className={compact ? 'map-mobile-panel operations-mobile-panel flex flex-col' : 'operations-panel absolute inset-x-3 flex max-h-[46dvh] flex-col md:inset-x-auto md:left-6 md:max-h-none md:w-[22rem]'}>
       <Panel strong className="flex min-h-0 flex-1 flex-col overflow-hidden">
-        <div className="border-b border-line p-1.5">
+        <div className="flex shrink-0 items-center justify-between gap-2 border-b border-line p-1.5">
           <SegmentedControl<Mode> label="Operations view" value={mode} onChange={setMode}
-            options={[{ value: 'queue', label: 'Queue' }, { value: 'simulate', label: 'Simulate' }]} className="flex" />
+            options={[{ value: 'queue', label: 'Queue' }, { value: 'simulate', label: 'Simulate' }]} className="flex flex-1" />
+          {compact && <IconButton label="Close operations panel" onClick={() => setPanelOpen(false)}><X size={18} /></IconButton>}
         </div>
         <div className="grid shrink-0 gap-2 px-3 pt-2">
           {damaged.error && <ErrorNote compact title="Road scenario unavailable." message={damaged.error} onRetry={damaged.reload} />}
@@ -173,7 +179,8 @@ export default function Operations() {
 
         {mode === 'queue' && (
           <div className="min-h-0 flex-1 overflow-y-auto p-1.5">
-            <p className="px-2.5 py-2 type-meta text-muted">{queue.data ? `Showing ${reports.length} of ${queue.data.total} queued reports (up to 200 loaded).` : queue.loading ? 'Loading report queue...' : 'Queue count unavailable.'} {ROAD_ANALYTICS_NOTE}</p>
+            <p className="px-2.5 py-2 type-meta text-muted">{queue.data ? `Showing ${reports.length} of ${queue.data.total} queued reports (up to 200 loaded).` : queue.loading ? 'Loading report queue...' : 'Queue count unavailable.'} {!compact && ROAD_ANALYTICS_NOTE}</p>
+            {compact && <details className="px-2.5 pb-2 type-meta text-muted"><summary className="cursor-pointer py-2">Road pilot scope</summary><p>{ROAD_ANALYTICS_NOTE}</p></details>}
             {queue.error && <ErrorNote compact message={queue.error} onRetry={queue.reload} />}
             {queue.loading && !queue.data && <div className="grid gap-2 p-2">{Array.from({ length: 4 }, (_, i) => <Skeleton key={i} className="h-20" />)}</div>}
             {queue.data && reports.length === 0 && <Empty title="No reports in the queue." />}
@@ -198,7 +205,7 @@ export default function Operations() {
         {mode === 'simulate' && (
           <div className="grid min-h-0 flex-1 content-start gap-3 overflow-y-auto p-3">
             <p className="type-label text-muted">Select an orange road segment for this repair scenario.</p>
-            <p className="type-meta text-muted">Road-network accessibility pilot only. Active reports of any category currently contribute to road disruption in this model; these results do not validate disruption or repair outcomes for non-road assets.</p>
+            <details className="type-meta text-muted" open={compact ? undefined : true}><summary className="cursor-pointer py-2">Road pilot scope</summary><p>Road-network accessibility pilot only. Active reports of any category currently contribute to road disruption in this model; these results do not validate disruption or repair outcomes for non-road assets.</p></details>
             {damaged.loading && !damaged.data && <p role="status" className="type-meta text-muted">Loading road scenarios...</p>}
             {damaged.data && damagedIds.size === 0 && <Empty title="No road segments are available for a repair scenario." />}
             <div className="flex gap-2">
@@ -241,9 +248,21 @@ export default function Operations() {
           </div>
         )}
       </Panel>
-      </div>
+      </div>}
 
-      {mode === 'queue' && sel && (
+      {compact && !panelOpen && (!sel || mode !== 'queue') && <Button className="map-panel-entry" onClick={() => setPanelOpen(true)} aria-expanded={false}>{mode === 'queue' ? 'Queue' : `Simulation (${repairs.length})`}</Button>}
+      {compact && !panelOpen && mode === 'queue' && sel && <MobileMapPanel title="Selected report" panelRef={panelRef} peek onClose={() => setSelected(null)}>
+        <div className="flex items-start gap-3">
+          <img src={sel.photo_url} alt="" className="h-16 w-16 shrink-0 rounded-xl object-cover" />
+          <div className="grid min-w-0 flex-1 gap-2">
+            <ReportIdentity report={sel} compact />
+            <StatusBadge status={sel.status} />
+            <ButtonLink to={`/admin/laporan/${sel.code}`}>Follow up</ButtonLink>
+            <Button variant="ghost" onClick={() => setPanelOpen(true)}>Queue / Simulation</Button>
+          </div>
+        </div>
+      </MobileMapPanel>}
+      {!compact && mode === 'queue' && sel && (
         <Panel strong className="operations-detail absolute right-3 hidden w-80 overflow-hidden md:block md:right-6">
           <img src={sel.photo_url} alt="" className="h-36 w-full object-cover" />
           <div className="grid gap-2 p-3">
@@ -251,7 +270,7 @@ export default function Operations() {
               <ReportIdentity report={sel} compact />
               <StatusBadge status={sel.status} />
             </div>
-            <p className="num type-meta text-muted">{METRIC_LABEL.roadPriority}: {formatScore(sel.priority_score)} · {METRIC_LABEL.roadImpact}: {formatScore(sel.impact_score)}</p>
+            <p className="num type-meta text-muted">{METRIC_LABEL.roadPriority}: {formatScore(sel.priority_score)}  /  {METRIC_LABEL.roadImpact}: {formatScore(sel.impact_score)}</p>
             <ButtonLink to={`/admin/laporan/${sel.code}`} size="sm" className="w-full">Follow up</ButtonLink>
           </div>
         </Panel>

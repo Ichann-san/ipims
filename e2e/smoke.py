@@ -84,8 +84,9 @@ def citizen(browser, base: str, c: Checker) -> str:
     c.ok(page, f"report submitted {code}, detail drawer")
 
     drawer.get_by_role("button", name="Close").click()
-    page.get_by_placeholder("Search code").fill(code)
-    page.get_by_placeholder("Search code").press("Enter")
+    expect(drawer).to_be_hidden()
+    page.get_by_placeholder("Search reports", exact=True).fill(code)
+    page.get_by_placeholder("Search reports", exact=True).press("Enter")
     expect(page.get_by_text("1 report", exact=True)).to_be_visible()
     c.ok(page, "search finds the report")
 
@@ -94,8 +95,10 @@ def citizen(browser, base: str, c: Checker) -> str:
     c.ok(page, "public map")
 
     page.goto(base + "/transparansi")
-    expect(page.get_by_role("heading", name="Latest 12 reports", exact=True)).to_be_visible()
-    expect(page.get_by_role("heading", name="Reports by stage", exact=True)).to_be_visible()
+    expect(page.get_by_role("heading", name="Report progress", exact=True)).to_be_visible()
+    stage_summary = page.locator("summary").filter(has_text="Reports by stage")
+    stage_summary.click()
+    expect(page.get_by_role("img", name="Reports by stage")).to_be_visible()
     c.ok(page, "transparency with progress")
     ctx.close()
     return code
@@ -117,7 +120,7 @@ def officer(browser, base: str, code: str, password: str, c: Checker):
 
     row.click()
     drawer = page.get_by_role("dialog", name=code)
-    expect(drawer.get_by_text("Road-context priority", exact=True)).to_be_visible()
+    expect(drawer.get_by_text("Priority", exact=True)).to_be_visible()
     for action, status in [("Approve", "Approved"), ("Assign", "Assigned"), ("Start repair", "In repair"), ("Complete repair", "Completed")]:
         drawer.get_by_role("button", name=action, exact=True).click()
         expect(drawer.locator("ol.border-l li").last.get_by_text(status)).to_be_visible()

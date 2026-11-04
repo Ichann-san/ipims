@@ -1,7 +1,7 @@
 # IPIMS scope and capability clarification
 
 Effective 2026-11-05. This addendum clarifies the approved Shift One work and the
-[consistency proposal](../plans/2026-11-05-concept-consistency-proposal.md), findings
+[Shift One audit](shift-one-audit.md), findings
 C01-C19. It does not replace historical results or implement analytical guardrails.
 
 **IPIMS = Intelligence Public Infrastructure Management System.**
@@ -128,7 +128,7 @@ records, not complete coverage. Preserve contextual explanations for analytical 
 
 ## Historical scope and expansion
 
-The November 3 system design and November 4 stage-two design are historical records.
+The November 3 system design and earlier stage-two design (Git history) are historical records.
 This addendum governs current scope/model terminology where they differ; their
 evaluations and delivered workflow remain intact. C01-C19 are addressed here as
 clarifications, not claims of functional remediation. Future domains require asset

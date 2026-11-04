@@ -1,14 +1,17 @@
 import { useEffect, useState } from 'react'
+import { useCompactLayout } from '../responsive'
+import { Button, Sheet } from './core'
 
 export function Footer() {
+  const compact = useCompactLayout()
+  const [aboutOpen, setAboutOpen] = useState(false)
   const [feedback, setFeedback] = useState('https://apps.mapbox.com/feedback/')
   useEffect(() => {
     const update = (event: Event) => setFeedback((event as CustomEvent<string>).detail)
     window.addEventListener('ipims-map-camera', update)
     return () => window.removeEventListener('ipims-map-camera', update)
   }, [])
-  return (
-    <footer className="site-footer border-t border-line bg-ink-950/95 backdrop-blur-md">
+  const details = (
       <div className="mx-auto grid min-h-24 max-w-6xl grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-2 px-4 py-3 text-xs text-muted md:min-h-[72px] md:gap-x-6 md:gap-y-1 md:px-6">
         <div className="col-span-2 row-start-1 flex flex-wrap items-center gap-2 md:col-span-1 md:gap-3">
           <img src="/pemkot-emblem.webp" alt="Pemerintah Kota Surabaya" width={156} height={200} className="h-9 w-auto shrink-0 object-contain md:h-14" />
@@ -30,6 +33,23 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </footer>
   )
+  return <>
+    <footer className={`site-footer border-t border-line bg-ink-950/95 backdrop-blur-md${compact ? ' site-footer-compact' : ''}`}>
+      {compact ? <div className="compact-footer-row">
+        <div className="compact-footer-meta">
+          <p>© {new Date().getFullYear()} IPIMS</p>
+          <div className="compact-footer-credits">
+            <a href="https://www.mapbox.com/about/maps/" target="_blank" rel="noreferrer">© Mapbox</a>
+            <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noreferrer">© OpenStreetMap</a>
+            <a href={feedback} target="_blank" rel="noreferrer">Improve this map</a>
+          </div>
+        </div>
+        <Button variant="ghost" className="compact-footer-about" aria-haspopup="dialog" aria-expanded={aboutOpen} onClick={() => setAboutOpen(true)}>About</Button>
+      </div> : details}
+    </footer>
+    <Sheet open={compact && aboutOpen} onClose={() => setAboutOpen(false)} title="About IPIMS">
+      <div className="footer-about-content">{details}</div>
+    </Sheet>
+  </>
 }

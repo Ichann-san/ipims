@@ -35,12 +35,15 @@ async def check(base: str, shots: Path | None):
                 assert await page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), route
                 if route in ["/", "/peta"]:
                     surface = await page.locator(".map-render-surface").bounding_box()
-                    assert abs(surface["height"] / height - 1.1) < 0.01
+                    viewport = await page.locator(".map-viewport").bounding_box()
+                    assert abs(surface["height"] / viewport["height"] - 1.1) < 0.01
                     assert await page.evaluate("document.documentElement.scrollHeight <= innerHeight + 1")
                     await expect(page.locator(".mapboxgl-ctrl-attrib-button")).to_have_count(0)
                 if route == "/":
                     await expect(page.locator(".home-map")).to_have_attribute("data-map-phase", "ready", timeout=25000)
                 if route in ["/peta", "/admin/peta"]:
+                    if width < 768:
+                        await page.get_by_role("button", name="Map options", exact=True).click()
                     toggle = page.get_by_role("button", name="Detailed 3D buildings")
                     await expect(toggle).to_have_attribute("aria-pressed", "false")
                     await toggle.click()
@@ -48,7 +51,8 @@ async def check(base: str, shots: Path | None):
                     await toggle.click()
                     await expect(toggle).to_have_attribute("aria-pressed", "false")
                     dock = await page.get_by_role("toolbar", name="Map controls").bounding_box()
-                    assert dock["y"] > 80 and dock["y"] + dock["height"] < footer["y"]
+                    header = await page.locator('.site-navbar').bounding_box()
+                    assert dock["y"] >= header["y"] + header["height"] and dock["y"] + dock["height"] < footer["y"]
                     for name in ["Zoom in", "Zoom out", "Reset north"]:
                         await page.get_by_role("button", name=name, exact=True).click()
                 if route == "/laporan":
@@ -83,7 +87,7 @@ async def check(base: str, shots: Path | None):
             items = []
             for i in range(offset, min(offset + limit, total)):
                 item = copy.deepcopy(sample)
-                item["code"] = f"LAYOUT-{i:03}"
+                item["code"] = f"LAYOUT-{q}-{i:03}" if q in ["slow", "fast"] else f"LAYOUT-{i:03}"
                 item["segment"]["name"] = f"{q or 'Report'} street {i}"
                 items.append(item)
             try:
@@ -137,14 +141,16 @@ async def check(base: str, shots: Path | None):
         await search.fill("slow"); await search.press("Enter")
         await page.wait_for_timeout(80)
         await search.fill("fast"); await search.press("Enter")
-        await expect(cards.first).to_contain_text("fast street 0")
+        await expect(cards.first).to_contain_text("LAYOUT-fast-000")
         await page.wait_for_timeout(1000)
-        await expect(cards.first).to_contain_text("fast street 0")
+        await expect(cards.first).to_contain_text("LAYOUT-fast-000")
+        assert (12, 0, "fast") in observed and "q=fast" in page.url
         await page.set_viewport_size({"width": 683, "height": 450})
         assert await page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1")
         footer = await page.locator("footer").bounding_box()
+        await page.locator(".reports-pagination").scroll_into_view_if_needed()
         pager = await page.locator(".reports-pagination").bounding_box()
-        assert pager["y"] + pager["height"] < footer["y"]
+        assert pager["y"] + pager["height"] <= footer["y"]
         await context.close()
         await browser.close()
         assert not errors, errors

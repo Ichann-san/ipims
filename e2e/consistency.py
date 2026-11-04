@@ -35,6 +35,8 @@ def check(base: str, shots: Path):
                 for selector in [".map-control-position", ".reports-pagination"]:
                     element = page.locator(selector)
                     if element.count():
+                        if selector == '.reports-pagination' and width < 768:
+                            element.scroll_into_view_if_needed()
                         rect = element.bounding_box()
                         assert rect["y"] + rect["height"] <= footer["y"], (width, route, selector)
                         if selector == '.map-control-position':
@@ -42,7 +44,8 @@ def check(base: str, shots: Path):
                             assert rect['y'] >= header['y'] + header['height'], (width, route, 'dock overlaps header')
                 if route in ["/", "/peta"]:
                     canvas = page.locator(".map-render-surface").bounding_box()
-                    assert abs(canvas["height"] / height - 1.1) < .01
+                    viewport = page.locator(".map-viewport").bounding_box()
+                    assert abs(canvas["height"] / viewport["height"] - 1.1) < .01
                 if route == "/dev/ui":
                     assert page.evaluate("!!getComputedStyle(document.documentElement).getPropertyValue('--color-blue-soft').trim()")
                     assert page.evaluate("!!getComputedStyle(document.documentElement).getPropertyValue('--color-ink-700').trim()")
@@ -93,7 +96,7 @@ def check(base: str, shots: Path):
         page.get_by_role("button", name="Close", exact=True).click()
         # Deep links must resolve a report even if it lies outside the latest-100 list.
         page.goto(base + "/peta?r=CONSISTENCY-LAMP")
-        popup = page.locator(".mapboxgl-popup-content")
+        popup = page.get_by_role("region", name="Selected report")
         expect(popup).to_contain_text("Street light", timeout=20000)
         assert "Plus Jakarta Sans" in popup.evaluate("e => getComputedStyle(e).fontFamily")
         manifest = page.request.get(base + "/manifest.webmanifest").json()

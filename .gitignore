@@ -21,3 +21,6 @@ ml/artifacts/
 *.pt
 *.onnx
 ml_build_last.log
+
+# Graphify may emit an extraction cache inside its scan root.
+frontend/src/graphify-out/
