@@ -1,4 +1,23 @@
-# Handoff ? 2026-11-04 (Codex), working maps and statistics
+# Handoff - 2026-11-04 (Codex), statistics alignment and component/map review
+
+## Latest follow-up (R3)
+
+- User requested centered statistics like the homepage, a component reuse audit,
+  review of Mapbox's 3D-model guide, and an idea review for delayed homepage icons.
+- Fixed centering at the shared Stat component and removed the homepage's redundant
+  parent alignment. All 16 uses across Home/Transparency/Dashboard/catalog verified
+  at 1366 and 390 px; frontend build passes. No backend changes or new data writes.
+- Audit and source-backed map proposals: `docs/plans/2026-11-04-component-map-review.md`.
+  Follow-ups: 3 Link/Button nests, duplicate status palettes, 11 px catalog-only
+  mobile overflow. Compact simulation metrics and tracker variants are contextual.
+- The linked optimization guide concerns authored glTF/GLB models; app overlays are
+  circle layers. Recommended experiment: prefetch reports during fly-in, attach the
+  source/layers after initial move completion, then resume the original slow orbit.
+  No homepage timing/model change implemented. Continuous orbit must not starve an
+  idle wait. Keep the user's existing scene and appearance.
+- Validation below for backend/calendar/e2e is from R2; R3 only required frontend
+  build and focused desktop/mobile component checks. Catalog overflow is recorded,
+  not silently counted as a successful no-overflow check.
 
 ## State
 

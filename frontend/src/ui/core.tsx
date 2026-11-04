@@ -86,7 +86,7 @@ export function Field({ label, hint, error, children }: { label: string; hint?: 
 
 export function Stat({ label, value, tone }: { label: string; value: ReactNode; tone?: string }) {
   return (
-    <div className="min-w-0">
+    <div className="min-w-0 text-center">
       <p className="num text-2xl font-bold leading-tight" style={tone ? { color: tone } : undefined}>{value}</p>
       <p className="truncate text-xs text-muted">{label}</p>
     </div>

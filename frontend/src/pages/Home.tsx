@@ -67,7 +67,7 @@ export default function Home() {
           <Button variant="primary" icon={<Plus size={18} weight="bold" />} onClick={() => nav('/laporan?buat=1')}>Report</Button>
           <Link to="/peta"><Button icon={<ArrowRight size={18} />}>Open map</Button></Link>
         </div>
-        <Panel className="mt-1 grid grid-cols-3 gap-4 px-5 py-3 text-center">
+        <Panel className="mt-1 grid grid-cols-3 gap-4 px-5 py-3">
           <Stat label="Active reports" value={s ? s.active : '-'} />
           <Stat label="Completed" value={s ? s.by_status.completed : '-'} tone="var(--color-st-completed)" />
           <Stat label="Approval time" value={s?.median_hours_to_verify != null ? `${s.median_hours_to_verify} h` : '-'} />
