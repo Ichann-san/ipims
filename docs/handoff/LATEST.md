@@ -1,3 +1,9 @@
+# Handoff - Pemkot logo divider
+
+- Added a centered 1px vertical line after Pemkot, using the existing line-strong token; 32px phone / 40px desktop height. Decorative and hidden from assistive technology.
+- Production build passes. User logo sizing edits preserved and excluded from this commit.
+- Previous context follows.
+
 # Handoff - optical footer logo sizing
 
 - Replaced equal-height logo sizing with individually balanced sizes and a shared flex centerline.

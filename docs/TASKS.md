@@ -43,3 +43,4 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | R8 | Website | Approved compact Inovboyo/IPIMS shared footer | done | Supplied logo, copyright and right-aligned map credits; production build and 15 responsive footer checks pass |
 | R9 | Website | Fix expanded footer logo proportions and mobile fit | done | Four supplied marks load with intrinsic aspect ratios; build and 12 responsive route checks pass |
 | R10 | Website | Balance footer logos by visible artwork and center alignment | done | ITS headroom framed without asset edits; four viewport checks and build pass |
+| R11 | Website | Divider after Pemkot footer mark | done | Centered decorative divider added; production build passes |

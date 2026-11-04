@@ -12,6 +12,7 @@ export function Footer() {
       <div className="mx-auto grid min-h-24 max-w-6xl grid-cols-[auto_minmax(0,1fr)] items-center gap-x-3 gap-y-2 px-4 py-3 text-xs text-muted md:min-h-[72px] md:gap-x-6 md:gap-y-1 md:px-6">
         <div className="col-span-2 row-start-1 flex flex-wrap items-center gap-2 md:col-span-1 md:row-span-2 md:gap-3">
           <img src="/pemkot-emblem.webp" alt="Pemerintah Kota Surabaya" width={156} height={200} className="h-9 w-auto shrink-0 object-contain md:h-10" />
+          <span aria-hidden="true" className="h-8 w-px shrink-0 bg-line-strong md:h-10" />
           {/* The ITS export has empty headroom; frame the artwork without changing the source asset. */}
           <img src="/its.png" alt="Institut Teknologi Sepuluh Nopember" width={2198} height={1356} className="h-9 w-[94px] shrink-0 object-cover object-bottom md:h-12 md:w-[125px]" />
           <img src="/brida-dark.webp" alt="BRIDA Kota Surabaya" width={586} height={160} className="h-7 w-auto shrink-0 object-contain md:h-10" />
