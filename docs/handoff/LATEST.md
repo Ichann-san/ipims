@@ -38,6 +38,17 @@ rules in docs/frontend.md. C01-C19 baseline evidence retained in docs/concept/sh
 Historical system design, contracts, ML evaluations, current concept and legacy fixture assets retained.
 Documentation links checked. No application assets/dependencies/datasets/media removed.
 
-Graphify final export and generated audit/cache cleanup are being finalized in the next commit.
+Graphify exported from final frontend code commit dee3195e0696adb965d174a9a999acb2b90386d4:
+32 TypeScript/TSX files, 220 nodes, 664 edges, nine communities, zero extraction API tokens.
+Exported endpoint integrity and source freshness checked; a compact-workspace query resolves.
+Raw AST limitations: 49 unresolved edges omitted, six duplicate undirected pairs collapsed;
+no self-loops. These are extraction limits, not proven application defects.
+
+Removed six generated folders after verification: .venv/mobile-audit, .venv/refactor-baseline,
+.venv/refactor-checks, .venv/mobile-checks, frontend/.venv and frontend/src/graphify-out.
+The nested Graphify cache is now explicitly ignored to prevent accidental source commits.
+At 320x568, final navbar/footer measured 56px/49px; pager is in flow, compared with the old
+66px/124px chrome plus 120px fixed pager. Rendered phone/desktop map scenes visually checked.
+Current guides retain reproducible checks; screenshots are temporary and were cleaned.
 Graph covers frontend TypeScript/TSX only; CSS/HTML/assets/tests/docs/backend/ML are separate.
 Nothing pushed. Local API8000/PostGIS5433 and preview5289 support the checks.
