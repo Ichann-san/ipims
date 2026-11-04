@@ -46,3 +46,6 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | R11 | Website | Divider after Pemkot footer mark | done | Centered decorative divider added; production build passes |
 | R12 | Website | Fix footer team-name placement | done | Names, copyright and credits stacked without grid overlap; build and four viewport checks pass |
 | R13 | Concept/Planning | Audit Shift One scope and frontend consistency; propose two-track plan | done | 19 concept mismatches and 28 UI findings recorded in docs/plans/2026-11-05-concept-consistency-proposal.md; implementation awaits approval |
+| R14 | Concept | Clarify public infrastructure scope and Shift One road-pilot limits | done | Canonical glossary, capability matrix, C01-C19 corrections and explicit analytical follow-up specification delivered |
+| R15 | Website | Implement approved U01-U28 consistency refactor | done | Build/lint/11 tests; 16 layout checks, 40 consistency checks and 11-step smoke pass; behavior and user styling preferences preserved |
+| R16 | Documentation | Refresh Graphify for integrated frontend source | done | 30 source files, 210 nodes, 595 edges; snapshot tagged to 8ae4f4a; raw extraction limits and coverage recorded |

@@ -1,120 +1,107 @@
 # Graph Report - src  (2026-11-05)
 
 ## Corpus Check
-- Corpus is ~11,798 words - fits in a single context window. You may not need a graph.
+- Corpus is ~14,000 words - fits in a single context window. You may not need a graph.
 
 ## Summary
-- 181 nodes · 475 edges · 11 communities
+- 210 nodes · 595 edges · 7 communities
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
+## Graph Freshness
+- Built from commit: `8ae4f4a3`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
+
 ## Community Hubs (Navigation)
-- Map layers and simulation
-- Report browsing and controls
-- API data contracts
-- Routing and shared chrome
-- Status progress and charts
-- Officer actions and scoring
-- Report detail and presentation
-- Category and severity labels
-- Homepage entrance lifecycle
-- Async state and composition
-- Photo report submission
+- Infrastructure labels and identity
+- Map data and report layers
+- API contracts and chart data
+- Shared controls and overlay focus
+- Routing and persistent shell
+- Report submission and pagination
+- Homepage scene and civic metrics
 
 ## God Nodes (most connected - your core abstractions)
-1. `useAsync()` - 18 edges
-2. `roadName()` - 13 edges
+1. `useAsync()` - 19 edges
+2. `formatScore()` - 11 edges
 3. `useRegion()` - 11 edges
-4. `api` - 9 edges
-5. `Status` - 8 edges
-6. `Panel()` - 8 edges
-7. `Report` - 7 edges
-8. `stageHomeIntro()` - 7 edges
-9. `useSegments()` - 7 edges
-10. `Operations()` - 7 edges
+4. `ReportIdentity()` - 11 edges
+5. `Status` - 9 edges
+6. `Report` - 9 edges
+7. `Operations()` - 9 edges
+8. `Button()` - 9 edges
+9. `controlCls()` - 9 edges
+10. `api` - 8 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `AdminReport()` --calls--> `useAsync()`  [EXTRACTED]
-  pages/admin/Dashboard.tsx → hooks.ts
-- `Dashboard()` --calls--> `useAsync()`  [EXTRACTED]
-  pages/admin/Dashboard.tsx → hooks.ts
 - `WeightsEditor()` --calls--> `useAsync()`  [EXTRACTED]
   pages/admin/Dashboard.tsx → hooks.ts
-- `Operations()` --calls--> `useAsync()`  [EXTRACTED]
-  pages/admin/Operations.tsx → hooks.ts
-- `DevUI()` --calls--> `useAsync()`  [EXTRACTED]
-  pages/DevUI.tsx → hooks.ts
+- `ReportRow()` --calls--> `formatScore()`  [EXTRACTED]
+  pages/Reports.tsx → labels.ts
+- `Dashboard()` --calls--> `useAsync()`  [EXTRACTED]
+  pages/admin/Dashboard.tsx → hooks.ts
+- `Home()` --calls--> `useAsync()`  [EXTRACTED]
+  pages/Home.tsx → hooks.ts
+- `Reports()` --calls--> `useAsync()`  [EXTRACTED]
+  pages/Reports.tsx → hooks.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (11 total, 0 thin omitted)
+## Communities (7 total, 0 thin omitted)
 
-### Community 0 - "Map layers and simulation"
-Cohesion: 0.10
-Nodes (34): api, FeatureCollection, SegmentProps, WhatIfResult, CATEGORY_LABEL, FACILITY_LABEL, formatIdr(), FacilitiesLayer() (+26 more)
+### Community 0 - "Infrastructure labels and identity"
+Cohesion: 0.09
+Nodes (39): Category, Criterion, StatusEvent, CATEGORIES, CATEGORY_LABEL, CRITERION_LABEL, DAMAGE_LABEL, FACILITY_LABEL (+31 more)
 
-### Community 1 - "Report browsing and controls"
-Cohesion: 0.13
-Nodes (23): STATUSES, MapDock(), MapDockProps, SWATCHES, ACTIVE, Reports(), Scope, initialPageSize() (+15 more)
-
-### Community 2 - "API data contracts"
-Cohesion: 0.10
-Nodes (20): AIResult, ApiError, FacilityProps, Feature, GraphSummary, Page, PriorityItem, Recommendation (+12 more)
-
-### Community 3 - "Routing and shared chrome"
+### Community 1 - "Map data and report layers"
 Cohesion: 0.11
-Nodes (17): getToken(), request(), setToken(), AdminLayout(), App(), Dashboard, DevUI, Home (+9 more)
+Nodes (32): api, FeatureCollection, Report, SegmentProps, useAsync(), formatScore(), roadName(), FacilitiesLayer() (+24 more)
 
-### Community 4 - "Status progress and charts"
-Cohesion: 0.21
-Nodes (11): Status, StatusEvent, STATUS_LABEL, ACTIVE, Scope, Chip(), ErrorNote(), Skeleton() (+3 more)
+### Community 2 - "API contracts and chart data"
+Cohesion: 0.08
+Nodes (28): AIResult, FacilityProps, Feature, GraphSummary, Page, PriorityItem, Recommendation, RoadGroup (+20 more)
 
-### Community 5 - "Officer actions and scoring"
-Cohesion: 0.20
-Nodes (8): RoadGroup, Weights, CRIT_HEX, CRITERIA, Filter, Login(), NEXT, OPD
+### Community 3 - "Shared controls and overlay focus"
+Cohesion: 0.12
+Nodes (27): ReportDetail, IMPACT_RAMP, MapDock(), MapDockProps, DevUI(), REPORT, SWATCHES, pageNumbers() (+19 more)
 
-### Community 6 - "Report detail and presentation"
-Cohesion: 0.31
-Nodes (8): formatDate(), roadName(), AdminReport(), age(), Dashboard(), ReportDetailView(), ReportRow(), reachedStages()
+### Community 4 - "Routing and persistent shell"
+Cohesion: 0.11
+Nodes (16): getToken(), request(), setToken(), AdminLayout(), Dashboard, DevUI, Home, Login (+8 more)
 
-### Community 7 - "Category and severity labels"
-Cohesion: 0.25
-Nodes (7): Category, Criterion, Severity, CATEGORIES, CRITERION_LABEL, DAMAGE_LABEL, SEVERITY_LABEL
+### Community 5 - "Report submission and pagination"
+Cohesion: 0.15
+Nodes (14): ApiError, useSegments(), Login(), ACTIVE, ReportForm(), onFile(), ReportRow(), Reports() (+6 more)
 
-### Community 8 - "Homepage entrance lifecycle"
-Cohesion: 0.39
-Nodes (3): CityCamera, IntroMap, stageHomeIntro()
-
-### Community 9 - "Async state and composition"
-Cohesion: 0.33
-Nodes (5): useAsync(), WeightsEditor(), DevUI(), Transparency(), statusColor()
-
-### Community 10 - "Photo report submission"
-Cohesion: 0.50
-Nodes (3): ReportForm(), onFile(), shrink()
+### Community 6 - "Homepage scene and civic metrics"
+Cohesion: 0.18
+Nodes (10): BRAND, METRIC_LABEL, CityCamera, IntroMap, stageHomeIntro(), Home(), reduceMotion(), formatCoord() (+2 more)
 
 ## Knowledge Gaps
-- **35 isolated node(s):** `PriorityItem`, `SegmentRef`, `Page`, `Recommendation`, `GraphSummary` (+30 more)
+- **36 isolated node(s):** `PriorityItem`, `SegmentRef`, `Page`, `Recommendation`, `GraphSummary` (+31 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `useAsync()` connect `Async state and composition` to `Map layers and simulation`, `Report browsing and controls`, `Status progress and charts`, `Officer actions and scoring`, `Report detail and presentation`?**
-  _High betweenness centrality (0.047) - this node is a cross-community bridge._
-- **Why does `stageHomeIntro()` connect `Homepage entrance lifecycle` to `Map layers and simulation`?**
-  _High betweenness centrality (0.044) - this node is a cross-community bridge._
-- **Why does `roadName()` connect `Report detail and presentation` to `Map layers and simulation`, `Report browsing and controls`, `Status progress and charts`, `Officer actions and scoring`, `Category and severity labels`, `Async state and composition`?**
-  _High betweenness centrality (0.018) - this node is a cross-community bridge._
+- **Why does `useAsync()` connect `Map data and report layers` to `Infrastructure labels and identity`, `Report submission and pagination`, `Homepage scene and civic metrics`?**
+  _High betweenness centrality (0.038) - this node is a cross-community bridge._
+- **Why does `ReportForm()` connect `Report submission and pagination` to `Map data and report layers`?**
+  _High betweenness centrality (0.016) - this node is a cross-community bridge._
 - **What connects `PriorityItem`, `SegmentRef`, `Page` to the rest of the system?**
-  _35 weakly-connected nodes found - possible documentation gaps or missing edges._
-- **Should `Map layers and simulation` be split into smaller, more focused modules?**
-  _Cohesion score 0.1024390243902439 - nodes in this community are weakly interconnected._
-- **Should `Report browsing and controls` be split into smaller, more focused modules?**
-  _Cohesion score 0.12688172043010754 - nodes in this community are weakly interconnected._
-- **Should `API data contracts` be split into smaller, more focused modules?**
-  _Cohesion score 0.09846153846153846 - nodes in this community are weakly interconnected._
-## Extraction limits
+  _36 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Infrastructure labels and identity` be split into smaller, more focused modules?**
+  _Cohesion score 0.09090909090909091 - nodes in this community are weakly interconnected._
+- **Should `Map data and report layers` be split into smaller, more focused modules?**
+  _Cohesion score 0.11341463414634147 - nodes in this community are weakly interconnected._
+- **Should `API contracts and chart data` be split into smaller, more focused modules?**
+  _Cohesion score 0.08021390374331551 - nodes in this community are weakly interconnected._
+- **Should `Shared controls and overlay focus` be split into smaller, more focused modules?**
+  _Cohesion score 0.11612903225806452 - nodes in this community are weakly interconnected._
+## Coverage and verification boundary
 
-AST diagnostics: 44 dangling-endpoint edges and 3 collapsed same-endpoint relations. The graph remains incomplete; implementation decisions and validation were checked against source and browser behavior. No extraction LLM/API tokens used.
+This AST graph covers 30 TypeScript/TSX files in frontend/src at code commit 8ae4f4a3c3431028d524a509822c94dac5991551. CSS, HTML, public manifest/assets, tests, backend/ML and concept documents are outside this graph and were checked separately. No LLM/API extraction tokens were used.
+
+Extraction health warning: 45 raw edges have unresolved endpoints and were omitted by the graph builder; 6 repeated undirected endpoint pairs collapsed. Exported edges reference existing nodes. These are AST extraction limitations, not validated application defects. Source and browser behavior remain authoritative.
