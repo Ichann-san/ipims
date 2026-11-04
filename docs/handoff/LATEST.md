@@ -1,3 +1,13 @@
+# Handoff - compact shared footer
+
+- Implemented approved design in Footer.tsx: supplied inovboyo.svg emblem/label left; IPIMS/current-year copyright and Mapbox/OpenStreetMap/Improve this map right.
+- Existing fixed shell and measured insets reused; camera-aware feedback preserved.
+- Production build passes. Headless Edge: 15 footer checks (5 routes x 1366/390/320px); logo loaded, all links visible, footer pinned, measured insets and map/pagination clearances correct. Visual review at desktop and 390px passed.
+- Heights including border: 73px desktop, 97px phones.
+- Existing unrelated navbar extends about 1.7px past the 320px viewport on /dev/ui; footer itself fits. No horizontal overflow at 390/1366px. Kept outside this footer change.
+- User edits to CSS, navbar, pages, report paging, HTML and removed old icons remain untouched/uncommitted. Other supplied institutional logo assets remain untracked.
+- Next: review footer in preview at http://127.0.0.1:5289. Previous implementation context follows.
+
 # Handoff - navbar brand icon
 
 - Shared public/officer navbar now uses supplied favicon.svg at 40px.

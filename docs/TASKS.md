@@ -40,3 +40,4 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 
 | R6 | Website | Use supplied SVG favicon with PNG fallback | done | HTML references supplied assets; production build passes |
 | R7 | Website | Use supplied favicon as shared navbar brand mark | done | Public/officer mark updated; production build passes |
+| R8 | Website | Approved compact Inovboyo/IPIMS shared footer | done | Supplied logo, copyright and right-aligned map credits; production build and 15 responsive footer checks pass |
