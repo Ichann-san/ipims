@@ -1,8 +1,110 @@
-# Claude handoff - completed IPIMS web and branch promotion
+# Claude handoff - IPIMS deployment repair
+
+Updated November 5, 2026. Latest task: repair Vercel while retaining the original URL.
+
+## Current deployment
+
+- Public production domain: **https://ipims-one.vercel.app**, original project `ipims`.
+- The stack is **Vite/React + FastAPI**, not Next.js. `vercel.json` uses Vercel
+  Services for the frontend and backend under one domain. `/api/*` and `/media/*`
+  enter FastAPI; other routes/assets enter Vite with SPA deep-link fallback.
+- Dashboard framework/root/build/install/output overrides are unset. The previous
+  failed build referenced removed `ipims-web/`; another setting selected Next.js.
+  Separate `backend` pointed at `legacy/backend`, and `ml` had no web entrypoint.
+  The separate frontend/backend/ml projects are not dependencies of this release.
+- Dedicated Neon **ipims-postgis** on the Free plan, with PostGIS, region `iad1`.
+  Existing unrelated Neon resources were not modified.
+- Private Blob **ipims-media**, region `iad1`, stores durable photos and the private
+  graph bundle. Both resources are connected only to this project's production env.
+- Initial cloud import preserved 58,445 segments, 3,218 facility destinations,
+  50 reports, 212 events, two weight profiles and one admin. Imported DB was about
+  38.5 MB. Only referenced photos were copied; local data was not reset or edited.
+- One explicitly labelled synthetic deployment verification report **000197** was
+  created and completed through the normal officer lifecycle; it is marked seed
+  data and states no field repair occurred. Cloud now contains 51 reports.
+- Production officer login is `/admin/login`, username `admin`, with a generated
+  password in git-ignored **`.vercel/production.env`**, key `IPIMS_ADMIN_PASSWORD`.
+  Local `admin/admin123` is unchanged. Production JWT signing secret is separate.
+  Never print or commit the env file, tokens, credentials, weights or datasets.
+
+## Code changes and release
+
+Initial fix commit: **03eed47**, followed by the backend Python-version pin and
+this handoff. Work was committed on `fix/vercel-deployment`; user explicitly
+approved pushing the fix to `main`. Preserve old `1.0` at `4683ef8` and the accepted
+`rebuild/v1` UI at `9c67dff`; no force-push or history replacement is needed.
+
+- Production Python manifest: root `pyproject.toml`, Python 3.12, CPU Torch.
+  Root/backend `.python-version` pins support both build entrypoints.
+- `scripts/prepare_deployment.py` downloads the private graph bundle, verifies its
+  SHA-256 and exact manifest, and bundles the existing CLIP model's public
+  safetensors/tokenizer at revision `1a25a446712ba5ee05982a381eed697ef9b435cf`.
+  Surabaya graph/impact and GNN predictions/evaluation are retained; no training or
+  algorithm changes. Optional CV head is preserved if present; this deployment
+  matches the local `clip-b32-laion+zeroshot-v1` model because no head exists locally.
+- `IPIMS_MEDIA_STORAGE=blob` switches photo persistence to private Blob; default
+  local storage remains. `/media/reports/<uuid>.jpg` intentionally serves public
+  report photos through the app. Other paths are rejected, including runtime ZIPs.
+- `IPIMS_CV_MODEL_PATH` loads bundled weights locally, without runtime downloads.
+  Relative model/artifact paths resolve against repository root.
+- `.vercelignore` excludes secrets, local data and development artifacts from CLI
+  uploads. No frontend/Mapbox/UI source was changed in this task.
+- Two staged deployments passed before domain promotion. The committed release
+  promoted to production was `dpl_5NTkQwL6LweXrwFgzsdUqKanGFA1`; a subsequent main
+  Git deployment may become the latest alias. Use the production URL, not a
+  protected generated deployment URL. Do not disable deployment protection for QA.
+
+Full configuration, release commands and rollback: **`docs/deployment.md`**.
+
+## Verification in this deployment task
+
+- Frontend production build and **11 tests** passed; existing Mapbox bundle warning.
+- Backend **33 tests**, ML **5 tests**, and Git whitespace checks passed. One
+  existing AnyIO/pytest deprecation warning remains.
+- Staging: SPA routes/assets, report list/detail/stats, region, segment/facility
+  GeoJSON, officer queue/login, graph summary, what-if and real CLIP inference.
+- Real upload and four officer transitions passed. Direct unauthenticated access
+  to the private Blob URL was denied. Its public report photo remained byte-identical
+  after redeployment and domain promotion.
+- Anonymous original-domain checks passed for HTML, JSON API, photos and real AI;
+  post-analysis health showed database/CV/graph all true. Initial health may show
+  `cv: false` during background warm-up, as before.
+- Browser QA uses fresh isolated Edge contexts against the public domain. It
+  passed all six Home/Reports/Map samples at desktop 1366x900 and mobile 390x844,
+  including report image loading and absence of horizontal page overflow or
+  uncaught JavaScript errors. See ignored `.vercel/qa` results;
+  do not claim physical-device testing or a load test.
+- Operator bootstrap/verification scripts and credentials are ignored under
+  `.vercel/`; production requires only the committed build script/config and the
+  connected Vercel environment/resources. Do not rerun bootstrap on an occupied DB.
+
+## Material limits / next session
+
+Vercel Services and large Python functions are beta. Existing project requires
+Fluid Compute and `VERCEL_SUPPORT_LARGE_FUNCTIONS=1` for the model bundle. Cold
+API/upload requests observed about 6–9 seconds; warm reads were usually subsecond.
+These are individual checks, not performance guarantees. Hobby limits/quotas
+apply; no paid plan was selected. Production-only resources do not configure
+preview deployments automatically.
+
+Vercel's request transport limit is 4.5 MB including multipart overhead. The
+frontend already resizes/re-encodes photos. Local API's 8 MB photo validation is
+unchanged; raw API clients must respect the smaller hosted limit.
+
+Current user-approved UI, globe entrance, mobile repair, logo/footer styling and
+Mapbox position overrides remain authoritative. Canonical definition and C04-C09
+analytical limitations below still apply. No frontend TSX changed, so Graphify was
+not regenerated; its existing snapshot/coverage limitations remain as recorded.
+Read AGENTS.md, this section, docs/deployment.md and the current task board first.
+
+---
+
+## Historical accepted web and branch handoff (before deployment repair)
 
 Updated November 5, 2026. User says the web is finished and everything looks good.
 This handoff records completed work, not authorization to start another refactor.
-This session changed branch references and documentation only; no application code edits.
+That earlier branch-promotion session changed references/docs only. The deployment
+continuation above supersedes its hosting status and next-session instructions.
 
 ## Start here
 

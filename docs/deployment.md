@@ -17,6 +17,8 @@ those settings. Do not point the project at removed `ipims-web/`, `legacy/backen
 or select Next.js. `ml/` is a Python library, not a standalone web app.
 
 The production Python manifest is `pyproject.toml` (Python 3.12, CPU-only Torch).
+Both the root and backend `.python-version` pin 3.12 because the Python builder
+also detects settings beside the backend entrypoint.
 `uv run` in the backend build command installs this manifest. Local graph-building
 and evaluation dependencies remain in the existing backend/ML requirements files.
 
