@@ -47,6 +47,8 @@ export interface Page<T> { items: T[]; total: number }
 export interface Stats {
   total: number
   active: number
+  awaiting_approval: number
+  open_over_7_days: number
   by_status: Record<Status, number>
   by_category: Record<Category, number>
   completed_rate: number
@@ -173,9 +175,9 @@ export const api = {
   },
   getReport: (code: string) => request<ReportDetail>(`/reports/${encodeURIComponent(code)}`),
   stats: () => request<Stats>('/stats'),
-  segments: (bbox: string) => request<FeatureCollection<SegmentProps>>('/segments' + qs({ bbox })),
+  segments: (bbox: string, signal?: AbortSignal) => request<FeatureCollection<SegmentProps>>('/segments' + qs({ bbox }), { signal }),
   activeSegments: () => request<FeatureCollection<SegmentProps>>('/segments' + qs({ active: '1' })),
-  facilities: (bbox: string) => request<FeatureCollection<FacilityProps>>('/facilities' + qs({ bbox })),
+  facilities: (bbox: string, signal?: AbortSignal) => request<FeatureCollection<FacilityProps>>('/facilities' + qs({ bbox }), { signal }),
 
   async login(username: string, password: string) {
     const res = await request<{ token: string; expires_at: string }>('/auth/login', {

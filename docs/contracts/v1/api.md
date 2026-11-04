@@ -85,6 +85,8 @@ Query: `status` (repeatable), `category` (repeatable), `q` (text in description/
 {
   "total": 0,
   "active": 0,
+  "awaiting_approval": 0,            // all reported + ai_verified, independent of queue pagination
+  "open_over_7_days": 0,            // active reports aged at least 7 days
   "by_status": {"reported": 0, "...": 0},
   "by_category": {"jalan": 0, "...": 0},
   "by_kecamatan": {"Sukolilo": 0, "...": 0, "lainnya": 0},   // kecamatan of the snapped segment; "lainnya" = not snapped or outside
@@ -94,6 +96,12 @@ Query: `status` (repeatable), `category` (repeatable), `q` (text in description/
   "monthly": [{"month": "2026-11", "reported": 0, "completed": 0}]
 }
 ```
+
+Calendar months in `/stats.monthly` use Asia/Jakarta (WIB). Months with no events may
+be absent; clients fill the six consecutive calendar months ending in the current
+WIB month with zeros. `completed_rate` is the share of closed reports that were
+completed; UI percentages of **all** reports instead use `by_status.completed / total`.
+The approval and overdue aggregates were added by Concept task R2 (2026-11-04).
 
 `GET /segments` → GeoJSON FeatureCollection, properties = `SegmentRef` + `active_reports`. Max 5000 features.
 Query: `bbox` (required unless `active=1`), `active` (`1` = only segments with at least one active report). Without either → 400.

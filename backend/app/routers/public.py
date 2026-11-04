@@ -1,11 +1,12 @@
 import json
 import statistics
 from collections import Counter, defaultdict
+from datetime import datetime, timedelta, timezone
 
 from fastapi import APIRouter, Depends, File, Form, HTTPException, Query, UploadFile
 from geoalchemy2.functions import ST_AsGeoJSON, ST_Intersects, ST_MakeEnvelope
 from sqlalchemy import func, or_, select, text
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, selectinload
 
 from ..config import settings
 from ..db import get_db
@@ -117,14 +118,16 @@ def _median_hours(pairs) -> float | None:
 
 @router.get("/stats")
 def stats(db: Session = Depends(get_db)):
-    rows = db.scalars(select(Report)).unique().all()
+    rows = db.scalars(select(Report).options(selectinload(Report.events))).unique().all()
+    now = datetime.now(timezone.utc)
+    reporting_tz = timezone(timedelta(hours=7))  # Surabaya / Kediri (WIB)
     by_status = Counter(r.status for r in rows)
     by_category = Counter(r.category for r in rows)
     by_kecamatan = Counter((r.segment.kecamatan if r.segment and r.segment.kecamatan else "lainnya") for r in rows)
     to_verify, to_complete = [], []
     monthly = defaultdict(lambda: {"reported": 0, "completed": 0})
     for r in rows:
-        monthly[r.created_at.strftime("%Y-%m")]["reported"] += 1
+        monthly[r.created_at.astimezone(reporting_tz).strftime("%Y-%m")]["reported"] += 1
         first = {}
         for e in r.events:
             first.setdefault(e.to_status, e.created_at)
@@ -132,7 +135,7 @@ def stats(db: Session = Depends(get_db)):
         to_verify.append((r.created_at, verified))
         if "completed" in first:
             to_complete.append((r.created_at, first["completed"]))
-            monthly[first["completed"].strftime("%Y-%m")]["completed"] += 1
+            monthly[first["completed"].astimezone(reporting_tz).strftime("%Y-%m")]["completed"] += 1
     closed = by_status.get("completed", 0) + by_status.get("rejected", 0)
     return {
         "total": len(rows),
@@ -141,6 +144,8 @@ def stats(db: Session = Depends(get_db)):
         "by_kecamatan": dict(by_kecamatan.most_common()),
         "completed_rate": round(by_status.get("completed", 0) / closed, 3) if closed else 0.0,
         "active": sum(by_status.get(s, 0) for s in ACTIVE),
+        "awaiting_approval": sum(by_status.get(s, 0) for s in ("reported", "ai_verified")),
+        "open_over_7_days": sum(r.status in ACTIVE and r.created_at <= now - timedelta(days=7) for r in rows),
         "median_hours_to_verify": _median_hours(to_verify),
         "median_hours_to_complete": _median_hours(to_complete),
         "monthly": [{"month": m, **v} for m, v in sorted(monthly.items())],

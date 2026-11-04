@@ -27,3 +27,10 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | U2b | Website | Peta Operasi with live simulation + comparison | done | click recolours map; before/after toggle (swipe dropped, user OK) |
 | U4 | Website | Quality pass + PWA | done | axe: no serious/critical issues; phone layouts checked; lazy-loaded map chunk; manifest + icons |
 | U5 | Demo | Real phone test, demo video run | todo | demo script runs |
+
+## Codex continuation — 2026-11-04
+
+| ID | Track | Task | Status | Done when |
+|---|---|---|---|---|
+| R1 | Review | Restore prior session; review map performance and statistics ideas | done | Source findings, build baseline, alternatives and chart mapping recorded in `docs/plans/2026-11-04-performance-statistics-review.md` |
+| R2 | Concept/Website | Implement approved working-map performance controls and Chart.js statistics; preserve original homepage map | done | Bounded city working maps, optional 3D, cancelled stale requests, five accessible charts, WIB calendar and full-dataset KPI fixes; contract updated; frontend build/tests, backend 16 tests and e2e 11 steps pass |

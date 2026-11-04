@@ -27,7 +27,7 @@ export default function MapPage() {
   useEffect(() => {
     const r = focus ? byCode.get(focus) : undefined
     if (!r) return
-    mapRef.current?.flyTo({ center: [r.lng, r.lat], zoom: 16.5, pitch: 55, duration: 2200 })
+    mapRef.current?.flyTo({ center: [r.lng, r.lat], zoom: 16.5, duration: 700 })
     setPick({ kind: 'report', report: r })
   }, [focus, byCode])
 
@@ -45,9 +45,9 @@ export default function MapPage() {
   const toggle = (k: keyof typeof layers) => setLayers((l) => ({ ...l, [k]: !l[k] }))
   return (
     <div className="relative h-[100dvh]">
-      <MapCanvas mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
+      <MapCanvas constrainToRegion mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
         interactiveLayerIds={[layers.reports ? 'reports' : '', layers.impact && segments ? 'segments' : ''].filter(Boolean)}
-        initialViewState={{ longitude: region.center[0], latitude: region.center[1], zoom: 12.6, pitch: 50, bearing: -12 }}>
+        initialViewState={{ longitude: region.center[0], latitude: region.center[1], zoom: 12.6, pitch: 25, bearing: -12 }}>
         {segments && <SegmentsLayer data={segments} />}
         {facilities && <FacilitiesLayer data={facilities} />}
         {layers.reports && <ReportsLayer reports={reports.data?.items ?? []} selected={pick?.kind === 'report' ? pick.report.code : null} />}

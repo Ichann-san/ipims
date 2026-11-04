@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Layer, Source } from 'react-map-gl/mapbox'
 import { api, type FacilityProps, type FeatureCollection, type Report, type SegmentProps } from '../api'
 
@@ -15,27 +15,33 @@ const impactColor = ['interpolate', ['linear'], ['get', 'impact_score'], ...IMPA
 /** Road segments with Impact Score colouring. Loaded for the visible area from zoom 13. */
 export function useSegments(view: { bbox: string; zoom: number } | null, enabled = true) {
   const [data, setData] = useState<FeatureCollection<SegmentProps> | null>(null)
+  const bbox = enabled && view && view.zoom >= 13 ? view.bbox : null
   useEffect(() => {
-    if (!enabled || !view || view.zoom < 13) return
+    if (!bbox) return
     let live = true
-    api.segments(view.bbox).then((d) => live && setData(d)).catch(() => undefined)
+    const controller = new AbortController()
+    api.segments(bbox, controller.signal).then((d) => live && setData(d)).catch(() => undefined)
     return () => {
       live = false
+      controller.abort()
     }
-  }, [view, enabled])
+  }, [bbox])
   return enabled && view && view.zoom >= 13 ? data : null
 }
 
 export function useFacilities(view: { bbox: string; zoom: number } | null, enabled = true) {
   const [data, setData] = useState<FeatureCollection<FacilityProps> | null>(null)
+  const bbox = enabled && view && view.zoom >= 12 ? view.bbox : null
   useEffect(() => {
-    if (!enabled || !view || view.zoom < 12) return
+    if (!bbox) return
     let live = true
-    api.facilities(view.bbox).then((d) => live && setData(d)).catch(() => undefined)
+    const controller = new AbortController()
+    api.facilities(bbox, controller.signal).then((d) => live && setData(d)).catch(() => undefined)
     return () => {
       live = false
+      controller.abort()
     }
-  }, [view, enabled])
+  }, [bbox])
   return enabled && view && view.zoom >= 12 ? data : null
 }
 
@@ -91,9 +97,10 @@ export function reportsGeoJSON(reports: Report[]): GeoJSON.FeatureCollection {
 
 /** Report pins: soft halo plus a solid core coloured by status. */
 export function ReportsLayer({ reports, selected }: { reports: Report[]; selected?: string | null }) {
+  const data = useMemo(() => reportsGeoJSON(reports), [reports])
   const color = ['match', ['get', 'status'], ...Object.entries(STATUS_HEX).flat(), '#94a3b8'] as unknown as string
   return (
-    <Source id="reports" type="geojson" data={reportsGeoJSON(reports)}>
+    <Source id="reports" type="geojson" data={data}>
       <Layer id="reports-halo" type="circle" slot="top"
         paint={{ 'circle-radius': ['interpolate', ['linear'], ['zoom'], 9, 8, 16, 22] as unknown as number, 'circle-color': color, 'circle-opacity': 0.18, 'circle-blur': 0.6, 'circle-emissive-strength': 1 }} />
       <Layer id="reports" type="circle" slot="top"

@@ -136,6 +136,36 @@ def test_stats_by_kecamatan(client):
     assert client.get("/api/v1/stats").json()["by_kecamatan"] == {"Pare": 1, "lainnya": 1}
 
 
+def test_stats_totals_exceed_queue_page_and_use_wib_months(client, admin_headers):
+    from datetime import datetime, timezone
+    from geoalchemy2.elements import WKTElement
+    from app.db import SessionLocal
+    from app.models import Report, StatusEvent
+
+    # Late October UTC is November in Surabaya. All active reports are over 7 days old.
+    created = datetime(2020, 10, 31, 18, 0, tzinfo=timezone.utc)
+    statuses = ["reported"] * 203 + ["ai_verified", "in_repair", "completed", "rejected"]
+    with SessionLocal() as db:
+        for i, status in enumerate(statuses):
+            report = Report(
+                code=f"STATS-{i}", lat=-7.765, lng=112.195,
+                location=WKTElement("POINT(112.195 -7.765)", srid=4326),
+                category="jalan", category_source="user", photo_path="test.jpg",
+                status=status, created_at=created,
+            )
+            db.add(report)
+            if status == "completed":
+                report.events.append(StatusEvent(to_status="completed", actor="test", created_at=created))
+        db.commit()
+    queue = client.get("/api/v1/admin/queue", params={"limit": 200}, headers=admin_headers).json()
+    assert len(queue["items"]) == 200 and queue["total"] == 205
+    stats = client.get("/api/v1/stats").json()
+    assert stats["total"] == 207 and stats["active"] == 205
+    assert stats["awaiting_approval"] == 204 and stats["open_over_7_days"] == 205
+    assert stats["completed_rate"] == 0.5
+    assert stats["monthly"] == [{"month": "2020-11", "reported": 207, "completed": 1}]
+
+
 def test_active_segments_without_bbox(client):
     assert client.get("/api/v1/segments").status_code == 400
     assert client.get("/api/v1/segments", params={"active": 1}).json()["features"] == []

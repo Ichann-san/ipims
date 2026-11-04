@@ -68,7 +68,7 @@ export default function Operations() {
   const focus = (r?: Report) => {
     if (!r) return
     setSelected(r.code)
-    mapRef.current?.flyTo({ center: [r.lng, r.lat], zoom: 16, pitch: 55, duration: 1600 })
+    mapRef.current?.flyTo({ center: [r.lng, r.lat], zoom: 16, duration: 700 })
   }
 
   async function recommend() {
@@ -102,9 +102,9 @@ export default function Operations() {
   const sel = selected ? byCode.get(selected) : undefined
   return (
     <div className="relative h-[100dvh]">
-      <MapCanvas mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
+      <MapCanvas constrainToRegion mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
         interactiveLayerIds={mode === 'simulate' ? ['damaged', 'damaged-glow', 'reports'] : ['reports', ...(segments ? ['segments'] : [])]}
-        initialViewState={{ longitude: region.center[0], latitude: region.center[1], zoom: 12.3, pitch: 45, bearing: -10 }}>
+        initialViewState={{ longitude: region.center[0], latitude: region.center[1], zoom: 12.3, pitch: 25, bearing: -10 }}>
         {mode === 'queue' && segments && <SegmentsLayer data={segments} />}
         {damaged.data && (
           <Source id="damaged" type="geojson" data={damaged.data as unknown as GeoJSON.FeatureCollection}>

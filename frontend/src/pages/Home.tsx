@@ -47,7 +47,7 @@ export default function Home() {
   const s = stats.data
   return (
     <div className="home-map relative h-[100dvh] overflow-hidden">
-      <MapCanvas mapRef={mapRef} interactive={false} controls={false} attribution={false} onLoad={onLoad}
+      <MapCanvas presentation mapRef={mapRef} interactive={false} controls={false} attribution={false} onLoad={onLoad}
         initialViewState={{ longitude: 110, latitude: -4, zoom: 2.1, pitch: 0, bearing: 0 }}>
         <ReportsLayer reports={reports.data?.items ?? []} />
       </MapCanvas>
@@ -68,7 +68,7 @@ export default function Home() {
           <Link to="/peta"><Button icon={<ArrowRight size={18} />}>Open map</Button></Link>
         </div>
         <Panel className="mt-1 grid grid-cols-3 gap-4 px-5 py-3 text-center">
-          <Stat label="Reports" value={s ? s.active : '-'} />
+          <Stat label="Active reports" value={s ? s.active : '-'} />
           <Stat label="Completed" value={s ? s.by_status.completed : '-'} tone="var(--color-st-completed)" />
           <Stat label="Approval time" value={s?.median_hours_to_verify != null ? `${s.median_hours_to_verify} h` : '-'} />
         </Panel>

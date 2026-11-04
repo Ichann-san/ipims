@@ -6,6 +6,7 @@ import { useAsync } from '../../hooks'
 import { CATEGORIES, CATEGORY_LABEL, CRITERION_LABEL, SEVERITY_LABEL, STATUS_LABEL, formatDate, roadName } from '../../labels'
 import { Button, Chip, Empty, ErrorNote, Field, Modal, Panel, Sheet, Skeleton, Stat, StatusBadge, inputCls } from '../../ui/core'
 import { StageTracker, reachedStages } from '../../ui/Progress'
+import { reportingMonth } from '../../statistics'
 
 const DAY = 86_400_000
 const age = (r: Report) => Math.floor((Date.now() - new Date(r.created_at).getTime()) / DAY)
@@ -55,10 +56,9 @@ export default function Dashboard() {
     if (filter === 'all') return all
     return all.filter((r) => (r.segment?.road_group ?? 'lingkungan') === filter)
   }, [queue.data, filter])
-  const all = queue.data?.items ?? []
-  const toCheck = all.filter((r) => r.status === 'reported' || r.status === 'ai_verified').length
-  const overdue = all.filter((r) => age(r) >= 7).length
-  const doneThisMonth = stats.data?.monthly.at(-1)?.completed ?? 0
+  const toCheck = stats.data?.awaiting_approval ?? 0
+  const overdue = stats.data?.open_over_7_days ?? 0
+  const doneThisMonth = stats.data?.monthly.find((row) => row.month === reportingMonth())?.completed ?? 0
   const refresh = () => { queue.reload(); stats.reload() }
 
   return (
@@ -69,9 +69,9 @@ export default function Dashboard() {
       </div>
 
       <Panel className="mb-4 grid grid-cols-2 gap-4 p-4 md:grid-cols-5">
-        <Stat label="Active reports" value={queue.data ? all.length : '-'} />
-        <Stat label="Awaiting approval" value={queue.data ? toCheck : '-'} tone="var(--color-st-verified)" />
-        <Stat label="Open over 7 days" value={queue.data ? overdue : '-'} tone={overdue ? 'var(--color-coral-soft)' : undefined} />
+        <Stat label="Active reports" value={stats.data?.active ?? '-'} />
+        <Stat label="Awaiting approval" value={stats.data ? toCheck : '-'} tone="var(--color-st-verified)" />
+        <Stat label="Open over 7 days" value={stats.data ? overdue : '-'} tone={overdue ? 'var(--color-coral-soft)' : undefined} />
         <Stat label="Median to approval" value={stats.data?.median_hours_to_verify != null ? `${stats.data.median_hours_to_verify} h` : '-'} />
         <Stat label="Completed this month" value={stats.data ? doneThisMonth : '-'} tone="var(--color-st-completed)" />
       </Panel>
@@ -83,6 +83,7 @@ export default function Dashboard() {
       </div>
 
       {queue.error && <ErrorNote message={queue.error} onRetry={queue.reload} />}
+      {stats.error && <ErrorNote message={stats.error} onRetry={stats.reload} />}
       {queue.loading && !queue.data && <div className="grid gap-2">{Array.from({ length: 6 }, (_, i) => <Skeleton key={i} className="h-14" />)}</div>}
       {queue.data && items.length === 0 && <Empty title="No reports in this queue." />}
 

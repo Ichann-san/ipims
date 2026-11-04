@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "test": "node --test tests/*.test.mjs",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "oxlint",
@@ -13,6 +14,7 @@
   "dependencies": {
     "@fontsource-variable/plus-jakarta-sans": "^5.3.0",
     "@phosphor-icons/react": "^2.1.10",
+    "chart.js": "^4.6.1",
     "mapbox-gl": "^3.34.2",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
