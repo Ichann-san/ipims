@@ -4,7 +4,6 @@ import { api, type Status } from '../api'
 import { useAsync } from '../hooks'
 import { CATEGORIES, CATEGORY_LABEL, STATUS_LABEL, roadName } from '../labels'
 import { Chip, ErrorNote, Panel, Skeleton, Stat, statusColor } from '../ui/core'
-import { Footer } from '../ui/Footer'
 import { STAGES, StageTracker } from '../ui/Progress'
 import { HorizontalBars, MonthlyTrend, ReportDistribution } from '../ui/Charts'
 
@@ -24,7 +23,7 @@ export default function Transparency() {
 
   return (
     <>
-    <div className="mx-auto grid max-w-6xl gap-4 px-3 pb-10 pt-24 md:px-6">
+    <div className="mx-auto grid page-content max-w-6xl gap-4 px-3 md:px-6">
       <h1 className="text-2xl font-bold tracking-tight">Transparency</h1>
       {stats.error && <ErrorNote message={stats.error} onRetry={stats.reload} />}
 
@@ -98,7 +97,6 @@ export default function Transparency() {
         </Panel>
       </div>
     </div>
-    <Footer />
     </>
   )
 }

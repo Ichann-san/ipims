@@ -27,7 +27,7 @@ export function Login() {
     }
   }
   return (
-    <main className="grid min-h-[100dvh] place-items-center px-4">
+    <div className="login-page page-content grid place-items-center px-4">
       <Panel strong className="w-full max-w-sm p-6">
         <form onSubmit={submit} className="grid gap-4">
           <h1 className="text-xl font-bold">Officer sign in</h1>
@@ -38,7 +38,7 @@ export function Login() {
           <Button variant="primary" type="submit">Sign in</Button>
         </form>
       </Panel>
-    </main>
+    </div>
   )
 }
 
@@ -62,7 +62,7 @@ export default function Dashboard() {
   const refresh = () => { queue.reload(); stats.reload() }
 
   return (
-    <div className="mx-auto max-w-7xl px-3 pb-10 pt-24 md:px-6">
+    <div className="mx-auto page-content max-w-7xl px-3 md:px-6">
       <div className="mb-4 flex items-center justify-between gap-3">
         <h1 className="text-2xl font-bold tracking-tight">Dashboard</h1>
         <Button size="sm" icon={<Sliders size={16} />} onClick={() => setWeightsOpen(true)}>Priority weights</Button>

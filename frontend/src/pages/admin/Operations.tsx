@@ -1,14 +1,13 @@
 import { ArrowCounterClockwise, Lightning } from '@phosphor-icons/react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Layer, Source, type MapMouseEvent, type MapRef } from 'react-map-gl/mapbox'
-import { Link } from 'react-router-dom'
 import { api, type FeatureCollection, type Report, type SegmentProps, type WhatIfResult } from '../../api'
 import { useAsync } from '../../hooks'
 import { CATEGORY_LABEL, FACILITY_LABEL, formatIdr, roadName } from '../../labels'
 import { MapCanvas } from '../../map/MapCanvas'
 import { ReportsLayer, SegmentsLayer, useSegments } from '../../map/layers'
 import { useRegion } from '../../region'
-import { Button, ErrorNote, Panel, StatusBadge } from '../../ui/core'
+import { Button, ButtonLink, ErrorNote, Panel, StatusBadge } from '../../ui/core'
 
 type Mode = 'queue' | 'simulate'
 type Side = 'before' | 'after'
@@ -101,7 +100,7 @@ export default function Operations() {
   const showAfter = mode === 'simulate' && side === 'after' && result
   const sel = selected ? byCode.get(selected) : undefined
   return (
-    <div className="relative h-[100dvh]">
+    <div className="operations-map relative h-[100dvh] overflow-hidden">
       <MapCanvas constrainToRegion mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
         interactiveLayerIds={mode === 'simulate' ? ['damaged', 'damaged-glow', 'reports'] : ['reports', ...(segments ? ['segments'] : [])]}
         initialViewState={{ longitude: region.center[0], latitude: region.center[1], zoom: 12.3, pitch: 25, bearing: -10 }}>
@@ -141,7 +140,7 @@ export default function Operations() {
         <ReportsLayer reports={reports} selected={selected} />
       </MapCanvas>
 
-      <Panel strong className="absolute inset-x-3 bottom-3 flex max-h-[46dvh] flex-col md:inset-x-auto md:bottom-6 md:left-6 md:top-24 md:max-h-none md:w-[22rem]">
+      <Panel strong className="operations-panel absolute inset-x-3 flex max-h-[46dvh] flex-col md:inset-x-auto md:left-6 md:max-h-none md:w-[22rem]">
         <div className="grid grid-cols-2 gap-1 border-b border-line p-1.5" role="tablist">
           {(['queue', 'simulate'] as Mode[]).map((m) => (
             <button key={m} role="tab" aria-selected={mode === m} onClick={() => setMode(m)}
@@ -213,7 +212,7 @@ export default function Operations() {
       </Panel>
 
       {mode === 'queue' && sel && (
-        <Panel strong className="absolute right-3 top-24 hidden w-80 overflow-hidden md:block md:right-6">
+        <Panel strong className="operations-detail absolute right-3 hidden w-80 overflow-hidden md:block md:right-6">
           <img src={sel.photo_url} alt="" className="h-36 w-full object-cover" />
           <div className="grid gap-2 p-3">
             <div className="flex items-center justify-between gap-2">
@@ -221,7 +220,7 @@ export default function Operations() {
               <StatusBadge status={sel.status} />
             </div>
             <p className="num text-sm text-muted">Priority {sel.priority_score?.toFixed(1)} · impact {sel.impact_score?.toFixed(0) ?? '-'}</p>
-            <Link to={`/admin/laporan/${sel.code}`}><Button size="sm" className="w-full">Follow up</Button></Link>
+            <ButtonLink to={`/admin/laporan/${sel.code}`} size="sm" className="w-full">Follow up</ButtonLink>
           </div>
         </Panel>
       )}

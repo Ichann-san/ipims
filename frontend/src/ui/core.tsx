@@ -1,5 +1,6 @@
 import { X } from '@phosphor-icons/react'
 import { useEffect, useRef, type ButtonHTMLAttributes, type ReactNode } from 'react'
+import { Link, type LinkProps } from 'react-router-dom'
 import type { Status } from '../api'
 import { STATUS_LABEL } from '../labels'
 
@@ -24,6 +25,11 @@ export function Button({
       {children}
     </button>
   )
+}
+
+export function ButtonLink({ variant = 'secondary', size = 'md', icon, children, className = '', ...rest }:
+  LinkProps & { variant?: Variant; size?: 'sm' | 'md'; icon?: ReactNode }) {
+  return <Link className={`inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl font-semibold transition hover:brightness-110 ${size === 'sm' ? 'h-9 px-3 text-[13px]' : 'h-11 px-4 text-sm'} ${VARIANT[variant]} ${className}`} {...rest}>{icon}{children}</Link>
 }
 
 export function IconButton({ label, children, className = '', ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { label: string }) {
@@ -138,7 +144,7 @@ export function Sheet({ open, onClose, title, children, wide = false }: {
     <div className="fixed inset-0 z-40">
       <div className="absolute inset-0 bg-ink-950/60" onClick={onClose} />
       <div ref={ref} tabIndex={-1} role="dialog" aria-modal="true" aria-label={title}
-        className={`glass-strong absolute inset-x-0 bottom-0 flex max-h-[92dvh] flex-col rounded-t-2xl outline-none md:inset-y-3 md:left-auto md:right-3 md:max-h-none md:rounded-2xl ${wide ? 'md:w-[560px]' : 'md:w-[440px]'}`}>
+        className={`glass-strong sheet-panel absolute inset-x-0 flex flex-col rounded-t-2xl outline-none md:left-auto md:right-3 md:rounded-2xl ${wide ? 'md:w-[560px]' : 'md:w-[440px]'}`}>
         <div className="flex items-center justify-between gap-3 border-b border-line px-4 py-2">
           <h2 className="truncate text-base font-semibold">{title}</h2>
           <IconButton label="Close" onClick={onClose}><X size={20} /></IconButton>
@@ -155,12 +161,12 @@ export function Modal({ open, onClose, title, children }: { open: boolean; onClo
   return (
     <div className="fixed inset-0 z-50 grid place-items-center p-4">
       <div className="absolute inset-0 bg-ink-950/70" onClick={onClose} />
-      <div role="dialog" aria-modal="true" aria-label={title} className="glass-strong relative w-full max-w-2xl rounded-2xl">
+      <div role="dialog" aria-modal="true" aria-label={title} className="glass-strong modal-panel relative w-full max-w-2xl rounded-2xl">
         <div className="flex items-center justify-between border-b border-line px-4 py-2">
           <h2 className="text-base font-semibold">{title}</h2>
           <IconButton label="Close" onClick={onClose}><X size={20} /></IconButton>
         </div>
-        <div className="max-h-[80dvh] overflow-y-auto p-4">{children}</div>
+        <div className="modal-content overflow-y-auto p-4">{children}</div>
       </div>
     </div>
   )

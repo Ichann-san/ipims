@@ -4,91 +4,13 @@
   "graph": {},
   "nodes": [
     {
-      "id": "api_airesult",
-      "label": "AIResult",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "airesult",
-      "source_file": "api.ts",
-      "source_location": "L8"
-    },
-    {
-      "id": "api_category",
-      "label": "Category",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "category",
-      "source_file": "api.ts",
-      "source_location": "L2"
-    },
-    {
-      "id": "api_criterion",
-      "label": "Criterion",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "criterion",
-      "source_file": "api.ts",
-      "source_location": "L6"
-    },
-    {
-      "id": "api_severity",
-      "label": "Severity",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "severity",
-      "source_file": "api.ts",
-      "source_location": "L4"
-    },
-    {
-      "id": "pages_admin_dashboard_filter",
-      "label": "Filter",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "filter",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "pages_reports_scope",
-      "label": "Scope",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "scope",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L16"
-    },
-    {
       "id": "api_featurecollection",
       "label": "FeatureCollection",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "featurecollection",
       "source_file": "api.ts",
@@ -100,8 +22,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "segmentprops",
       "source_file": "api.ts",
@@ -113,12 +35,25 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "whatifresult",
       "source_file": "api.ts",
       "source_location": "L63"
+    },
+    {
+      "id": "map_mapcanvas_mapcanvasprops",
+      "label": "MapCanvasProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "mapcanvasprops",
+      "source_file": "map/MapCanvas.tsx",
+      "source_location": "L9"
     },
     {
       "id": "pages_admin_operations_mode",
@@ -126,12 +61,12 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "mode",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L13"
+      "source_location": "L12"
     },
     {
       "id": "pages_admin_operations_side",
@@ -139,12 +74,12 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "side",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L14"
+      "source_location": "L13"
     },
     {
       "id": "pages_mappage_pick",
@@ -152,51 +87,51 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "pick",
       "source_file": "pages/MapPage.tsx",
       "source_location": "L12"
     },
     {
-      "id": "api_stats",
-      "label": "Stats",
+      "id": "region_region",
+      "label": "Region",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
-      "norm_label": "stats",
-      "source_file": "api.ts",
-      "source_location": "L47"
-    },
-    {
-      "id": "api_status",
-      "label": "Status",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
-      "file_type": "code",
-      "norm_label": "status",
-      "source_file": "api.ts",
+      "norm_label": "region",
+      "source_file": "region.ts",
       "source_location": "L3"
     },
     {
-      "id": "pages_transparency_scope",
+      "id": "map_mapdock_mapdockprops",
+      "label": "MapDockProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "mapdockprops",
+      "source_file": "map/MapDock.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "pages_reports_scope",
       "label": "Scope",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community": 1,
+      "community_name": "Report browsing and controls",
       "file_type": "code",
       "norm_label": "scope",
-      "source_file": "pages/Transparency.tsx",
-      "source_location": "L13"
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L17"
     },
     {
       "id": "ui_core_variant",
@@ -204,12 +139,25 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 4,
-      "community_name": "Shared interface components",
+      "community": 1,
+      "community_name": "Report browsing and controls",
       "file_type": "code",
       "norm_label": "variant",
       "source_file": "ui/core.tsx",
-      "source_location": "L6"
+      "source_location": "L7"
+    },
+    {
+      "id": "api_airesult",
+      "label": "AIResult",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "API data contracts",
+      "file_type": "code",
+      "norm_label": "airesult",
+      "source_file": "api.ts",
+      "source_location": "L8"
     },
     {
       "id": "api_apierror",
@@ -217,8 +165,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
+      "community": 2,
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "apierror",
       "source_file": "api.ts",
@@ -230,8 +178,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
+      "community": 2,
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "facilityprops",
       "source_file": "api.ts",
@@ -243,8 +191,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
+      "community": 2,
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "feature",
       "source_file": "api.ts",
@@ -256,8 +204,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
+      "community": 2,
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "graphsummary",
       "source_file": "api.ts",
@@ -269,8 +217,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
+      "community": 2,
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "page",
       "source_file": "api.ts",
@@ -282,8 +230,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
+      "community": 2,
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "priorityitem",
       "source_file": "api.ts",
@@ -295,8 +243,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
+      "community": 2,
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "recommendation",
       "source_file": "api.ts",
@@ -308,8 +256,8 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
+      "community": 2,
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "report",
       "source_file": "api.ts",
@@ -321,12 +269,77 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
+      "community": 2,
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "reportdetail",
       "source_file": "api.ts",
       "source_location": "L44"
+    },
+    {
+      "id": "api_segmentref",
+      "label": "SegmentRef",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "API data contracts",
+      "file_type": "code",
+      "norm_label": "segmentref",
+      "source_file": "api.ts",
+      "source_location": "L19"
+    },
+    {
+      "id": "api_stats",
+      "label": "Stats",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "API data contracts",
+      "file_type": "code",
+      "norm_label": "stats",
+      "source_file": "api.ts",
+      "source_location": "L47"
+    },
+    {
+      "id": "api_status",
+      "label": "Status",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "Status progress and charts",
+      "file_type": "code",
+      "norm_label": "status",
+      "source_file": "api.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "api_statusevent",
+      "label": "StatusEvent",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "Status progress and charts",
+      "file_type": "code",
+      "norm_label": "statusevent",
+      "source_file": "api.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "pages_transparency_scope",
+      "label": "Scope",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 4,
+      "community_name": "Status progress and charts",
+      "file_type": "code",
+      "norm_label": "scope",
+      "source_file": "pages/Transparency.tsx",
+      "source_location": "L12"
     },
     {
       "id": "api_roadgroup",
@@ -335,37 +348,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 5,
-      "community_name": "API and data contracts",
+      "community_name": "Officer actions and scoring",
       "file_type": "code",
       "norm_label": "roadgroup",
       "source_file": "api.ts",
       "source_location": "L5"
-    },
-    {
-      "id": "api_segmentref",
-      "label": "SegmentRef",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
-      "file_type": "code",
-      "norm_label": "segmentref",
-      "source_file": "api.ts",
-      "source_location": "L19"
-    },
-    {
-      "id": "api_statusevent",
-      "label": "StatusEvent",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
-      "file_type": "code",
-      "norm_label": "statusevent",
-      "source_file": "api.ts",
-      "source_location": "L43"
     },
     {
       "id": "api_weights",
@@ -374,237 +361,97 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 5,
-      "community_name": "API and data contracts",
+      "community_name": "Officer actions and scoring",
       "file_type": "code",
       "norm_label": "weights",
       "source_file": "api.ts",
       "source_location": "L61"
     },
     {
-      "id": "map_mapcanvas_mapcanvasprops",
-      "label": "MapCanvasProps",
+      "id": "pages_admin_dashboard_filter",
+      "label": "Filter",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
+      "community": 5,
+      "community_name": "Officer actions and scoring",
       "file_type": "code",
-      "norm_label": "mapcanvasprops",
-      "source_file": "map/MapCanvas.tsx",
-      "source_location": "L10"
+      "norm_label": "filter",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L13"
     },
     {
-      "id": "region_region",
-      "label": "Region",
+      "id": "api_category",
+      "label": "Category",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
+      "community": 7,
+      "community_name": "Category and severity labels",
       "file_type": "code",
-      "norm_label": "region",
-      "source_file": "region.ts",
-      "source_location": "L3"
+      "norm_label": "category",
+      "source_file": "api.ts",
+      "source_location": "L2"
     },
     {
-      "id": "hooks_useasync",
-      "label": "useAsync()",
+      "id": "api_criterion",
+      "label": "Criterion",
       "_callable": true,
+      "_callable_class": true,
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
+      "community": 7,
+      "community_name": "Category and severity labels",
       "file_type": "code",
-      "norm_label": "useasync()",
-      "source_file": "hooks.ts",
-      "source_location": "L3"
+      "norm_label": "criterion",
+      "source_file": "api.ts",
+      "source_location": "L6"
     },
     {
-      "id": "labels_formatdate",
-      "label": "formatDate()",
+      "id": "api_severity",
+      "label": "Severity",
       "_callable": true,
+      "_callable_class": true,
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
+      "community": 7,
+      "community_name": "Category and severity labels",
       "file_type": "code",
-      "norm_label": "formatdate()",
-      "source_file": "labels.ts",
-      "source_location": "L49"
+      "norm_label": "severity",
+      "source_file": "api.ts",
+      "source_location": "L4"
     },
     {
-      "id": "labels_roadname",
-      "label": "roadName()",
+      "id": "map_homeintro_citycamera",
+      "label": "CityCamera",
       "_callable": true,
+      "_callable_class": true,
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
+      "community": 8,
+      "community_name": "Homepage entrance lifecycle",
       "file_type": "code",
-      "norm_label": "roadname()",
-      "source_file": "labels.ts",
-      "source_location": "L57"
+      "norm_label": "citycamera",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L1"
     },
     {
-      "id": "pages_admin_dashboard_adminreport",
-      "label": "AdminReport()",
+      "id": "map_homeintro_intromap",
+      "label": "IntroMap",
       "_callable": true,
+      "_callable_class": true,
       "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
+      "community": 8,
+      "community_name": "Homepage entrance lifecycle",
       "file_type": "code",
-      "norm_label": "adminreport()",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L151"
-    },
-    {
-      "id": "pages_admin_dashboard_adminreport_apply",
-      "label": "apply()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "apply()",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L158"
-    },
-    {
-      "id": "pages_admin_dashboard_age",
-      "label": "age()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "age()",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L12"
-    },
-    {
-      "id": "pages_admin_dashboard_dashboard",
-      "label": "Dashboard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "dashboard()",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L45"
-    },
-    {
-      "id": "pages_admin_dashboard_login",
-      "label": "Login()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "login()",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L15"
-    },
-    {
-      "id": "pages_admin_dashboard_login_submit",
-      "label": "submit()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "submit()",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L20"
-    },
-    {
-      "id": "pages_admin_dashboard_weightseditor",
-      "label": "WeightsEditor()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "weightseditor()",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L255"
-    },
-    {
-      "id": "pages_reports_fact",
-      "label": "Fact()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "fact()",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L152"
-    },
-    {
-      "id": "pages_reports_reportdetailview",
-      "label": "ReportDetailView()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "reportdetailview()",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L116"
-    },
-    {
-      "id": "pages_reports_reportrow",
-      "label": "ReportRow()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "reportrow()",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L94"
-    },
-    {
-      "id": "pages_reports_reports",
-      "label": "Reports()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "reports()",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L18"
-    },
-    {
-      "id": "pages_transparency_transparency",
-      "label": "Transparency()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "transparency()",
-      "source_file": "pages/Transparency.tsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "ui_progress_reachedstages",
-      "label": "reachedStages()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "reachedstages()",
-      "source_file": "ui/Progress.tsx",
-      "source_location": "L44"
+      "norm_label": "intromap",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L2"
     },
     {
       "id": "labels_formatidr",
       "label": "formatIdr()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "formatidr()",
       "source_file": "labels.ts",
@@ -615,8 +462,8 @@
       "label": "FacilitiesLayer()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "facilitieslayer()",
       "source_file": "map/layers.tsx",
@@ -627,8 +474,8 @@
       "label": "reportsGeoJSON()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "reportsgeojson()",
       "source_file": "map/layers.tsx",
@@ -639,8 +486,8 @@
       "label": "ReportsLayer()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "reportslayer()",
       "source_file": "map/layers.tsx",
@@ -651,8 +498,8 @@
       "label": "SegmentsLayer()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "segmentslayer()",
       "source_file": "map/layers.tsx",
@@ -663,8 +510,8 @@
       "label": "useFacilities()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "usefacilities()",
       "source_file": "map/layers.tsx",
@@ -675,60 +522,396 @@
       "label": "useSegments()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "usesegments()",
       "source_file": "map/layers.tsx",
       "source_location": "L16"
     },
     {
+      "id": "map_mapcanvas_mapcanvas",
+      "label": "MapCanvas()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "mapcanvas()",
+      "source_file": "map/MapCanvas.tsx",
+      "source_location": "L26"
+    },
+    {
       "id": "pages_admin_operations_operations",
       "label": "Operations()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "operations()",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L16"
+      "source_location": "L15"
     },
     {
       "id": "pages_admin_operations_operations_recommend",
       "label": "recommend()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "recommend()",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L74"
+      "source_location": "L73"
+    },
+    {
+      "id": "pages_home_home",
+      "label": "Home()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "home()",
+      "source_file": "pages/Home.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "pages_home_reducemotion",
+      "label": "reduceMotion()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "reducemotion()",
+      "source_file": "pages/Home.tsx",
+      "source_location": "L13"
     },
     {
       "id": "pages_mappage_mappage",
       "label": "MapPage()",
       "_callable": true,
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "mappage()",
       "source_file": "pages/MapPage.tsx",
       "source_location": "L14"
     },
     {
-      "id": "ui_core_errornote",
-      "label": "ErrorNote()",
+      "id": "region_formatcoord",
+      "label": "formatCoord()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "formatcoord()",
+      "source_file": "region.ts",
+      "source_location": "L35"
+    },
+    {
+      "id": "region_useregion",
+      "label": "useRegion()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "useregion()",
+      "source_file": "region.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "ui_core_buttonlink",
+      "label": "ButtonLink()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "buttonlink()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L30"
+    },
+    {
+      "id": "ui_core_panel",
+      "label": "Panel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "panel()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L44"
+    },
+    {
+      "id": "map_mapdock_mapdock",
+      "label": "MapDock()",
       "_callable": true,
       "_origin": "ast",
       "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community_name": "Report browsing and controls",
       "file_type": "code",
-      "norm_label": "errornote()",
+      "norm_label": "mapdock()",
+      "source_file": "map/MapDock.tsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "pages_reports_fact",
+      "label": "Fact()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "fact()",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L169"
+    },
+    {
+      "id": "pages_reports_reports",
+      "label": "Reports()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "reports()",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L19"
+    },
+    {
+      "id": "reportpaging_initialpagesize",
+      "label": "initialPageSize()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "initialpagesize()",
+      "source_file": "reportPaging.ts",
+      "source_location": "L2"
+    },
+    {
+      "id": "reportpaging_pagenumbers",
+      "label": "pageNumbers()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "pagenumbers()",
+      "source_file": "reportPaging.ts",
+      "source_location": "L13"
+    },
+    {
+      "id": "reportpaging_readreportpage",
+      "label": "readReportPage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "readreportpage()",
+      "source_file": "reportPaging.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "ui_core_button",
+      "label": "Button()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "button()",
       "source_file": "ui/core.tsx",
-      "source_location": "L109"
+      "source_location": "L15"
+    },
+    {
+      "id": "ui_core_empty",
+      "label": "Empty()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "empty()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L106"
+    },
+    {
+      "id": "ui_core_field",
+      "label": "Field()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "field()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L82"
+    },
+    {
+      "id": "ui_core_iconbutton",
+      "label": "IconButton()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "iconbutton()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L35"
+    },
+    {
+      "id": "ui_core_modal",
+      "label": "Modal()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "modal()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L158"
+    },
+    {
+      "id": "ui_core_sheet",
+      "label": "Sheet()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "sheet()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L134"
+    },
+    {
+      "id": "ui_core_stat",
+      "label": "Stat()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "stat()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L93"
+    },
+    {
+      "id": "ui_core_statusbadge",
+      "label": "StatusBadge()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "statusbadge()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L59"
+    },
+    {
+      "id": "ui_core_useescape",
+      "label": "useEscape()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "useescape()",
+      "source_file": "ui/core.tsx",
+      "source_location": "L124"
+    },
+    {
+      "id": "ui_pagination_pagination",
+      "label": "Pagination()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "pagination()",
+      "source_file": "ui/Pagination.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "pages_reports_reportform",
+      "label": "ReportForm()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "Photo report submission",
+      "file_type": "code",
+      "norm_label": "reportform()",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L190"
+    },
+    {
+      "id": "pages_reports_reportform_onfile",
+      "label": "onFile()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "Photo report submission",
+      "file_type": "code",
+      "norm_label": "onfile()",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L225"
+    },
+    {
+      "id": "pages_reports_reportform_submit",
+      "label": "submit()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "Photo report submission",
+      "file_type": "code",
+      "norm_label": "submit()",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L241"
+    },
+    {
+      "id": "pages_reports_shrink",
+      "label": "shrink()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "Photo report submission",
+      "file_type": "code",
+      "norm_label": "shrink()",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L179"
+    },
+    {
+      "id": "api_apierror_constructor",
+      "label": ".constructor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "API data contracts",
+      "file_type": "code",
+      "norm_label": ".constructor()",
+      "source_file": "api.ts",
+      "source_location": "L100"
+    },
+    {
+      "id": "api_qs",
+      "label": "qs()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "API data contracts",
+      "file_type": "code",
+      "norm_label": "qs()",
+      "source_file": "api.ts",
+      "source_location": "L145"
     },
     {
       "id": "statistics_reportingmonth",
@@ -736,7 +919,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "reportingmonth()",
       "source_file": "statistics.ts",
@@ -748,7 +931,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "sixmonths()",
       "source_file": "statistics.ts",
@@ -760,7 +943,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "chartview()",
       "source_file": "ui/Charts.tsx",
@@ -772,7 +955,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "horizontalbars()",
       "source_file": "ui/Charts.tsx",
@@ -784,7 +967,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "monthlytrend()",
       "source_file": "ui/Charts.tsx",
@@ -796,35 +979,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "reportdistribution()",
       "source_file": "ui/Charts.tsx",
       "source_location": "L98"
-    },
-    {
-      "id": "ui_footer_footer",
-      "label": "Footer()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
-      "file_type": "code",
-      "norm_label": "footer()",
-      "source_file": "ui/Footer.tsx",
-      "source_location": "L2"
-    },
-    {
-      "id": "ui_progress_stagetracker",
-      "label": "StageTracker()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
-      "file_type": "code",
-      "norm_label": "stagetracker()",
-      "source_file": "ui/Progress.tsx",
-      "source_location": "L12"
     },
     {
       "id": "api_gettoken",
@@ -832,7 +991,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "gettoken()",
       "source_file": "api.ts",
@@ -844,7 +1003,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "request()",
       "source_file": "api.ts",
@@ -856,7 +1015,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "settoken()",
       "source_file": "api.ts",
@@ -868,7 +1027,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "adminlayout()",
       "source_file": "App.tsx",
@@ -880,11 +1039,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "app()",
       "source_file": "App.tsx",
-      "source_location": "L36"
+      "source_location": "L35"
     },
     {
       "id": "app_publiclayout",
@@ -892,11 +1051,23 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "publiclayout()",
       "source_file": "App.tsx",
-      "source_location": "L16"
+      "source_location": "L17"
+    },
+    {
+      "id": "ui_footer_footer",
+      "label": "Footer()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "Routing and shared chrome",
+      "file_type": "code",
+      "norm_label": "footer()",
+      "source_file": "ui/Footer.tsx",
+      "source_location": "L3"
     },
     {
       "id": "ui_navbar_adminnavbar",
@@ -904,7 +1075,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "adminnavbar()",
       "source_file": "ui/Navbar.tsx",
@@ -916,7 +1087,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "item()",
       "source_file": "ui/Navbar.tsx",
@@ -928,7 +1099,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "mark()",
       "source_file": "ui/Navbar.tsx",
@@ -940,23 +1111,23 @@
       "_callable": true,
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "publicnavbar()",
       "source_file": "ui/Navbar.tsx",
       "source_location": "L31"
     },
     {
-      "id": "pages_devui_devui",
-      "label": "DevUI()",
+      "id": "ui_siteframe_siteframe",
+      "label": "SiteFrame()",
       "_callable": true,
       "_origin": "ast",
-      "community": 4,
-      "community_name": "Shared interface components",
+      "community": 3,
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
-      "norm_label": "devui()",
-      "source_file": "pages/DevUI.tsx",
-      "source_location": "L12"
+      "norm_label": "siteframe()",
+      "source_file": "ui/SiteFrame.tsx",
+      "source_location": "L5"
     },
     {
       "id": "ui_core_chip",
@@ -964,71 +1135,23 @@
       "_callable": true,
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
       "norm_label": "chip()",
       "source_file": "ui/core.tsx",
-      "source_location": "L63"
+      "source_location": "L69"
     },
     {
-      "id": "ui_core_empty",
-      "label": "Empty()",
+      "id": "ui_core_errornote",
+      "label": "ErrorNote()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
-      "norm_label": "empty()",
+      "norm_label": "errornote()",
       "source_file": "ui/core.tsx",
-      "source_location": "L100"
-    },
-    {
-      "id": "ui_core_field",
-      "label": "Field()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shared interface components",
-      "file_type": "code",
-      "norm_label": "field()",
-      "source_file": "ui/core.tsx",
-      "source_location": "L76"
-    },
-    {
-      "id": "ui_core_iconbutton",
-      "label": "IconButton()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shared interface components",
-      "file_type": "code",
-      "norm_label": "iconbutton()",
-      "source_file": "ui/core.tsx",
-      "source_location": "L29"
-    },
-    {
-      "id": "ui_core_modal",
-      "label": "Modal()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shared interface components",
-      "file_type": "code",
-      "norm_label": "modal()",
-      "source_file": "ui/core.tsx",
-      "source_location": "L152"
-    },
-    {
-      "id": "ui_core_sheet",
-      "label": "Sheet()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shared interface components",
-      "file_type": "code",
-      "norm_label": "sheet()",
-      "source_file": "ui/core.tsx",
-      "source_location": "L128"
+      "source_location": "L115"
     },
     {
       "id": "ui_core_skeleton",
@@ -1036,387 +1159,304 @@
       "_callable": true,
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
       "norm_label": "skeleton()",
       "source_file": "ui/core.tsx",
-      "source_location": "L96"
+      "source_location": "L102"
     },
     {
-      "id": "ui_core_statusbadge",
-      "label": "StatusBadge()",
+      "id": "ui_progress_stagetracker",
+      "label": "StageTracker()",
       "_callable": true,
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
-      "norm_label": "statusbadge()",
-      "source_file": "ui/core.tsx",
-      "source_location": "L53"
+      "norm_label": "stagetracker()",
+      "source_file": "ui/Progress.tsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "pages_admin_dashboard_login",
+      "label": "Login()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "Officer actions and scoring",
+      "file_type": "code",
+      "norm_label": "login()",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L15"
+    },
+    {
+      "id": "pages_admin_dashboard_login_submit",
+      "label": "submit()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "Officer actions and scoring",
+      "file_type": "code",
+      "norm_label": "submit()",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "labels_formatdate",
+      "label": "formatDate()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Report detail and presentation",
+      "file_type": "code",
+      "norm_label": "formatdate()",
+      "source_file": "labels.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "labels_roadname",
+      "label": "roadName()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Report detail and presentation",
+      "file_type": "code",
+      "norm_label": "roadname()",
+      "source_file": "labels.ts",
+      "source_location": "L57"
+    },
+    {
+      "id": "pages_admin_dashboard_adminreport",
+      "label": "AdminReport()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Report detail and presentation",
+      "file_type": "code",
+      "norm_label": "adminreport()",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L151"
+    },
+    {
+      "id": "pages_admin_dashboard_adminreport_apply",
+      "label": "apply()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Report detail and presentation",
+      "file_type": "code",
+      "norm_label": "apply()",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L158"
+    },
+    {
+      "id": "pages_admin_dashboard_age",
+      "label": "age()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Report detail and presentation",
+      "file_type": "code",
+      "norm_label": "age()",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "pages_admin_dashboard_dashboard",
+      "label": "Dashboard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Report detail and presentation",
+      "file_type": "code",
+      "norm_label": "dashboard()",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L45"
+    },
+    {
+      "id": "pages_reports_reportdetailview",
+      "label": "ReportDetailView()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Report detail and presentation",
+      "file_type": "code",
+      "norm_label": "reportdetailview()",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L133"
+    },
+    {
+      "id": "pages_reports_reportrow",
+      "label": "ReportRow()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Report detail and presentation",
+      "file_type": "code",
+      "norm_label": "reportrow()",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L111"
+    },
+    {
+      "id": "ui_progress_reachedstages",
+      "label": "reachedStages()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 6,
+      "community_name": "Report detail and presentation",
+      "file_type": "code",
+      "norm_label": "reachedstages()",
+      "source_file": "ui/Progress.tsx",
+      "source_location": "L44"
+    },
+    {
+      "id": "map_homeintro_intromap_flyto",
+      "label": ".flyTo()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Homepage entrance lifecycle",
+      "file_type": "code",
+      "norm_label": ".flyto()",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L5"
+    },
+    {
+      "id": "map_homeintro_intromap_jumpto",
+      "label": ".jumpTo()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Homepage entrance lifecycle",
+      "file_type": "code",
+      "norm_label": ".jumpto()",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "map_homeintro_intromap_off",
+      "label": ".off()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Homepage entrance lifecycle",
+      "file_type": "code",
+      "norm_label": ".off()",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "map_homeintro_intromap_once",
+      "label": ".once()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Homepage entrance lifecycle",
+      "file_type": "code",
+      "norm_label": ".once()",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "map_homeintro_stagehomeintro",
+      "label": "stageHomeIntro()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Homepage entrance lifecycle",
+      "file_type": "code",
+      "norm_label": "stagehomeintro()",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L10"
+    },
+    {
+      "id": "hooks_useasync",
+      "label": "useAsync()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Async state and composition",
+      "file_type": "code",
+      "norm_label": "useasync()",
+      "source_file": "hooks.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "pages_admin_dashboard_weightseditor",
+      "label": "WeightsEditor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Async state and composition",
+      "file_type": "code",
+      "norm_label": "weightseditor()",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L255"
+    },
+    {
+      "id": "pages_devui_devui",
+      "label": "DevUI()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Async state and composition",
+      "file_type": "code",
+      "norm_label": "devui()",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "pages_transparency_transparency",
+      "label": "Transparency()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Async state and composition",
+      "file_type": "code",
+      "norm_label": "transparency()",
+      "source_file": "pages/Transparency.tsx",
+      "source_location": "L15"
     },
     {
       "id": "ui_core_statuscolor",
       "label": "statusColor()",
       "_callable": true,
       "_origin": "ast",
-      "community": 4,
-      "community_name": "Shared interface components",
+      "community": 9,
+      "community_name": "Async state and composition",
       "file_type": "code",
       "norm_label": "statuscolor()",
       "source_file": "ui/core.tsx",
-      "source_location": "L51"
-    },
-    {
-      "id": "ui_core_useescape",
-      "label": "useEscape()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 4,
-      "community_name": "Shared interface components",
-      "file_type": "code",
-      "norm_label": "useescape()",
-      "source_file": "ui/core.tsx",
-      "source_location": "L118"
-    },
-    {
-      "id": "api_apierror_constructor",
-      "label": ".constructor()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
-      "file_type": "code",
-      "norm_label": ".constructor()",
-      "source_file": "api.ts",
-      "source_location": "L100"
-    },
-    {
-      "id": "api_qs",
-      "label": "qs()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
-      "file_type": "code",
-      "norm_label": "qs()",
-      "source_file": "api.ts",
-      "source_location": "L145"
-    },
-    {
-      "id": "map_mapcanvas_mapcanvas",
-      "label": "MapCanvas()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "mapcanvas()",
-      "source_file": "map/MapCanvas.tsx",
-      "source_location": "L29"
-    },
-    {
-      "id": "pages_home_home",
-      "label": "Home()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "home()",
-      "source_file": "pages/Home.tsx",
-      "source_location": "L15"
-    },
-    {
-      "id": "pages_home_reducemotion",
-      "label": "reduceMotion()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "reducemotion()",
-      "source_file": "pages/Home.tsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "region_formatcoord",
-      "label": "formatCoord()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "formatcoord()",
-      "source_file": "region.ts",
-      "source_location": "L35"
-    },
-    {
-      "id": "region_useregion",
-      "label": "useRegion()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "useregion()",
-      "source_file": "region.ts",
-      "source_location": "L20"
-    },
-    {
-      "id": "ui_core_button",
-      "label": "Button()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "button()",
-      "source_file": "ui/core.tsx",
-      "source_location": "L14"
-    },
-    {
-      "id": "ui_core_panel",
-      "label": "Panel()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "panel()",
-      "source_file": "ui/core.tsx",
-      "source_location": "L38"
-    },
-    {
-      "id": "ui_core_stat",
-      "label": "Stat()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "stat()",
-      "source_file": "ui/core.tsx",
-      "source_location": "L87"
-    },
-    {
-      "id": "pages_reports_reportform",
-      "label": "ReportForm()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "Report submission and photos",
-      "file_type": "code",
-      "norm_label": "reportform()",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L173"
-    },
-    {
-      "id": "pages_reports_reportform_onfile",
-      "label": "onFile()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "Report submission and photos",
-      "file_type": "code",
-      "norm_label": "onfile()",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L208"
-    },
-    {
-      "id": "pages_reports_reportform_submit",
-      "label": "submit()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "Report submission and photos",
-      "file_type": "code",
-      "norm_label": "submit()",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L224"
-    },
-    {
-      "id": "pages_reports_shrink",
-      "label": "shrink()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 7,
-      "community_name": "Report submission and photos",
-      "file_type": "code",
-      "norm_label": "shrink()",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L162"
-    },
-    {
-      "id": "hooks",
-      "label": "hooks.ts",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "hooks.ts",
-      "source_file": "hooks.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "labels",
-      "label": "labels.ts",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "labels.ts",
-      "source_file": "labels.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "labels_categories",
-      "label": "CATEGORIES",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "categories",
-      "source_file": "labels.ts",
-      "source_location": "L12"
-    },
-    {
-      "id": "labels_category_label",
-      "label": "CATEGORY_LABEL",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "category_label",
-      "source_file": "labels.ts",
-      "source_location": "L3"
-    },
-    {
-      "id": "labels_criterion_label",
-      "label": "CRITERION_LABEL",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "criterion_label",
-      "source_file": "labels.ts",
-      "source_location": "L27"
-    },
-    {
-      "id": "labels_damage_label",
-      "label": "DAMAGE_LABEL",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "damage_label",
-      "source_file": "labels.ts",
-      "source_location": "L43"
-    },
-    {
-      "id": "labels_severity_label",
-      "label": "SEVERITY_LABEL",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "severity_label",
-      "source_file": "labels.ts",
-      "source_location": "L25"
-    },
-    {
-      "id": "pages_admin_dashboard",
-      "label": "Dashboard.tsx",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "dashboard.tsx",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "pages_admin_dashboard_crit_hex",
-      "label": "CRIT_HEX",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "crit_hex",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L147"
-    },
-    {
-      "id": "pages_admin_dashboard_criteria",
-      "label": "CRITERIA",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "criteria",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L253"
-    },
-    {
-      "id": "pages_admin_dashboard_next",
-      "label": "NEXT",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "next",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L139"
-    },
-    {
-      "id": "pages_admin_dashboard_opd",
-      "label": "OPD",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "opd",
-      "source_file": "pages/admin/Dashboard.tsx",
-      "source_location": "L146"
-    },
-    {
-      "id": "pages_reports",
-      "label": "Reports.tsx",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "reports.tsx",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "pages_reports_active",
-      "label": "ACTIVE",
-      "_origin": "ast",
-      "community": 0,
-      "community_name": "Reports and presentation labels",
-      "file_type": "code",
-      "norm_label": "active",
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L15"
+      "source_location": "L57"
     },
     {
       "id": "api_api",
       "label": "api",
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "api",
       "source_file": "api.ts",
       "source_location": "L156"
     },
     {
+      "id": "labels_category_label",
+      "label": "CATEGORY_LABEL",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "category_label",
+      "source_file": "labels.ts",
+      "source_location": "L3"
+    },
+    {
       "id": "labels_facility_label",
       "label": "FACILITY_LABEL",
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "facility_label",
       "source_file": "labels.ts",
@@ -1426,8 +1466,8 @@
       "id": "map_layers",
       "label": "layers.tsx",
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "layers.tsx",
       "source_file": "map/layers.tsx",
@@ -1437,8 +1477,8 @@
       "id": "map_layers_facility_hex",
       "label": "FACILITY_HEX",
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "facility_hex",
       "source_file": "map/layers.tsx",
@@ -1448,8 +1488,8 @@
       "id": "map_layers_impact_ramp",
       "label": "IMPACT_RAMP",
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "impact_ramp",
       "source_file": "map/layers.tsx",
@@ -1459,8 +1499,8 @@
       "id": "map_layers_impactcolor",
       "label": "impactColor",
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "impactcolor",
       "source_file": "map/layers.tsx",
@@ -1470,74 +1510,250 @@
       "id": "map_layers_status_hex",
       "label": "STATUS_HEX",
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "status_hex",
       "source_file": "map/layers.tsx",
       "source_location": "L7"
     },
     {
+      "id": "map_mapcanvas",
+      "label": "MapCanvas.tsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "mapcanvas.tsx",
+      "source_file": "map/MapCanvas.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "map_mapcanvas_basemap_config",
+      "label": "BASEMAP_CONFIG",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "basemap_config",
+      "source_file": "map/MapCanvas.tsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "map_mapcanvas_token",
+      "label": "TOKEN",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "token",
+      "source_file": "map/MapCanvas.tsx",
+      "source_location": "L6"
+    },
+    {
       "id": "pages_admin_operations",
       "label": "Operations.tsx",
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "operations.tsx",
       "source_file": "pages/admin/Operations.tsx",
       "source_location": "L1"
     },
     {
+      "id": "pages_home",
+      "label": "Home.tsx",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "home.tsx",
+      "source_file": "pages/Home.tsx",
+      "source_location": "L1"
+    },
+    {
       "id": "pages_mappage",
       "label": "MapPage.tsx",
       "_origin": "ast",
-      "community": 1,
-      "community_name": "Maps and operations simulation",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
       "norm_label": "mappage.tsx",
       "source_file": "pages/MapPage.tsx",
       "source_location": "L1"
     },
     {
-      "id": "labels_status_label",
-      "label": "STATUS_LABEL",
+      "id": "region",
+      "label": "region.ts",
       "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community": 0,
+      "community_name": "Map layers and simulation",
       "file_type": "code",
-      "norm_label": "status_label",
-      "source_file": "labels.ts",
-      "source_location": "L14"
-    },
-    {
-      "id": "pages_transparency",
-      "label": "Transparency.tsx",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
-      "file_type": "code",
-      "norm_label": "transparency.tsx",
-      "source_file": "pages/Transparency.tsx",
+      "norm_label": "region.ts",
+      "source_file": "region.ts",
       "source_location": "L1"
     },
     {
-      "id": "pages_transparency_active",
+      "id": "region_surabaya",
+      "label": "SURABAYA",
+      "_origin": "ast",
+      "community": 0,
+      "community_name": "Map layers and simulation",
+      "file_type": "code",
+      "norm_label": "surabaya",
+      "source_file": "region.ts",
+      "source_location": "L11"
+    },
+    {
+      "id": "labels_statuses",
+      "label": "STATUSES",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "statuses",
+      "source_file": "labels.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "map_mapdock",
+      "label": "MapDock.tsx",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "mapdock.tsx",
+      "source_file": "map/MapDock.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_devui",
+      "label": "DevUI.tsx",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "devui.tsx",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_devui_swatches",
+      "label": "SWATCHES",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "swatches",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "pages_reports",
+      "label": "Reports.tsx",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "reports.tsx",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "pages_reports_active",
       "label": "ACTIVE",
       "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community": 1,
+      "community_name": "Report browsing and controls",
       "file_type": "code",
       "norm_label": "active",
-      "source_file": "pages/Transparency.tsx",
-      "source_location": "L14"
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "reportpaging",
+      "label": "reportPaging.ts",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "reportpaging.ts",
+      "source_file": "reportPaging.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "reportpaging_page_sizes",
+      "label": "PAGE_SIZES",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "page_sizes",
+      "source_file": "reportPaging.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_core",
+      "label": "core.tsx",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "core.tsx",
+      "source_file": "ui/core.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_core_inputcls",
+      "label": "inputCls",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "inputcls",
+      "source_file": "ui/core.tsx",
+      "source_location": "L79"
+    },
+    {
+      "id": "ui_core_status_color",
+      "label": "STATUS_COLOR",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "status_color",
+      "source_file": "ui/core.tsx",
+      "source_location": "L48"
+    },
+    {
+      "id": "ui_pagination",
+      "label": "Pagination.tsx",
+      "_origin": "ast",
+      "community": 1,
+      "community_name": "Report browsing and controls",
+      "file_type": "code",
+      "norm_label": "pagination.tsx",
+      "source_file": "ui/Pagination.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "api",
+      "label": "api.ts",
+      "_origin": "ast",
+      "community": 2,
+      "community_name": "API data contracts",
+      "file_type": "code",
+      "norm_label": "api.ts",
+      "source_file": "api.ts",
+      "source_location": "L1"
     },
     {
       "id": "statistics",
       "label": "statistics.ts",
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "statistics.ts",
       "source_file": "statistics.ts",
@@ -1548,7 +1764,7 @@
       "label": "Charts.tsx",
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "charts.tsx",
       "source_file": "ui/Charts.tsx",
@@ -1559,7 +1775,7 @@
       "label": "bars",
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "bars",
       "source_file": "ui/Charts.tsx",
@@ -1570,7 +1786,7 @@
       "label": "FONT",
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "font",
       "source_file": "ui/Charts.tsx",
@@ -1581,62 +1797,18 @@
       "label": "themeColors",
       "_origin": "ast",
       "community": 2,
-      "community_name": "Statistics and chart rendering",
+      "community_name": "API data contracts",
       "file_type": "code",
       "norm_label": "themecolors",
       "source_file": "ui/Charts.tsx",
       "source_location": "L8"
     },
     {
-      "id": "ui_footer",
-      "label": "Footer.tsx",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
-      "file_type": "code",
-      "norm_label": "footer.tsx",
-      "source_file": "ui/Footer.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "ui_progress",
-      "label": "Progress.tsx",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
-      "file_type": "code",
-      "norm_label": "progress.tsx",
-      "source_file": "ui/Progress.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "ui_progress_short",
-      "label": "SHORT",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
-      "file_type": "code",
-      "norm_label": "short",
-      "source_file": "ui/Progress.tsx",
-      "source_location": "L6"
-    },
-    {
-      "id": "ui_progress_stages",
-      "label": "STAGES",
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "Statistics and chart rendering",
-      "file_type": "code",
-      "norm_label": "stages",
-      "source_file": "ui/Progress.tsx",
-      "source_location": "L5"
-    },
-    {
       "id": "app",
       "label": "App.tsx",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "app.tsx",
       "source_file": "App.tsx",
@@ -1647,98 +1819,109 @@
       "label": "Dashboard",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "dashboard",
       "source_file": "App.tsx",
-      "source_location": "L12"
+      "source_location": "L13"
     },
     {
       "id": "app_devui",
       "label": "DevUI",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "devui",
       "source_file": "App.tsx",
-      "source_location": "L11"
+      "source_location": "L12"
     },
     {
       "id": "app_home",
       "label": "Home",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "home",
       "source_file": "App.tsx",
-      "source_location": "L7"
+      "source_location": "L8"
     },
     {
       "id": "app_login",
       "label": "Login",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "login",
       "source_file": "App.tsx",
-      "source_location": "L13"
+      "source_location": "L14"
     },
     {
       "id": "app_mappage",
       "label": "MapPage",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "mappage",
       "source_file": "App.tsx",
-      "source_location": "L9"
+      "source_location": "L10"
     },
     {
       "id": "app_operations",
       "label": "Operations",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "operations",
       "source_file": "App.tsx",
-      "source_location": "L14"
+      "source_location": "L15"
     },
     {
       "id": "app_reports",
       "label": "Reports",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "reports",
       "source_file": "App.tsx",
-      "source_location": "L8"
+      "source_location": "L9"
     },
     {
       "id": "app_transparency",
       "label": "Transparency",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "transparency",
       "source_file": "App.tsx",
-      "source_location": "L10"
+      "source_location": "L11"
     },
     {
       "id": "main",
       "label": "main.tsx",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "main.tsx",
       "source_file": "main.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "ui_footer",
+      "label": "Footer.tsx",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "Routing and shared chrome",
+      "file_type": "code",
+      "norm_label": "footer.tsx",
+      "source_file": "ui/Footer.tsx",
       "source_location": "L1"
     },
     {
@@ -1746,154 +1929,220 @@
       "label": "Navbar.tsx",
       "_origin": "ast",
       "community": 3,
-      "community_name": "Routes and authentication",
+      "community_name": "Routing and shared chrome",
       "file_type": "code",
       "norm_label": "navbar.tsx",
       "source_file": "ui/Navbar.tsx",
       "source_location": "L1"
     },
     {
-      "id": "labels_statuses",
-      "label": "STATUSES",
+      "id": "ui_siteframe",
+      "label": "SiteFrame.tsx",
+      "_origin": "ast",
+      "community": 3,
+      "community_name": "Routing and shared chrome",
+      "file_type": "code",
+      "norm_label": "siteframe.tsx",
+      "source_file": "ui/SiteFrame.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "labels_status_label",
+      "label": "STATUS_LABEL",
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
-      "norm_label": "statuses",
+      "norm_label": "status_label",
       "source_file": "labels.ts",
-      "source_location": "L23"
+      "source_location": "L14"
     },
     {
-      "id": "pages_devui",
-      "label": "DevUI.tsx",
+      "id": "pages_transparency",
+      "label": "Transparency.tsx",
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
-      "norm_label": "devui.tsx",
-      "source_file": "pages/DevUI.tsx",
+      "norm_label": "transparency.tsx",
+      "source_file": "pages/Transparency.tsx",
       "source_location": "L1"
     },
     {
-      "id": "pages_devui_swatches",
-      "label": "SWATCHES",
+      "id": "pages_transparency_active",
+      "label": "ACTIVE",
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
-      "norm_label": "swatches",
-      "source_file": "pages/DevUI.tsx",
-      "source_location": "L9"
+      "norm_label": "active",
+      "source_file": "pages/Transparency.tsx",
+      "source_location": "L13"
     },
     {
-      "id": "ui_core",
-      "label": "core.tsx",
+      "id": "ui_progress",
+      "label": "Progress.tsx",
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
-      "norm_label": "core.tsx",
-      "source_file": "ui/core.tsx",
+      "norm_label": "progress.tsx",
+      "source_file": "ui/Progress.tsx",
       "source_location": "L1"
     },
     {
-      "id": "ui_core_inputcls",
-      "label": "inputCls",
+      "id": "ui_progress_short",
+      "label": "SHORT",
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
-      "norm_label": "inputcls",
-      "source_file": "ui/core.tsx",
-      "source_location": "L73"
+      "norm_label": "short",
+      "source_file": "ui/Progress.tsx",
+      "source_location": "L6"
     },
     {
-      "id": "ui_core_status_color",
-      "label": "STATUS_COLOR",
+      "id": "ui_progress_stages",
+      "label": "STAGES",
       "_origin": "ast",
       "community": 4,
-      "community_name": "Shared interface components",
+      "community_name": "Status progress and charts",
       "file_type": "code",
-      "norm_label": "status_color",
-      "source_file": "ui/core.tsx",
-      "source_location": "L42"
-    },
-    {
-      "id": "api",
-      "label": "api.ts",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "API and data contracts",
-      "file_type": "code",
-      "norm_label": "api.ts",
-      "source_file": "api.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "map_mapcanvas",
-      "label": "MapCanvas.tsx",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "mapcanvas.tsx",
-      "source_file": "map/MapCanvas.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "map_mapcanvas_basemap_config",
-      "label": "BASEMAP_CONFIG",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "basemap_config",
-      "source_file": "map/MapCanvas.tsx",
-      "source_location": "L8"
-    },
-    {
-      "id": "map_mapcanvas_token",
-      "label": "TOKEN",
-      "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
-      "file_type": "code",
-      "norm_label": "token",
-      "source_file": "map/MapCanvas.tsx",
+      "norm_label": "stages",
+      "source_file": "ui/Progress.tsx",
       "source_location": "L5"
     },
     {
-      "id": "pages_home",
-      "label": "Home.tsx",
+      "id": "pages_admin_dashboard",
+      "label": "Dashboard.tsx",
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
+      "community": 5,
+      "community_name": "Officer actions and scoring",
       "file_type": "code",
-      "norm_label": "home.tsx",
-      "source_file": "pages/Home.tsx",
+      "norm_label": "dashboard.tsx",
+      "source_file": "pages/admin/Dashboard.tsx",
       "source_location": "L1"
     },
     {
-      "id": "region",
-      "label": "region.ts",
+      "id": "pages_admin_dashboard_crit_hex",
+      "label": "CRIT_HEX",
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
+      "community": 5,
+      "community_name": "Officer actions and scoring",
       "file_type": "code",
-      "norm_label": "region.ts",
-      "source_file": "region.ts",
+      "norm_label": "crit_hex",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L147"
+    },
+    {
+      "id": "pages_admin_dashboard_criteria",
+      "label": "CRITERIA",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "Officer actions and scoring",
+      "file_type": "code",
+      "norm_label": "criteria",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L253"
+    },
+    {
+      "id": "pages_admin_dashboard_next",
+      "label": "NEXT",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "Officer actions and scoring",
+      "file_type": "code",
+      "norm_label": "next",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L139"
+    },
+    {
+      "id": "pages_admin_dashboard_opd",
+      "label": "OPD",
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "Officer actions and scoring",
+      "file_type": "code",
+      "norm_label": "opd",
+      "source_file": "pages/admin/Dashboard.tsx",
+      "source_location": "L146"
+    },
+    {
+      "id": "labels",
+      "label": "labels.ts",
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "Category and severity labels",
+      "file_type": "code",
+      "norm_label": "labels.ts",
+      "source_file": "labels.ts",
       "source_location": "L1"
     },
     {
-      "id": "region_surabaya",
-      "label": "SURABAYA",
+      "id": "labels_categories",
+      "label": "CATEGORIES",
       "_origin": "ast",
-      "community": 6,
-      "community_name": "Homepage map and region",
+      "community": 7,
+      "community_name": "Category and severity labels",
       "file_type": "code",
-      "norm_label": "surabaya",
-      "source_file": "region.ts",
-      "source_location": "L11"
+      "norm_label": "categories",
+      "source_file": "labels.ts",
+      "source_location": "L12"
+    },
+    {
+      "id": "labels_criterion_label",
+      "label": "CRITERION_LABEL",
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "Category and severity labels",
+      "file_type": "code",
+      "norm_label": "criterion_label",
+      "source_file": "labels.ts",
+      "source_location": "L27"
+    },
+    {
+      "id": "labels_damage_label",
+      "label": "DAMAGE_LABEL",
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "Category and severity labels",
+      "file_type": "code",
+      "norm_label": "damage_label",
+      "source_file": "labels.ts",
+      "source_location": "L43"
+    },
+    {
+      "id": "labels_severity_label",
+      "label": "SEVERITY_LABEL",
+      "_origin": "ast",
+      "community": 7,
+      "community_name": "Category and severity labels",
+      "file_type": "code",
+      "norm_label": "severity_label",
+      "source_file": "labels.ts",
+      "source_location": "L25"
+    },
+    {
+      "id": "map_homeintro",
+      "label": "homeIntro.ts",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Homepage entrance lifecycle",
+      "file_type": "code",
+      "norm_label": "homeintro.ts",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "hooks",
+      "label": "hooks.ts",
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "Async state and composition",
+      "file_type": "code",
+      "norm_label": "hooks.ts",
+      "source_file": "hooks.ts",
+      "source_location": "L1"
     }
   ],
   "links": [
@@ -1934,6 +2183,54 @@
       "weight": 1.0
     },
     {
+      "source": "map_homeintro_stagehomeintro",
+      "target": "map_homeintro_intromap_off",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L18",
+      "weight": 1.0
+    },
+    {
+      "source": "map_homeintro_stagehomeintro",
+      "target": "map_homeintro_intromap_once",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "map_homeintro_stagehomeintro",
+      "target": "map_homeintro_intromap_jumpto",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L27",
+      "weight": 1.0
+    },
+    {
+      "source": "map_homeintro_stagehomeintro",
+      "target": "map_homeintro_intromap_flyto",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L28",
+      "weight": 1.0
+    },
+    {
       "source": "map_layers_reportslayer",
       "target": "map_layers_reportsgeojson",
       "relation": "calls",
@@ -1954,7 +2251,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "map/MapCanvas.tsx",
-      "source_location": "L33",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -2067,18 +2364,6 @@
     },
     {
       "source": "pages_admin_operations_operations",
-      "target": "labels_roadname",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L163",
-      "weight": 1.0
-    },
-    {
-      "source": "pages_admin_operations_operations",
       "target": "region_useregion",
       "relation": "calls",
       "_origin": "ast",
@@ -2086,7 +2371,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L17",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_admin_operations_operations",
+      "target": "labels_roadname",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "pages/admin/Operations.tsx",
+      "source_location": "L162",
       "weight": 1.0
     },
     {
@@ -2098,7 +2395,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L206",
+      "source_location": "L205",
       "weight": 1.0
     },
     {
@@ -2110,7 +2407,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L28",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -2122,7 +2419,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L30",
+      "source_location": "L29",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui_devui",
+      "target": "hooks_useasync",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -2146,7 +2455,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Home.tsx",
-      "source_location": "L19",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_home_home",
+      "target": "map_homeintro_stagehomeintro",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "pages/Home.tsx",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -2158,7 +2479,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Home.tsx",
-      "source_location": "L27",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -2170,7 +2491,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Home.tsx",
-      "source_location": "L60",
+      "source_location": "L66",
       "weight": 1.0
     },
     {
@@ -2242,7 +2563,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L117",
+      "source_location": "L134",
       "weight": 1.0
     },
     {
@@ -2254,7 +2575,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L126",
+      "source_location": "L143",
       "weight": 1.0
     },
     {
@@ -2266,7 +2587,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L127",
+      "source_location": "L144",
       "weight": 1.0
     },
     {
@@ -2278,7 +2599,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L131",
+      "source_location": "L148",
       "weight": 1.0
     },
     {
@@ -2290,7 +2611,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L174",
+      "source_location": "L191",
       "weight": 1.0
     },
     {
@@ -2302,7 +2623,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L188",
+      "source_location": "L205",
       "weight": 1.0
     },
     {
@@ -2314,7 +2635,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L210",
+      "source_location": "L227",
       "weight": 1.0
     },
     {
@@ -2326,7 +2647,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L101",
+      "source_location": "L118",
       "weight": 1.0
     },
     {
@@ -2338,7 +2659,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L108",
+      "source_location": "L125",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_reports_reports",
+      "target": "reportpaging_initialpagesize",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_reports_reports",
+      "target": "reportpaging_readreportpage",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -2350,7 +2695,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L28",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -2362,7 +2707,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L17",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -2374,7 +2719,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L48",
+      "source_location": "L47",
       "weight": 1.0
     },
     {
@@ -2386,7 +2731,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L72",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -2422,7 +2767,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "ui/core.tsx",
-      "source_location": "L153",
+      "source_location": "L159",
       "weight": 1.0
     },
     {
@@ -2434,7 +2779,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "ui/core.tsx",
-      "source_location": "L131",
+      "source_location": "L137",
       "weight": 1.0
     },
     {
@@ -2447,6 +2792,18 @@
       "context": "call",
       "source_file": "ui/Navbar.tsx",
       "source_location": "L54",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_pagination_pagination",
+      "target": "reportpaging_pagenumbers",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "ui/Pagination.tsx",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -2470,7 +2827,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "pages/Reports.tsx",
-      "source_location": "L208",
+      "source_location": "L225",
       "weight": 1.0
     },
     {
@@ -2483,7 +2840,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "App.tsx",
-      "source_location": "L12",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -2496,7 +2853,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "App.tsx",
-      "source_location": "L11",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -2509,7 +2866,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "App.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -2522,7 +2879,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "App.tsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -2535,7 +2892,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "App.tsx",
-      "source_location": "L9",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -2548,7 +2905,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "App.tsx",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -2561,7 +2918,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "App.tsx",
-      "source_location": "L8",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
@@ -2574,7 +2931,7 @@
       "context": "import",
       "deferred": true,
       "source_file": "App.tsx",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -2611,6 +2968,18 @@
       "context": "import",
       "source_file": "App.tsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
+      "target": "ui_siteframe_siteframe",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "App.tsx",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -2743,6 +3112,18 @@
       "context": "import",
       "source_file": "map/MapCanvas.tsx",
       "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "map_mapcanvas",
+      "target": "map_mapdock_mapdock",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "map/MapCanvas.tsx",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -3119,7 +3500,7 @@
     },
     {
       "source": "pages_admin_operations",
-      "target": "region_useregion",
+      "target": "ui_core_button",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3131,14 +3512,14 @@
     },
     {
       "source": "pages_admin_operations",
-      "target": "ui_core_button",
+      "target": "ui_core_buttonlink",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -3150,7 +3531,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -3162,7 +3543,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -3174,7 +3555,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L11",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -3186,7 +3567,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L5",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -3198,7 +3579,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L5",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -3210,7 +3591,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L5",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -3222,7 +3603,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L5",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -3234,7 +3615,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L5",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -3246,7 +3627,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -3258,7 +3639,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -3270,7 +3651,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -3282,7 +3663,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -3294,7 +3675,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -3306,7 +3687,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L8",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3318,7 +3699,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -3330,7 +3711,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -3342,7 +3723,55 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_admin_operations",
+      "target": "region_useregion",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/admin/Operations.tsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "ui_pagination_pagination",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "pages_reports_reportrow",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "api_api",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -3359,7 +3788,7 @@
     },
     {
       "source": "pages_devui",
-      "target": "labels_statuses",
+      "target": "hooks_useasync",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3371,7 +3800,7 @@
     },
     {
       "source": "pages_devui",
-      "target": "map_layers_impact_ramp",
+      "target": "labels_statuses",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3383,7 +3812,7 @@
     },
     {
       "source": "pages_devui",
-      "target": "ui_core_button",
+      "target": "map_layers_impact_ramp",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3391,6 +3820,18 @@
       "context": "import",
       "source_file": "pages/DevUI.tsx",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "ui_core_button",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3402,7 +3843,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3414,7 +3855,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3426,7 +3867,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3438,7 +3879,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3450,7 +3891,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3462,7 +3903,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3474,7 +3915,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3486,7 +3927,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L6",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -3498,7 +3939,43 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "map_mapdock_mapdock",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_home",
+      "target": "region_formatcoord",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/Home.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_home",
+      "target": "region_useregion",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/Home.tsx",
+      "source_location": "L10",
       "weight": 1.0
     },
     {
@@ -3510,7 +3987,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/Home.tsx",
-      "source_location": "L10",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_home",
+      "target": "ui_core_buttonlink",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/Home.tsx",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -3522,24 +4011,12 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/Home.tsx",
-      "source_location": "L10",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
       "source": "pages_home",
       "target": "ui_core_stat",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "pages/Home.tsx",
-      "source_location": "L10",
-      "weight": 1.0
-    },
-    {
-      "source": "pages_home",
-      "target": "ui_footer_footer",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3599,19 +4076,7 @@
     },
     {
       "source": "pages_home",
-      "target": "region_formatcoord",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "pages/Home.tsx",
-      "source_location": "L9",
-      "weight": 1.0
-    },
-    {
-      "source": "pages_home",
-      "target": "region_useregion",
+      "target": "map_homeintro_stagehomeintro",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3851,6 +4316,18 @@
     },
     {
       "source": "pages_reports",
+      "target": "ui_core_buttonlink",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L11",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_reports",
       "target": "ui_core_chip",
       "relation": "imports",
       "_origin": "ast",
@@ -3959,7 +4436,7 @@
     },
     {
       "source": "pages_reports",
-      "target": "ui_footer_footer",
+      "target": "ui_pagination_pagination",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3971,7 +4448,7 @@
     },
     {
       "source": "pages_reports",
-      "target": "ui_progress_reachedstages",
+      "target": "reportpaging_initialpagesize",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3983,7 +4460,7 @@
     },
     {
       "source": "pages_reports",
-      "target": "ui_progress_stagetracker",
+      "target": "reportpaging_page_sizes",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -3991,6 +4468,42 @@
       "context": "import",
       "source_file": "pages/Reports.tsx",
       "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_reports",
+      "target": "reportpaging_readreportpage",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_reports",
+      "target": "ui_progress_reachedstages",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_reports",
+      "target": "ui_progress_stagetracker",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -4355,7 +4868,7 @@
     },
     {
       "source": "pages_transparency",
-      "target": "ui_footer_footer",
+      "target": "ui_progress_stages",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4367,18 +4880,6 @@
     },
     {
       "source": "pages_transparency",
-      "target": "ui_progress_stages",
-      "relation": "imports",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "pages/Transparency.tsx",
-      "source_location": "L8",
-      "weight": 1.0
-    },
-    {
-      "source": "pages_transparency",
       "target": "ui_progress_stagetracker",
       "relation": "imports",
       "_origin": "ast",
@@ -4386,7 +4887,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L8",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -4398,7 +4899,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -4410,7 +4911,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -4422,7 +4923,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -4470,7 +4971,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "ui/core.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -4482,7 +4983,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "ui/core.tsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -4495,6 +4996,30 @@
       "context": "import",
       "source_file": "ui/Navbar.tsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_pagination",
+      "target": "reportpaging_pagenumbers",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "ui/Pagination.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_pagination",
+      "target": "ui_core_button",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "ui/Pagination.tsx",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -4534,6 +5059,18 @@
       "weight": 1.0
     },
     {
+      "source": "ui_siteframe",
+      "target": "ui_footer_footer",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "ui/SiteFrame.tsx",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "app",
       "target": "api",
       "relation": "imports_from",
@@ -4555,6 +5092,18 @@
       "context": "import",
       "source_file": "App.tsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
+      "target": "ui_siteframe",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "App.tsx",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -4606,6 +5155,18 @@
       "weight": 1.0
     },
     {
+      "source": "map_mapcanvas",
+      "target": "map_mapdock",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "map/MapCanvas.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "pages_admin_dashboard",
       "target": "api",
       "relation": "imports_from",
@@ -4679,7 +5240,7 @@
     },
     {
       "source": "pages_admin_operations",
-      "target": "region",
+      "target": "ui_core",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4691,18 +5252,6 @@
     },
     {
       "source": "pages_admin_operations",
-      "target": "ui_core",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L11",
-      "weight": 1.0
-    },
-    {
-      "source": "pages_admin_operations",
       "target": "api",
       "relation": "imports_from",
       "_origin": "ast",
@@ -4710,7 +5259,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L5",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -4722,7 +5271,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L6",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -4734,7 +5283,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L7",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -4746,7 +5295,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L8",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -4758,7 +5307,43 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/admin/Operations.tsx",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_admin_operations",
+      "target": "region",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/admin/Operations.tsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "ui_pagination",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "pages_reports",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L11",
       "weight": 1.0
     },
     {
@@ -4775,7 +5360,7 @@
     },
     {
       "source": "pages_devui",
-      "target": "labels",
+      "target": "hooks",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4787,7 +5372,7 @@
     },
     {
       "source": "pages_devui",
-      "target": "map_layers",
+      "target": "labels",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4799,7 +5384,7 @@
     },
     {
       "source": "pages_devui",
-      "target": "ui_core",
+      "target": "map_layers",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4807,6 +5392,18 @@
       "context": "import",
       "source_file": "pages/DevUI.tsx",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "ui_core",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L7",
       "weight": 1.0
     },
     {
@@ -4818,12 +5415,24 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "map_mapdock",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L9",
       "weight": 1.0
     },
     {
       "source": "pages_home",
-      "target": "ui_core",
+      "target": "region",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4835,7 +5444,7 @@
     },
     {
       "source": "pages_home",
-      "target": "ui_footer",
+      "target": "ui_core",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -4895,7 +5504,7 @@
     },
     {
       "source": "pages_home",
-      "target": "region",
+      "target": "map_homeintro",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5015,7 +5624,7 @@
     },
     {
       "source": "pages_reports",
-      "target": "ui_footer",
+      "target": "ui_pagination",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5027,7 +5636,7 @@
     },
     {
       "source": "pages_reports",
-      "target": "ui_progress",
+      "target": "reportpaging",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5035,6 +5644,18 @@
       "context": "import",
       "source_file": "pages/Reports.tsx",
       "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_reports",
+      "target": "ui_progress",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -5147,7 +5768,7 @@
     },
     {
       "source": "pages_transparency",
-      "target": "ui_footer",
+      "target": "ui_progress",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5159,18 +5780,6 @@
     },
     {
       "source": "pages_transparency",
-      "target": "ui_progress",
-      "relation": "imports_from",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "import",
-      "source_file": "pages/Transparency.tsx",
-      "source_location": "L8",
-      "weight": 1.0
-    },
-    {
-      "source": "pages_transparency",
       "target": "ui_charts",
       "relation": "imports_from",
       "_origin": "ast",
@@ -5178,7 +5787,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L9",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -5226,7 +5835,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "ui/core.tsx",
-      "source_location": "L3",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -5238,7 +5847,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "ui/core.tsx",
-      "source_location": "L4",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -5251,6 +5860,30 @@
       "context": "import",
       "source_file": "ui/Navbar.tsx",
       "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_pagination",
+      "target": "reportpaging",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "ui/Pagination.tsx",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_pagination",
+      "target": "ui_core",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "ui/Pagination.tsx",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -5275,6 +5908,18 @@
       "context": "import",
       "source_file": "ui/Progress.tsx",
       "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_siteframe",
+      "target": "ui_footer",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "ui/SiteFrame.tsx",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -5588,7 +6233,7 @@
     },
     {
       "source": "app",
-      "target": "app_transparency",
+      "target": "app_mappage",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5599,7 +6244,7 @@
     },
     {
       "source": "app",
-      "target": "app_devui",
+      "target": "app_transparency",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5610,7 +6255,7 @@
     },
     {
       "source": "app",
-      "target": "app_dashboard",
+      "target": "app_devui",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5621,7 +6266,7 @@
     },
     {
       "source": "app",
-      "target": "app_login",
+      "target": "app_dashboard",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5632,7 +6277,7 @@
     },
     {
       "source": "app",
-      "target": "app_operations",
+      "target": "app_login",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5643,13 +6288,24 @@
     },
     {
       "source": "app",
+      "target": "app_operations",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "App.tsx",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "app",
       "target": "app_publiclayout",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "App.tsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -5671,7 +6327,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "App.tsx",
-      "source_location": "L36",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -5682,23 +6338,12 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "App.tsx",
-      "source_location": "L7",
-      "weight": 1.0
-    },
-    {
-      "source": "app",
-      "target": "app_reports",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "App.tsx",
       "source_location": "L8",
       "weight": 1.0
     },
     {
       "source": "app",
-      "target": "app_mappage",
+      "target": "app_reports",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -5840,6 +6485,39 @@
       "weight": 1.0
     },
     {
+      "source": "map_homeintro",
+      "target": "map_homeintro_citycamera",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "map_homeintro",
+      "target": "map_homeintro_stagehomeintro",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "map_homeintro",
+      "target": "map_homeintro_intromap",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
       "source": "map_layers",
       "target": "map_layers_facility_hex",
       "relation": "contains",
@@ -5951,24 +6629,13 @@
     },
     {
       "source": "map_mapcanvas",
-      "target": "map_mapcanvas_mapcanvasprops",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "map/MapCanvas.tsx",
-      "source_location": "L10",
-      "weight": 1.0
-    },
-    {
-      "source": "map_mapcanvas",
       "target": "map_mapcanvas_mapcanvas",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "map/MapCanvas.tsx",
-      "source_location": "L29",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -5979,7 +6646,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "map/MapCanvas.tsx",
-      "source_location": "L5",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -5990,7 +6657,40 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "map/MapCanvas.tsx",
-      "source_location": "L8",
+      "source_location": "L7",
+      "weight": 1.0
+    },
+    {
+      "source": "map_mapcanvas",
+      "target": "map_mapcanvas_mapcanvasprops",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/MapCanvas.tsx",
+      "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "map_mapdock",
+      "target": "map_mapdock_mapdock",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/MapDock.tsx",
+      "source_location": "L14",
+      "weight": 1.0
+    },
+    {
+      "source": "map_mapdock",
+      "target": "map_mapdock_mapdockprops",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/MapDock.tsx",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -6122,7 +6822,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L13",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -6133,7 +6833,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L14",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -6144,7 +6844,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L16",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -6155,18 +6855,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/admin/Operations.tsx",
-      "source_location": "L74",
-      "weight": 1.0
-    },
-    {
-      "source": "pages_devui",
-      "target": "pages_devui_devui",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "pages/DevUI.tsx",
-      "source_location": "L12",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -6177,7 +6866,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/DevUI.tsx",
-      "source_location": "L9",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_devui",
+      "target": "pages_devui_devui",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "pages/DevUI.tsx",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -6226,13 +6926,24 @@
     },
     {
       "source": "pages_reports",
+      "target": "pages_reports_reportrow",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "pages/Reports.tsx",
+      "source_location": "L111",
+      "weight": 1.0
+    },
+    {
+      "source": "pages_reports",
       "target": "pages_reports_reportdetailview",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Reports.tsx",
-      "source_location": "L116",
+      "source_location": "L133",
       "weight": 1.0
     },
     {
@@ -6243,7 +6954,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Reports.tsx",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -6254,7 +6965,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Reports.tsx",
-      "source_location": "L152",
+      "source_location": "L169",
       "weight": 1.0
     },
     {
@@ -6265,7 +6976,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Reports.tsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -6276,18 +6987,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Reports.tsx",
-      "source_location": "L162",
-      "weight": 1.0
-    },
-    {
-      "source": "pages_reports",
-      "target": "pages_reports_reportform",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "pages/Reports.tsx",
-      "source_location": "L173",
+      "source_location": "L179",
       "weight": 1.0
     },
     {
@@ -6298,18 +6998,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Reports.tsx",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
       "source": "pages_reports",
-      "target": "pages_reports_reportrow",
+      "target": "pages_reports_reportform",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Reports.tsx",
-      "source_location": "L94",
+      "source_location": "L190",
       "weight": 1.0
     },
     {
@@ -6320,7 +7020,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Reports.tsx",
-      "source_location": "L224",
+      "source_location": "L241",
       "weight": 1.0
     },
     {
@@ -6331,7 +7031,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L13",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -6342,7 +7042,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L14",
+      "source_location": "L13",
       "weight": 1.0
     },
     {
@@ -6353,7 +7053,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "pages/Transparency.tsx",
-      "source_location": "L16",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -6398,6 +7098,50 @@
       "confidence_score": 1.0,
       "source_file": "region.ts",
       "source_location": "L35",
+      "weight": 1.0
+    },
+    {
+      "source": "reportpaging",
+      "target": "reportpaging_page_sizes",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "reportPaging.ts",
+      "source_location": "L1",
+      "weight": 1.0
+    },
+    {
+      "source": "reportpaging",
+      "target": "reportpaging_pagenumbers",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "reportPaging.ts",
+      "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "reportpaging",
+      "target": "reportpaging_initialpagesize",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "reportPaging.ts",
+      "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "reportpaging",
+      "target": "reportpaging_readreportpage",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "reportPaging.ts",
+      "source_location": "L4",
       "weight": 1.0
     },
     {
@@ -6501,13 +7245,24 @@
     },
     {
       "source": "ui_core",
+      "target": "ui_core_skeleton",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ui/core.tsx",
+      "source_location": "L102",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_core",
       "target": "ui_core_empty",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L100",
+      "source_location": "L106",
       "weight": 1.0
     },
     {
@@ -6518,7 +7273,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L109",
+      "source_location": "L115",
       "weight": 1.0
     },
     {
@@ -6529,7 +7284,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L118",
+      "source_location": "L124",
       "weight": 1.0
     },
     {
@@ -6540,7 +7295,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L128",
+      "source_location": "L134",
       "weight": 1.0
     },
     {
@@ -6551,7 +7306,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -6562,7 +7317,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L152",
+      "source_location": "L158",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_core",
+      "target": "ui_core_buttonlink",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ui/core.tsx",
+      "source_location": "L30",
       "weight": 1.0
     },
     {
@@ -6573,7 +7339,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L29",
+      "source_location": "L35",
       "weight": 1.0
     },
     {
@@ -6584,7 +7350,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L38",
+      "source_location": "L44",
       "weight": 1.0
     },
     {
@@ -6595,7 +7361,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L42",
+      "source_location": "L48",
       "weight": 1.0
     },
     {
@@ -6606,7 +7372,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L51",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -6617,7 +7383,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L53",
+      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -6628,18 +7394,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L63",
-      "weight": 1.0
-    },
-    {
-      "source": "ui_core",
-      "target": "ui_core_variant",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "ui/core.tsx",
-      "source_location": "L7",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -6650,7 +7405,18 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L73",
+      "source_location": "L79",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_core",
+      "target": "ui_core_variant",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ui/core.tsx",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -6661,7 +7427,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L76",
+      "source_location": "L82",
       "weight": 1.0
     },
     {
@@ -6672,18 +7438,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/core.tsx",
-      "source_location": "L87",
-      "weight": 1.0
-    },
-    {
-      "source": "ui_core",
-      "target": "ui_core_skeleton",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "ui/core.tsx",
-      "source_location": "L96",
+      "source_location": "L93",
       "weight": 1.0
     },
     {
@@ -6694,7 +7449,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "ui/Footer.tsx",
-      "source_location": "L2",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -6742,6 +7497,17 @@
       "weight": 1.0
     },
     {
+      "source": "ui_pagination",
+      "target": "ui_pagination_pagination",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ui/Pagination.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
       "source": "ui_progress",
       "target": "ui_progress_stagetracker",
       "relation": "contains",
@@ -6783,6 +7549,17 @@
       "confidence_score": 1.0,
       "source_file": "ui/Progress.tsx",
       "source_location": "L6",
+      "weight": 1.0
+    },
+    {
+      "source": "ui_siteframe",
+      "target": "ui_siteframe_siteframe",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "ui/SiteFrame.tsx",
+      "source_location": "L5",
       "weight": 1.0
     },
     {
@@ -6858,8 +7635,52 @@
       "source_file": "api.ts",
       "source_location": "L100",
       "weight": 1.0
+    },
+    {
+      "source": "map_homeintro_intromap",
+      "target": "map_homeintro_intromap_once",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L3",
+      "weight": 1.0
+    },
+    {
+      "source": "map_homeintro_intromap",
+      "target": "map_homeintro_intromap_off",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "map_homeintro_intromap",
+      "target": "map_homeintro_intromap_flyto",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "map_homeintro_intromap",
+      "target": "map_homeintro_intromap_jumpto",
+      "relation": "method",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "map/homeIntro.ts",
+      "source_location": "L6",
+      "weight": 1.0
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "a752bfa2552351f47616305bd7dd697ae512a72c"
+  "built_at_commit": "2d670ff2e1ce8fa3422655e94b0c0e7dd2c94318"
 }

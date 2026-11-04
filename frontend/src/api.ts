@@ -170,8 +170,8 @@ export const api = {
     if (input.description) fd.append('description', input.description)
     return request<ReportDetail>('/reports', { method: 'POST', body: fd })
   },
-  listReports(p: { status?: Status[]; category?: Category[]; q?: string; sort?: 'newest' | 'priority'; bbox?: string; limit?: number; offset?: number } = {}) {
-    return request<Page<Report>>('/reports' + qs(p))
+  listReports(p: { status?: Status[]; category?: Category[]; q?: string; sort?: 'newest' | 'priority'; bbox?: string; limit?: number; offset?: number } = {}, signal?: AbortSignal) {
+    return request<Page<Report>>('/reports' + qs(p), { signal })
   },
   getReport: (code: string) => request<ReportDetail>(`/reports/${encodeURIComponent(code)}`),
   stats: () => request<Stats>('/stats'),

@@ -8,8 +8,9 @@ import { CATEGORIES, CATEGORY_LABEL, DAMAGE_LABEL, SEVERITY_LABEL, formatDate, r
 import { MapCanvas } from '../map/MapCanvas'
 import { SegmentsLayer, useSegments } from '../map/layers'
 import { useRegion } from '../region'
-import { Button, Chip, Empty, ErrorNote, Field, Panel, Sheet, Skeleton, StatusBadge, inputCls } from '../ui/core'
-import { Footer } from '../ui/Footer'
+import { Button, ButtonLink, Chip, Empty, ErrorNote, Field, Panel, Sheet, Skeleton, StatusBadge, inputCls } from '../ui/core'
+import { Pagination } from '../ui/Pagination'
+import { initialPageSize, PAGE_SIZES, readReportPage } from '../reportPaging'
 import { StageTracker, reachedStages } from '../ui/Progress'
 
 const ACTIVE: Status[] = ['reported', 'ai_verified', 'gov_approved', 'assigned', 'in_repair']
@@ -19,87 +20,103 @@ export default function Reports() {
   const [params, setParams] = useSearchParams()
   const { code } = useParams()
   const nav = useNavigate()
-  const [scope, setScope] = useState<Scope>('all')
-  const [category, setCategory] = useState<Category | ''>('')
-  const [sort, setSort] = useState<'newest' | 'priority'>('newest')
-  const [q, setQ] = useState('')
-  const [limit, setLimit] = useState(24)
+  const [defaultSize] = useState(() => initialPageSize(window.innerWidth))
+  const { page, pageSize } = readReportPage(params, defaultSize)
+  const scope: Scope = params.get('scope') === 'active' ? 'active' : params.get('scope') === 'completed' ? 'completed' : 'all'
+  const category = CATEGORIES.includes(params.get('category') as Category) ? params.get('category') as Category : ''
+  const sort = params.get('sort') === 'priority' ? 'priority' : 'newest'
+  const q = params.get('q') ?? ''
   const status = scope === 'active' ? ACTIVE : scope === 'completed' ? (['completed'] as Status[]) : []
+  const queryKey = JSON.stringify([scope, category, sort, q, page, pageSize])
   const list = useAsync(
-    () => api.listReports({ status, category: category ? [category] : [], q, sort, limit }),
-    [scope, category, q, sort, limit],
+    (signal) => api.listReports({ status, category: category ? [category] : [], q, sort, limit: pageSize, offset: (page - 1) * pageSize }, signal)
+      .then((data) => ({ ...data, queryKey })),
+    [queryKey],
   )
+  const data = list.data?.queryKey === queryKey ? list.data : null
   const creating = params.get('buat') === '1'
-  const closeForm = () => {
-    params.delete('buat')
-    setParams(params, { replace: true })
+  const listParams = new URLSearchParams(params)
+  listParams.delete('buat')
+  listParams.set('size', String(pageSize))
+  listParams.set('page', String(page))
+  const search = `?${listParams.toString()}`
+  const change = (patch: Record<string, string>, resetPage = true, replace = false) => {
+    const next = new URLSearchParams(params)
+    next.set('size', String(pageSize))
+    for (const [key, value] of Object.entries(patch)) {
+      if (value) next.set(key, value)
+      else next.delete(key)
+    }
+    if (resetPage) next.set('page', '1')
+    setParams(next, { preventScrollReset: true, replace })
   }
+  useEffect(() => {
+    if (!data || list.loading) return
+    const last = Math.max(1, Math.ceil(data.total / pageSize))
+    if (page > last) {
+      const next = new URLSearchParams(params)
+      next.set('page', String(last))
+      next.set('size', String(pageSize))
+      setParams(next, { replace: true, preventScrollReset: true })
+    }
+  }, [data, list.loading, page, pageSize, params, setParams])
+  const closeForm = () => change({ buat: '' }, false, true)
 
   return (
-    <>
-    <div className="mx-auto max-w-6xl px-3 pb-10 pt-24 md:px-6">
+    <div className="reports-page page-content mx-auto max-w-6xl px-3 md:px-6">
       <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
         <h1 className="text-2xl font-bold tracking-tight">Reports</h1>
-        <p className="num text-sm text-muted">{list.data?.total ?? 0} {list.data?.total === 1 ? 'report' : 'reports'}</p>
+        <p className="num text-sm text-muted">{data?.total ?? 0} {data?.total === 1 ? 'report' : 'reports'}</p>
       </div>
-
-      <div className="mb-4 grid grid-cols-1 gap-2 md:grid-cols-[1fr_auto_auto_auto]">
-        <label className="relative">
+      <div className="reports-filters mb-4 flex flex-wrap items-center gap-2">
+        <label className="relative min-w-0 flex-1 basis-64">
           <span className="sr-only">Search</span>
           <MagnifyingGlass size={18} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-muted" />
-          <input className={`${inputCls} h-11 pl-10`} placeholder="Search code, road, note"
-            defaultValue={q} onKeyDown={(e) => e.key === 'Enter' && setQ((e.target as HTMLInputElement).value.trim())} />
+          <input key={q} className={`${inputCls} h-11 pl-10`} placeholder="Search code, road, note"
+            defaultValue={q} onKeyDown={(e) => e.key === 'Enter' && change({ q: (e.target as HTMLInputElement).value.trim() })} />
         </label>
-        <div className="flex gap-1.5">
-          {(['all', 'active', 'completed'] as Scope[]).map((s) => (
-            <Chip key={s} active={scope === s} onClick={() => setScope(s)}>{s[0].toUpperCase() + s.slice(1)}</Chip>
-          ))}
+        <div className="flex flex-wrap gap-1.5">
+          {(['all', 'active', 'completed'] as Scope[]).map((s) => <Chip key={s} active={scope === s} onClick={() => change({ scope: s })}>{s[0].toUpperCase() + s.slice(1)}</Chip>)}
         </div>
-        <select aria-label="Category" className={`${inputCls} h-11 md:w-44`} value={category} onChange={(e) => setCategory(e.target.value as Category | '')}>
+        <select aria-label="Category" className={`${inputCls} h-11 w-40`} value={category} onChange={(e) => change({ category: e.target.value })}>
           <option value="">All categories</option>
           {CATEGORIES.map((c) => <option key={c} value={c}>{CATEGORY_LABEL[c]}</option>)}
         </select>
-        <select aria-label="Sort" className={`${inputCls} h-11 md:w-36`} value={sort} onChange={(e) => setSort(e.target.value as 'newest' | 'priority')}>
-          <option value="newest">Newest</option>
-          <option value="priority">Priority</option>
+        <select aria-label="Sort" className={`${inputCls} h-11 w-28`} value={sort} onChange={(e) => change({ sort: e.target.value })}>
+          <option value="newest">Newest</option><option value="priority">Priority</option>
         </select>
+        <label className="flex items-center gap-2 text-xs text-muted">Per page
+          <select aria-label="Reports per page" className={`${inputCls} h-11 w-16`} value={pageSize} onChange={(e) => change({ size: e.target.value })}>
+            {PAGE_SIZES.map((size) => <option key={size} value={size}>{size}</option>)}
+          </select>
+        </label>
       </div>
-
       {list.error && <ErrorNote message={list.error} onRetry={list.reload} />}
-      {list.loading && !list.data && (
-        <div className="grid gap-2 md:grid-cols-2">{Array.from({ length: 6 }, (_, i) => <Skeleton key={i} className="h-24" />)}</div>
-      )}
-      {list.data?.items.length === 0 && (
-        <Empty title="No matching reports." action={<Button variant="primary" onClick={() => setParams({ buat: '1' })}>Report</Button>} />
-      )}
-      <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
-        {list.data?.items.map((r) => <ReportRow key={r.code} report={r} />)}
+      {list.loading && !data && <div className="report-cards">{Array.from({ length: pageSize }, (_, i) => <Skeleton key={i} className="report-card h-28" />)}</div>}
+      {data?.items.length === 0 && <Empty title="No matching reports." action={<Button variant="primary" onClick={() => change({ buat: '1' }, false)}>Report</Button>} />}
+      <div className="report-cards">{data?.items.map((r) => <ReportRow key={r.code} report={r} search={search} />)}</div>
+      <div className="reports-pagination glass-strong rounded-2xl px-3 py-2">
+        <Pagination page={page} pageSize={pageSize} total={data?.total ?? 0} loading={list.loading || (!data && !list.error)} onChange={(p) => change({ page: String(p) }, false)} />
       </div>
-      {list.data && list.data.total > list.data.items.length && (
-        <div className="mt-4 flex justify-center"><Button onClick={() => setLimit((l) => l + 24)}>Load more</Button></div>
-      )}
-
       <Sheet open={creating} onClose={closeForm} title="Report damage">
-        <ReportForm onDone={(r) => { list.reload(); nav(`/laporan/${r.code}`, { replace: true }) }} />
+        <ReportForm onDone={(r) => { list.reload(); nav(`/laporan/${r.code}${search}`, { replace: true }) }} />
       </Sheet>
-      <Sheet open={!!code} onClose={() => nav('/laporan')} title={code ?? ''} wide>
+      <Sheet open={!!code} onClose={() => nav(`/laporan${search}`)} title={code ?? ''} wide>
         {code && <ReportDetailView code={code} />}
       </Sheet>
     </div>
-    <Footer />
-    </>
   )
 }
 
-function ReportRow({ report: r }: { report: Report }) {
+export function ReportRow({ report: r, search = '' }: { report: Report; search?: string }) {
   return (
-    <Link to={`/laporan/${r.code}`}
-      className="group flex min-w-0 gap-3 rounded-2xl border border-line bg-ink-900/60 p-2.5 transition hover:border-line-strong hover:bg-ink-800">
-      <img src={r.photo_url} alt="" loading="lazy" className="size-20 flex-none rounded-xl object-cover" />
+    <Link to={`/laporan/${r.code}${search}`}
+      className="report-card group flex min-w-0 gap-3 rounded-2xl border border-line bg-ink-900/60 p-3 transition hover:border-line-strong hover:bg-ink-800">
+      <img src={r.photo_url} alt="" loading="lazy" className="size-16 flex-none rounded-xl object-cover" />
       <div className="min-w-0 flex-1 py-0.5">
-        <div className="flex items-center justify-between gap-2">
-          <p className="truncate font-semibold">{r.segment ? roadName(r.segment.name) : 'Outside the road network'}</p>
-          <StatusBadge status={r.status} />
+        <div className="grid gap-1.5">
+          <p className="truncate font-semibold" title={r.segment ? roadName(r.segment.name) : 'Outside the road network'}>{r.segment ? roadName(r.segment.name) : 'Outside the road network'}</p>
+          <span className="w-fit"><StatusBadge status={r.status} /></span>
         </div>
         <p className="mt-0.5 truncate text-[13px] text-muted">
           {CATEGORY_LABEL[r.category]}{r.ai ? `, ${SEVERITY_LABEL[r.ai.severity].toLowerCase()} damage` : ''}
@@ -144,7 +161,7 @@ export function ReportDetailView({ code }: { code: string }) {
           </li>
         ))}
       </ol>
-      <Link to={`/peta?r=${d.code}`}><Button className="w-full" icon={<MapPin size={18} />}>View on map</Button></Link>
+      <ButtonLink to={`/peta?r=${d.code}`} className="w-full" icon={<MapPin size={18} />}>View on map</ButtonLink>
     </div>
   )
 }

@@ -1,7 +1,38 @@
 # Shared shell, map controls and reports - implementation plan
 
-Status: planning only. Delayed homepage report layers are approved. The new shell,
-controls, overflow and report layout below are proposed for review.
+Status: approved and implemented in R5. Text attribution stays in the shared footer;
+Mapbox Standard requires it in addition to the genuine Mapbox wordmark. The compact
+attribution button is removed on full-screen maps; embedded pickers keep it.
+
+## Completion evidence
+
+- Shared fixed chrome on all 8 routes, checked at 1366x900 and 390x844. One footer
+  and correct navbar per route; no horizontal overflow, including the catalog.
+- Home/public Map canvas ratio is 1.10; no extra document scroll. Dock and wordmark
+  clear the visible footer and map panels. Report form also checked at 390x500.
+- 8 frontend tests cover entrance event/timeout/cancellation/reduced-motion behavior,
+  page validation/navigation and WIB calendar logic. Production build passes.
+- `e2e/layout.py`: 16 route checks and 137 mocked reports; last/invalid page, changed
+  totals, filter reset, drawer return, Back/Forward, errors, empty results, 200%-like
+  viewport reflow and stale responses pass without page errors.
+- `e2e/smoke.py`: 11 steps pass through photo/GPS, report creation, lifecycle to
+  completion, weights and graph simulation. Its selectors now handle URL query
+  parameters and accessible chart captions correctly.
+- Existing React lint warnings remain; no design-detector findings. No backend
+  schema/API change, new runtime dependency or model retraining.
+
+Exploratory headless Edge entrance samples versus pre-implementation commit 2d670ff:
+
+| Viewport / ordering | Before p95 frame interval | After p95 frame interval | Long-task time before / after |
+|---|---|---|---|
+| 1366x900, before then after | 33.3 ms | 17.1 ms | 2420 / 852 ms |
+| 1366x900, after then before | 66.2 ms | 17.2 ms | 2727 / 1887 ms |
+| 390x844, before then after | 17.2 ms | 17.2 ms | 525 / 491 ms |
+
+These are short local samples with substantial baseline variance, not a controlled
+device-wide guarantee. Phone frame time showed no clear improvement. Overlay-ready
+state arrived at about 6.7 s desktop / 7.1 s phone from navigation in the first pair.
+The extra canvas area is retained as requested. Real phone profiling remains open.
 
 ## Direction and boundaries
 
@@ -195,4 +226,4 @@ Acceptance:
 - Frontend build and calendar tests; focused pagination/animation regression proof;
   full report-to-completion + weights/simulation smoke test. No ML retraining.
 
-No application implementation or new-layout approval is implied by this plan file.
+This document records the approved implementation and its measured limits.

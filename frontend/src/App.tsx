@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { BrowserRouter, Navigate, Outlet, Route, Routes, useNavigate } from 'react-router-dom'
 import { getToken } from './api'
 import { AdminNavbar, PublicNavbar } from './ui/Navbar'
+import { SiteFrame } from './ui/SiteFrame'
 
 // Pages load on demand so the map library does not delay the first paint.
 const Home = lazy(() => import('./pages/Home'))
@@ -16,20 +17,18 @@ const Operations = lazy(() => import('./pages/admin/Operations'))
 function PublicLayout() {
   const nav = useNavigate()
   return (
-    <>
-      <PublicNavbar onReport={() => nav('/laporan?buat=1')} />
-      <main><Suspense fallback={null}><Outlet /></Suspense></main>
-    </>
+    <SiteFrame header={<PublicNavbar onReport={() => nav('/laporan?buat=1')} />}>
+      <Suspense fallback={null}><Outlet /></Suspense>
+    </SiteFrame>
   )
 }
 
 function AdminLayout() {
   if (!getToken()) return <Navigate to="/admin/login" replace />
   return (
-    <>
-      <AdminNavbar />
-      <main><Suspense fallback={null}><Outlet /></Suspense></main>
-    </>
+    <SiteFrame header={<AdminNavbar />}>
+      <Suspense fallback={null}><Outlet /></Suspense>
+    </SiteFrame>
   )
 }
 
@@ -44,8 +43,8 @@ export default function App() {
           <Route path="peta" element={<MapPage />} />
           <Route path="transparansi" element={<Transparency />} />
           <Route path="dev/ui" element={<DevUI />} />
+          <Route path="admin/login" element={<Login />} />
         </Route>
-        <Route path="admin/login" element={<Suspense fallback={null}><Login /></Suspense>} />
         <Route path="admin" element={<AdminLayout />}>
           <Route index element={<Dashboard />} />
           <Route path="laporan/:code" element={<Dashboard />} />

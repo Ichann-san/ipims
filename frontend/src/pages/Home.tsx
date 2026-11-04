@@ -1,14 +1,14 @@
 import { ArrowRight, Plus } from '@phosphor-icons/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { MapRef } from 'react-map-gl/mapbox'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
 import { useAsync } from '../hooks'
 import { MapCanvas } from '../map/MapCanvas'
 import { ReportsLayer } from '../map/layers'
+import { stageHomeIntro } from '../map/homeIntro'
 import { formatCoord, useRegion } from '../region'
-import { Button, Panel, Stat } from '../ui/core'
-import { Footer } from '../ui/Footer'
+import { Button, ButtonLink, Panel, Stat } from '../ui/core'
 
 const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -16,46 +16,52 @@ export default function Home() {
   const region = useRegion()
   const nav = useNavigate()
   const mapRef = useRef<MapRef>(null)
+  const [layersReady, setLayersReady] = useState(false)
+  const introCleanup = useRef<(() => void) | null>(null)
   const stats = useAsync(() => api.stats(), [])
-  const reports = useAsync(() => api.listReports({ limit: 100 }), [])
+  const reports = useAsync((signal) => api.listReports({ limit: 100 }, signal), [])
 
-  // Globe to city: one fly-in after load, then a slow orbit that stops when the tab is hidden.
+  // Prefetch during the entrance; attach map data only once the city camera settles.
   const onLoad = () => {
-    const map = mapRef.current
+    const map = mapRef.current?.getMap()
     if (!map) return
-    const city = { center: region.center, zoom: 12.4, pitch: 58, bearing: -18 }
-    if (reduceMotion()) {
-      map.jumpTo(city)
-      return
-    }
-    map.flyTo({ ...city, duration: 5200, essential: true, curve: 1.6 })
+    introCleanup.current?.()
+    introCleanup.current = stageHomeIntro(map, { center: region.center, zoom: 12.4, pitch: 58, bearing: -18 }, reduceMotion(), () => setLayersReady(true))
   }
+  useEffect(() => () => introCleanup.current?.(), [])
   useEffect(() => {
-    if (reduceMotion()) return
+    if (!layersReady || reduceMotion()) return
     let frame = 0
     let last = 0
     const spin = (t: number) => {
       const map = mapRef.current?.getMap()
+      if (document.hidden) return
       if (map && !map.isMoving() && map.getZoom() > 11 && last) map.setBearing(map.getBearing() + (t - last) * 0.0016)
       last = t
       frame = requestAnimationFrame(spin)
     }
-    frame = requestAnimationFrame(spin)
-    return () => cancelAnimationFrame(frame)
-  }, [])
+    const visibility = () => {
+      cancelAnimationFrame(frame)
+      last = 0
+      if (!document.hidden) frame = requestAnimationFrame(spin)
+    }
+    visibility()
+    document.addEventListener('visibilitychange', visibility)
+    return () => { cancelAnimationFrame(frame); document.removeEventListener('visibilitychange', visibility) }
+  }, [layersReady])
 
   const s = stats.data
   return (
-    <div className="home-map relative h-[100dvh] overflow-hidden">
-      <MapCanvas presentation mapRef={mapRef} interactive={false} controls={false} attribution={false} onLoad={onLoad}
+    <div className="home-map relative h-[100dvh] overflow-hidden" data-map-phase={layersReady ? 'ready' : 'intro'}>
+      <MapCanvas presentation overscan mapRef={mapRef} interactive={false} controls={false} attribution={false} onLoad={onLoad}
         initialViewState={{ longitude: 110, latitude: -4, zoom: 2.1, pitch: 0, bearing: 0 }}>
-        <ReportsLayer reports={reports.data?.items ?? []} />
+        {layersReady && <ReportsLayer reports={reports.data?.items ?? []} />}
       </MapCanvas>
       {/* Dim the map evenly, a little more behind the headline, so the text leads. */}
       <div className="pointer-events-none absolute inset-0 bg-ink-950/45" />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_15%_85%,rgb(8_16_31/0.85),transparent_55%)]" />
 
-      <div className="absolute inset-x-3 bottom-[5.75rem] z-20 grid gap-3 md:inset-x-6 md:bottom-[4.5rem] md:max-w-xl">
+      <div className="home-content absolute inset-x-3 z-20 grid gap-3 md:inset-x-6 md:max-w-xl">
         <p className="num text-[11px] font-semibold uppercase tracking-[0.2em] text-coral-soft">
           {region.name} · {formatCoord(region.center)}
         </p>
@@ -65,7 +71,7 @@ export default function Home() {
         {/* <p className="max-w-md text-muted">Foto kerusakan, AI menilai, sistem mengurutkan perbaikan menurut dampaknya pada kota.</p> */}
         <div className="flex flex-wrap gap-2">
           <Button variant="primary" icon={<Plus size={18} weight="bold" />} onClick={() => nav('/laporan?buat=1')}>Report</Button>
-          <Link to="/peta"><Button icon={<ArrowRight size={18} />}>Open map</Button></Link>
+          <ButtonLink to="/peta" icon={<ArrowRight size={18} />}>Open map</ButtonLink>
         </div>
         <Panel className="mt-1 grid grid-cols-3 gap-4 px-5 py-3">
           <Stat label="Active reports" value={s ? s.active : '-'} />
@@ -74,7 +80,6 @@ export default function Home() {
         </Panel>
       </div>
 
-      <Footer overlay />
     </div>
   )
 }

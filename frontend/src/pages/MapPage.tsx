@@ -44,8 +44,8 @@ export default function MapPage() {
 
   const toggle = (k: keyof typeof layers) => setLayers((l) => ({ ...l, [k]: !l[k] }))
   return (
-    <div className="relative h-[100dvh]">
-      <MapCanvas constrainToRegion mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
+    <div className="public-map relative h-[100dvh] overflow-hidden">
+      <MapCanvas constrainToRegion overscan mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
         interactiveLayerIds={[layers.reports ? 'reports' : '', layers.impact && segments ? 'segments' : ''].filter(Boolean)}
         initialViewState={{ longitude: region.center[0], latitude: region.center[1], zoom: 12.6, pitch: 25, bearing: -12 }}>
         {segments && <SegmentsLayer data={segments} />}
@@ -77,7 +77,7 @@ export default function MapPage() {
         )}
       </MapCanvas>
 
-      <Panel className="absolute bottom-3 left-3 grid gap-3 p-3 md:bottom-6 md:left-6">
+      <Panel className="map-layer-panel absolute left-3 grid gap-3 p-3 md:left-6">
         <div className="flex flex-wrap gap-1.5">
           <Chip active={layers.reports} onClick={() => toggle('reports')}>Reports</Chip>
           <Chip active={layers.impact} onClick={() => toggle('impact')}>Road impact</Chip>

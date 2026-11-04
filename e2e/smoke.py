@@ -13,6 +13,7 @@ import re
 import ssl
 import sys
 import urllib.request
+from urllib.parse import urlsplit
 from pathlib import Path
 
 from playwright.sync_api import Page, expect, sync_playwright
@@ -76,7 +77,7 @@ def citizen(browser, base: str, c: Checker) -> str:
     form.locator("textarea").fill("End-to-end test: pothole on the road.")
     form.get_by_role("button", name="Send report").click()
     page.wait_for_url(re.compile(r"/laporan/IPIMS-"), timeout=60_000)
-    code = page.url.rstrip("/").split("/")[-1]
+    code = urlsplit(page.url).path.rstrip("/").split("/")[-1]
     drawer = page.get_by_role("dialog", name=code)
     expect(drawer).to_be_visible()
     expect(drawer.get_by_text("AI verified").first).to_be_visible()
@@ -94,7 +95,7 @@ def citizen(browser, base: str, c: Checker) -> str:
 
     page.goto(base + "/transparansi")
     expect(page.get_by_text("Report progress")).to_be_visible()
-    expect(page.get_by_text("Reports by stage")).to_be_visible()
+    expect(page.get_by_role("heading", name="Reports by stage", exact=True)).to_be_visible()
     c.ok(page, "transparency with progress")
     ctx.close()
     return code
