@@ -1,3 +1,13 @@
+# Handoff - footer logo proportions fixed
+
+- User added Pemkot, ITS and BRIDA logos. All source files were valid and returned HTTP 200; sizing used square size-10 boxes for wide marks.
+- Footer now uses intrinsic dimensions with auto width and consistent 32px phone / 40px desktop height. All four supplied marks retained and given descriptive alt text.
+- Phone logo row spans the footer width; copyright/credits sit below. Inovboyo text label appears on desktop; its logo has accessible text on phones.
+- Production build passes. Twelve headless Edge route/viewport checks across 320, 390, 768 and 1366px: all logos load, preserve intrinsic ratios and fit; links remain visible; map controls and pagination clear the footer. Desktop/phone screenshots reviewed.
+- Final heights: 73px desktop/tablet, about 104px phones. Existing SiteFrame measurement handles clearance.
+- Included the three newly used supplied assets in this scoped fix. Other user edits remain untouched. No assets converted or redrawn.
+- Previous context follows.
+
 # Handoff - compact shared footer
 
 - Implemented approved design in Footer.tsx: supplied inovboyo.svg emblem/label left; IPIMS/current-year copyright and Mapbox/OpenStreetMap/Improve this map right.
