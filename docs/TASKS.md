@@ -39,3 +39,4 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | R5 | Website | Implement approved shared shell, map dock/overflow, staged homepage layers and paginated report cards | done | Build and 8 frontend tests pass; 16 route checks and 137-report pagination scenarios pass; e2e 11 steps pass; required attribution retained in shared footer; no backend migration |
 
 | R6 | Website | Use supplied SVG favicon with PNG fallback | done | HTML references supplied assets; production build passes |
+| R7 | Website | Use supplied favicon as shared navbar brand mark | done | Public/officer mark updated; production build passes |

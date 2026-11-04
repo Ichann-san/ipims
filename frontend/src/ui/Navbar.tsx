@@ -1,4 +1,4 @@
-import { ChartBar, ListBullets, MapTrifold, Plus, SignOut, SquaresFour, TreeStructure } from '@phosphor-icons/react'
+import { ChartBar, ListBullets, MapTrifold, Plus, SignOut, SquaresFour } from '@phosphor-icons/react'
 import type { ReactNode } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { setToken } from '../api'
@@ -6,7 +6,7 @@ import { setToken } from '../api'
 function Mark() {
   return (
     <span className="flex items-center gap-2 pl-1 pr-2">
-      <span className="grid size-10 place-items-center rounded-xl bg-coral text-white"><TreeStructure size={22} weight="bold" /></span>
+      <img src="/favicon.svg" alt="" width={40} height={40} className="size-10 rounded-xl object-cover" />
       <span className="hidden leading-none sm:block">
         <span className="block text-base font-bold tracking-tight">IPIMS</span>
         <span className="block text-[11px] font-medium text-muted">Surabaya</span>

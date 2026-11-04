@@ -1,3 +1,9 @@
+# Handoff - navbar brand icon
+
+- Shared public/officer navbar now uses supplied favicon.svg at 40px.
+- Production build passed. Existing user edits, including hidden Surabaya subtitle, preserved and excluded from commit.
+- No new issues; review navbar in browser. Previous context follows.
+
 # Handoff - favicon update
 
 - Wired frontend/index.html to user-provided favicon.svg with favicon.png fallback.
