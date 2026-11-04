@@ -49,11 +49,13 @@ class Analyzer:
         self.class_text = self.class_text / self.class_text.norm(dim=-1, keepdim=True)
 
     @classmethod
-    def load(cls) -> "Analyzer":
+    def load(cls, model_path: str | Path | None = None) -> "Analyzer":
         from transformers import CLIPModel, CLIPProcessor
 
-        model = CLIPModel.from_pretrained(MODEL_ID, use_safetensors=True)
-        processor = CLIPProcessor.from_pretrained(MODEL_ID)
+        source = str(model_path) if model_path is not None else MODEL_ID
+        options = {"local_files_only": True} if model_path is not None else {}
+        model = CLIPModel.from_pretrained(source, use_safetensors=True, **options)
+        processor = CLIPProcessor.from_pretrained(source, **options)
         head = dict(np.load(HEAD_PATH)) if HEAD_PATH.exists() else None
         return cls(model, processor, head)
 

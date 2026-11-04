@@ -1,5 +1,7 @@
 from pathlib import Path
+from typing import Literal
 
+from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
@@ -11,6 +13,8 @@ class Settings(BaseSettings):
 
     database_url: str = "postgresql+psycopg://ipims:ipims@127.0.0.1:5433/ipims"
     media_dir: Path = BACKEND_DIR / "media"
+    media_storage: Literal["local", "blob"] = "local"
+    cv_model_path: Path | None = None
     artifacts_dir: Path = REPO_DIR / "ml" / "artifacts"
     region: str = "surabaya"
     jwt_secret: str = "dev-only-insecure-secret-change-in-env"
@@ -20,6 +24,12 @@ class Settings(BaseSettings):
     max_photo_bytes: int = 8 * 1024 * 1024
     snap_max_m: float = 150.0
 
+    @field_validator("cv_model_path", "artifacts_dir")
+    @classmethod
+    def repository_path(cls, value: Path | None) -> Path | None:
+        if value is not None and not value.is_absolute():
+            return REPO_DIR / value
+        return value
 
     @property
     def graph_dir(self) -> Path:

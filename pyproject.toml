@@ -1,0 +1,37 @@
+[project]
+name = "ipims-api"
+version = "1.0.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "fastapi==0.141.1",
+  "uvicorn==0.52.0",
+  "sqlalchemy==2.0.55",
+  "geoalchemy2==0.20.0",
+  "psycopg[binary]==3.3.7",
+  "python-multipart==0.0.32",
+  "pyjwt==2.14.0",
+  "pillow==12.3.0",
+  "pydantic-settings==2.15.0",
+  "pandas==2.3.3",
+  "numpy==2.2.6",
+  "scipy==1.15.3",
+  "torch==2.4.1",
+  "transformers==5.13.1",
+  "safetensors==0.8.0",
+  "huggingface-hub==1.23.0",
+  "vercel-blob==0.5.1",
+]
+
+[tool.vercel]
+entrypoint = "backend.app.main:app"
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

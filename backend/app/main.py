@@ -3,12 +3,11 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
 
 from .config import settings
 from .db import init_db
 from .routers import admin, public
-from .services import network, vision
+from .services import media, network, vision
 
 
 @asynccontextmanager
@@ -29,5 +28,4 @@ app.add_middleware(
 app.include_router(public.router)
 app.include_router(admin.router)
 
-settings.media_dir.mkdir(parents=True, exist_ok=True)
-app.mount("/media", StaticFiles(directory=settings.media_dir), name="media")
+media.mount_media(app)

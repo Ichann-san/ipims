@@ -3,6 +3,7 @@ import logging
 import threading
 
 from PIL import Image
+from ..config import settings
 
 log = logging.getLogger(__name__)
 
@@ -18,7 +19,7 @@ def _analyzer():
             try:
                 from ml.cv.infer import Analyzer
 
-                _state["analyzer"] = Analyzer.load()
+                _state["analyzer"] = Analyzer.load(model_path=settings.cv_model_path)
             except Exception as exc:  # model missing or dependency not installed
                 log.warning("CV model unavailable: %s", exc)
             _state["tried"] = True

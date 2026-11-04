@@ -58,6 +58,9 @@ Default officer login is `admin` / `admin123`; set `IPIMS_ADMIN_PASSWORD` and `I
 
 ## Checks
 
+Production hosting: [docs/deployment.md](docs/deployment.md). Deploy the repository
+root to the original `ipims` Vercel project; its frontend is Vite, not Next.js.
+
 ```sh
 cd backend && ../.venv/Scripts/python -m pytest -q
 .venv/Scripts/python -m pytest -q ml

@@ -10,7 +10,7 @@ from sqlalchemy.orm import Session
 
 from ..config import settings
 from ..models import Report, Segment, StatusEvent, WeightProfile
-from . import scoring, vision
+from . import media, scoring, vision
 from .lifecycle import ACTIVE
 
 CATEGORIES = ("jalan", "trotoar", "drainase", "lampu_jalan", "halte", "jembatan", "lainnya")
@@ -39,9 +39,9 @@ def load_photo(data: bytes) -> Image.Image:
 def save_photo(img: Image.Image) -> str:
     """Re-encode (drops EXIF metadata) and store; returns path relative to media dir."""
     rel = f"reports/{uuid.uuid4().hex}.jpg"
-    path = settings.media_dir / rel
-    path.parent.mkdir(parents=True, exist_ok=True)
-    img.save(path, "JPEG", quality=85)
+    data = io.BytesIO()
+    img.save(data, "JPEG", quality=85)
+    media.write_photo(rel, data.getvalue())
     return rel
 
 
