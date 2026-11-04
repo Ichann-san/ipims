@@ -1,3 +1,9 @@
+# Handoff - footer team-name layout
+
+- Team names now form a right-aligned stack above copyright and map attribution. Removed overlapping grid cell assignments and the accidental col-span-5 implicit columns. Names rendered as Agil / Khalisya / Ikhsan with middle-dot separators.
+- Build passes; browser checks at 1366, 768, 390 and 320px confirm names and copyright have separate visible bounds.
+- User logo sizing edits preserved and excluded from commit. Previous context follows.
+
 # Handoff - Pemkot logo divider
 
 - Added a centered 1px vertical line after Pemkot, using the existing line-strong token; 32px phone / 40px desktop height. Decorative and hidden from assistive technology.

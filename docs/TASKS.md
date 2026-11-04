@@ -44,3 +44,4 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | R9 | Website | Fix expanded footer logo proportions and mobile fit | done | Four supplied marks load with intrinsic aspect ratios; build and 12 responsive route checks pass |
 | R10 | Website | Balance footer logos by visible artwork and center alignment | done | ITS headroom framed without asset edits; four viewport checks and build pass |
 | R11 | Website | Divider after Pemkot footer mark | done | Centered decorative divider added; production build passes |
+| R12 | Website | Fix footer team-name placement | done | Names, copyright and credits stacked without grid overlap; build and four viewport checks pass |
