@@ -1,3 +1,14 @@
+# Handoff - concept clarification and consistency proposal
+
+- User canonical definition: IPIMS = Intelligence Public Infrastructure Management System. Whole public infrastructure is product scope; Shift One is clarified, not redone.
+- User authorized parallel agents. Two read-only audits produced 19 concept mismatches and 28 frontend consistency findings. No application/backend/ML/contract or graph changes this turn.
+- Draft plan: docs/plans/2026-11-05-concept-consistency-proposal.md. Await approval before implementing.
+- Key finding: intake supports six infrastructure categories plus Other, but road scoring/simulation assumptions apply across categories. Document boundaries; propose analytical eligibility/review guardrails separately from frontend refactor.
+- Browser confirms Jakarta app font is loaded; actual vendor font leaks, hierarchy drift, broken manifest icon references and other inconsistencies are enumerated.
+- Existing graph is 181 nodes/475 edges/26 frontend files, tagged at 2d670ff; seven indexed files newer. Current endpoint-ID check found no dangling edges. Refresh after approved implementation, with explicit non-AST coverage limitations.
+- Verified proposal formatting with git diff --check; no application tests warranted for documentation-only planning. All existing user changes preserved.
+- Previous context follows.
+
 # Handoff - footer team-name layout
 
 - Team names now form a right-aligned stack above copyright and map attribution. Removed overlapping grid cell assignments and the accidental col-span-5 implicit columns. Names rendered as Agil / Khalisya / Ikhsan with middle-dot separators.
