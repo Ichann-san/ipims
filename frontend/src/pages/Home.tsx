@@ -65,7 +65,7 @@ export default function Home() {
 
       <div className="home-content absolute inset-x-3 z-20 grid gap-3 md:inset-x-6 md:max-w-xl">
         <p className="num text-[11px] font-semibold uppercase tracking-[0.2em] text-coral-soft">
-          {region.name}: {formatCoord(region.center)}
+          Surabaya: {formatCoord(region.center)}
         </p>
         <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight md:text-5xl">
           Broken Infrastructure,<br /><span className="text-coral-soft">Fixed.</span>
@@ -81,8 +81,8 @@ export default function Home() {
           <Stat label={METRIC_LABEL.medianApproval} value={formatHours(s?.median_hours_to_verify)} />
         </Panel>
         {stats.error && <ErrorNote compact title="Statistics unavailable." message="Try again." onRetry={stats.reload} />}
-        {reports.error ? <ErrorNote compact title="Report locations unavailable." message="Try again." onRetry={reports.reload} />
-          : <p className="type-caption text-muted" role="status">{reports.data ? `Map shows the latest ${reports.data.items.length} of ${reports.data.total} reports.` : 'Loading report locations…'}</p>}
+        {/* {reports.error ? <ErrorNote compact title="Report locations unavailable." message="Try again." onRetry={reports.reload} />
+          : <p className="type-caption text-muted" role="status">{reports.data ? `Map shows the latest ${reports.data.items.length} of ${reports.data.total} reports.` : 'Loading report locations…'}</p>} */}
       </div>
 
     </div>

@@ -128,14 +128,8 @@ body {
 .map-render-surface { position: absolute; inset: 0; }
 .map-overscan { --map-extra: 10dvh; }
 .map-overscan > .map-render-surface { bottom: auto; height: 110%; }
-.map-viewport[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left {
-  bottom: calc(var(--footer-height) + var(--map-extra, 0px) + 8px);
-}
 /* .map-viewport[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left {
-  bottom: calc(var(--footer-height) + var(--map-extra, 0px) + 10px);
-} */
-/* .public-map .mapboxgl-ctrl-bottom-left, .operations-map .mapboxgl-ctrl-bottom-left {
-  top: var(--header-space); bottom: auto; left: 12px;
+  bottom: calc(var(--footer-height) + var(--map-extra, 0px) + 8px);
 } */
 .map-control-position { position: absolute; right: 24px; bottom: calc(var(--footer-height) + 20px); z-index: 10; }
 .map-dock { flex-direction: column; }

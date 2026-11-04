@@ -15,7 +15,7 @@ export default function Transparency() {
   const stats = useAsync(() => api.stats(), [])
   const [scope, setScope] = useState<Scope>('active')
   const list = useAsync(
-    () => api.listReports({ limit: 12, status: scope === 'active' ? ACTIVE : scope === 'completed' ? ['completed'] : [] }).then((data) => ({ ...data, scope })),
+    () => api.listReports({ limit: 9, status: scope === 'active' ? ACTIVE : scope === 'completed' ? ['completed'] : [] }).then((data) => ({ ...data, scope })),
     [scope],
   )
   const data = list.data?.scope === scope ? list.data : null
@@ -30,12 +30,11 @@ export default function Transparency() {
       <Panel className="grid grid-cols-2 gap-4 p-4 md:grid-cols-5">
         <Stat label="Total reports" value={s?.total ?? '-'} />
         <Stat label="In progress" value={s?.active ?? '-'} />
-        <Stat label="Completed / all reports" value={s && s.total ? `${Math.round((100 * s.by_status.completed) / s.total)}%` : '—'} tone="var(--color-st-completed)" />
+        <Stat label="Completed" value={s && s.total ? `${Math.round((100 * s.by_status.completed) / s.total)}%` : '—'} tone="var(--color-st-completed)" />
         <Stat label={METRIC_LABEL.medianApproval} value={formatHours(s?.median_hours_to_verify)} />
         <Stat label={METRIC_LABEL.medianCompletion} value={formatHours(s?.median_hours_to_complete)} />
       </Panel>
 
-      <p className="type-meta text-muted">Report counts cover all intake categories. Medians measure elapsed time from submission to officer approval or completion, among reports reaching each stage.</p>
       <div className="grid gap-4 lg:grid-cols-[1fr_1.15fr]">
         <div className="grid content-start gap-4">
         <Panel className="p-4">

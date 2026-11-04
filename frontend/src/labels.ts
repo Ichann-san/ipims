@@ -29,8 +29,8 @@ export const STATUS_ACTION_LABEL: Record<Status, string> = {
   assigned: 'Assign', in_repair: 'Start repair', completed: 'Complete repair', rejected: 'Reject',
 }
 export const METRIC_LABEL = {
-  medianApproval: 'Median to approval', medianCompletion: 'Median to completion',
-  roadPriority: 'Road-context priority', roadImpact: 'Road access impact',
+  medianApproval: 'Approval median', medianCompletion: 'Completion median',
+  roadPriority: 'Priority: ', roadImpact: 'Access impact: ',
   modeledImprovement: 'Modeled access gap reduced',
 } as const
 export const ROAD_ANALYTICS_NOTE = 'Road-context estimates are provisional for non-road reports. Unlinked assets need manual review.'
@@ -78,7 +78,7 @@ export function formatHours(n: number | null | undefined) {
   return n != null && Number.isFinite(n) ? `${n.toFixed(1)} h` : '—'
 }
 export function reportTitle(r: Pick<Report, 'category' | 'code'>) {
-  return `${CATEGORY_LABEL[r.category]} · ${r.code}`
+  return `${r.code}  ${CATEGORY_LABEL[r.category]}`
 }
 export function reportLocation(r: Pick<Report, 'lat' | 'lng'>) {
   return `${r.lat.toFixed(5)}, ${r.lng.toFixed(5)}`

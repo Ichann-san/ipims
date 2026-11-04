@@ -6,8 +6,8 @@ export function ReportIdentity({ report, compact = false, className = '' }: { re
   const road = nearbyRoad(report)
   return <div className={`min-w-0 ${className}`}>
     <p className={`${compact ? 'type-label' : 'type-section'} break-words text-fg`}>{reportTitle(report)}</p>
-    <p className="type-meta text-muted">{reportLocation(report)}</p>
-    {road && <p className="type-meta break-words text-muted">{road}</p>}
+    {/* <p className="type-meta text-muted">{reportLocation(report)}</p> */}
+    {/* {road && <p className="type-meta break-words text-muted">{road}</p>} */}
     <time className="type-meta num text-muted" dateTime={report.created_at}>{formatDate(report.created_at)}</time>
   </div>
 }

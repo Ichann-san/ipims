@@ -141,9 +141,9 @@ export function ReportDetailView({ code }: { code: string }) {
         <Fact label={METRIC_LABEL.roadImpact} value={formatScore(d.impact_score)} />
         <Fact label="AI-suggested damage" value={d.ai ? SEVERITY_LABEL[d.ai.severity] : '-'} />
       </dl>
-      <p className="type-meta text-muted">Priority and impact use the road-context pilot model; they are provisional for other infrastructure categories. Unavailable context does not indicate low urgency.</p>
+      {/* <p className="type-meta text-muted">Priority and impact use the road-context pilot model; they are provisional for other infrastructure categories. Unavailable context does not indicate low urgency.</p> */}
       {d.assigned_to && <p className="type-body text-muted">Handled by <span className="font-semibold text-fg">{d.assigned_to}</span></p>}
-      {d.description && <p className="type-body">{d.description}</p>}
+      {/* {d.description && <p className="type-body">{d.description}</p>} */}
       <ReportTimeline timeline={d.timeline} />
       <ButtonLink to={`/peta?r=${d.code}`} className="w-full" icon={<MapPin size={18} />}>View on map</ButtonLink>
     </div>

@@ -85,13 +85,13 @@ export default function MapPage() {
       <Panel className="grid gap-3 p-3">
         <div className="flex flex-wrap gap-1.5">
           <Chip active={layers.reports} onClick={() => toggle('reports')}>Reports</Chip>
-          <Chip active={layers.impact} onClick={() => toggle('impact')}>Road impact</Chip>
-          <Chip active={layers.facilities} onClick={() => toggle('facilities')}>Destinations</Chip>
+          <Chip active={layers.impact} onClick={() => toggle('impact')}>Impact</Chip>
+          <Chip active={layers.facilities} onClick={() => toggle('facilities')}>Facility</Chip>
         </div>
         {layers.impact && (
           <div className="grid gap-1">
             <div className="h-1.5 w-52 rounded-full" style={{ background: `linear-gradient(90deg, ${IMPACT_RAMP.map(([, c]) => c).join(',')})` }} />
-            <div className="type-caption flex w-52 justify-between text-muted"><span>Low</span><span>High road impact</span></div>
+            <div className="type-caption flex w-52 justify-between text-muted"><span>Low</span><span>High impact</span></div>
             {view && view.zoom < 13 && <p className="text-[11px] text-muted">Zoom in to see road segments</p>}
           </div>
         )}
