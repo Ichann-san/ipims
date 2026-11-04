@@ -3,6 +3,11 @@
 IPIMS uses **Vite/React and FastAPI**, not Next.js. The original Vercel project is
 `ipims`, with production domain `https://ipims-one.vercel.app`.
 
+GitHub `main` auto-deploys this project. The redundant `frontend`, `backend` and
+`ml` projects were disconnected from Git auto-deploy after consolidation; their
+existing deployments/resources were preserved. Reconnect only if deliberately
+returning to a separate-project architecture. Old failed builds remain history.
+
 ## Source configuration
 
 Deploy from the repository root. `vercel.json` defines two Vercel Services:

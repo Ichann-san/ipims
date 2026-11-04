@@ -12,6 +12,8 @@ Updated November 5, 2026. Latest task: repair Vercel while retaining the origina
   failed build referenced removed `ipims-web/`; another setting selected Next.js.
   Separate `backend` pointed at `legacy/backend`, and `ml` had no web entrypoint.
   The separate frontend/backend/ml projects are not dependencies of this release.
+  Their Git auto-deploy connections are now removed, while existing deployments
+  and resources remain. Only the original `ipims` project tracks GitHub `main`.
 - Dedicated Neon **ipims-postgis** on the Free plan, with PostGIS, region `iad1`.
   Existing unrelated Neon resources were not modified.
 - Private Blob **ipims-media**, region `iad1`, stores durable photos and the private
@@ -53,6 +55,10 @@ approved pushing the fix to `main`. Preserve old `1.0` at `4683ef8` and the acce
   promoted to production was `dpl_5NTkQwL6LweXrwFgzsdUqKanGFA1`; a subsequent main
   Git deployment may become the latest alias. Use the production URL, not a
   protected generated deployment URL. Do not disable deployment protection for QA.
+- GitHub main at `037f898` also built automatically and reached Ready as
+  `dpl_F93QnbVkmK5VisnHyU2V5Fuiz1j5`, with the original domain assigned. Its Python
+  function bundle was 1002.64 MB. This proves the checked-in Git path in addition
+  to the staged CLI release. Later documentation commits may replace this alias.
 
 Full configuration, release commands and rollback: **`docs/deployment.md`**.
 
