@@ -49,3 +49,4 @@ Status: `todo` | `doing` | `done` | `blocked`. One task per shift. Update this f
 | R14 | Concept | Clarify public infrastructure scope and Shift One road-pilot limits | done | Canonical glossary, capability matrix, C01-C19 corrections and explicit analytical follow-up specification delivered |
 | R15 | Website | Implement approved U01-U28 consistency refactor | done | Build/lint/11 tests; 16 layout checks, 40 consistency checks and 11-step smoke pass; behavior and user styling preferences preserved |
 | R16 | Documentation | Refresh Graphify for integrated frontend source | done | 30 source files, 210 nodes, 595 edges; snapshot tagged to 8ae4f4a; raw extraction limits and coverage recorded |
+| R17 | Planning/Website | Audit mobile UI and propose dedicated responsive repair | done | 57 page/state samples across six phones, landscape, tablet and desktop; measured obstruction findings and mobile-only layout proposal recorded; implementation awaits approval |

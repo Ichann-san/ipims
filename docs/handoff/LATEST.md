@@ -1,52 +1,62 @@
-# Handoff - approved concept clarification and frontend consistency complete
+# Handoff - mobile repair audit and proposal
 
-## Delivered
+## Current request
 
-- Canonical product name: Intelligence Public Infrastructure Management System.
-- Current subject: whole public infrastructure reporting, assessment, maintenance coordination and transparency. Shift One remains a shared multi-category workflow with a specialized road-network analytical pilot.
-- Concept clarification: docs/concept/2026-11-05-scope-clarification.md.
-- Explicit later analytical work: docs/concept/analytical-followups.md. Existing cross-category road disruption/scoring and AI review/validation limitations remain; this task did not change backend/models/contracts.
-- Findings and approved scope: docs/plans/2026-11-05-concept-consistency-proposal.md.
-- Full U01-U28 disposition, preserved behavior and verification: docs/plans/2026-11-05-consistency-completion.md.
+User reports poor mobile hierarchy, homepage contrast, report stacking, map control
+placement and spacing. Requested analysis across phone sizes and a repair plan first.
+Preserve desktop concept; mobile may use different layouts and disclosure.
 
-## Implementation
+## Audit delivered
 
-- Shared brand, status/metric/action labels, WIB/IDR/score formatters and category-first report identity/timeline.
-- Semantic typography, Jakarta map popups/chart tooltips, retained dynamic theme tokens and one status palette for DOM/map/canvas.
-- Shared button/link/icon/segmented/form conventions; centered metrics with readable labels.
-- Nested dialog focus trap/restoration, scroll locking and keyboard queue links.
-- Honest unknown/loading/error/count states, latest100/latest12/queue200 disclosures and deep-link report fetching outside the latest100 map list.
-- Narrow navigation, measured map-panel/dock/camera clearances, short-screen panel scrolling and visible native Mapbox wordmarks above footer/panels.
-- Preserved original globe/entrance/orbit/staged overlays, 110% clipped canvas, fixed shell, approved logo sizes/centerline/divider/names and report routes/lifecycle.
-- Manifest now uses supplied SVG favicon; no new dependency or image editing.
-- Deterministic component catalog; existing page-size preference is 3/6/9/12.
+- Current baseline is user commit bee5bab (reduce ai slop) on rebuild/v1. Preserve
+  those current content choices; no application source was edited this turn.
+- Used Impeccable adapt, design-taste-frontend, investigate-first and existing Graphify
+  ownership query. No new model/graph extraction or skill installation.
+- 57 read-only page/state samples: 320x568, 360x640, 375x667, 390x844, 412x915,
+  430x932, 844x390 landscape, 768x1024 tablet and 1366x900 desktop reference.
+- Routes/states: Home, Reports, Map idle/selected, Transparency, officer login,
+  Dashboard, Operations, report form and normal animated homepage. No report writes.
+- Local ignored screenshots and measurements: .venv/mobile-audit/.
 
-## Verification
+## Findings
 
-- Production build passes; existing large Mapbox chunk warning remains.
-- Eleven frontend tests pass; lint passes with React lifecycle/Fast Refresh advisory warnings.
-- Existing layout suite: 16 route checks plus mocked 137-report pagination, filter reset, last-page clamp, drawer Back/Forward, empty/error and stale response checks pass.
-- New consistency suite: 40 routes across five layouts, including short viewport equivalent to 200% desktop zoom; nested focus and restoration, off-road identity, map deep link/font and manifest/count states pass. No browser errors.
-- Full real smoke flow: 11 steps passed through report creation, search/map/transparency, officer lifecycle, weights and real simulation.
-- Smoke test reports 192 and 193 completed. Report192 was verified by exact test description and completed through normal lifecycle after a stale assertion; no data reset/deletion.
-- Targeted final checks: retained theme colors, homepage entrance, keyboard queue link and eight map-control/wordmark viewport checks pass. Desktop/phone/short-screen screenshots reviewed.
-- No backend unit tests/model evaluation claimed: those layers did not change.
+- At 320x568: header66 + footer124 + pager120 occupy about55% of the screen.
+  Report filters y142-334, first card y350-476, fixed pager y314-434, footer y444-568.
+  Pager covers filters and most of the first report; footer covers its bottom.
+- Filters are192px tall through390px width; unrelated wrap rows and card gutters drift.
+- Home has a45% tint plus desktop-positioned radial gradient; mobile readability is
+  insufficient despite the overlay existing.
+- Selected map popup competes with persistent dock/layers/footer; at320px it is
+  mostly covered. Width-only md breakpoint activates desktop arrangements in landscape.
+- Dashboard table begins at y711 on the568px-high phone; report form sheet is326px tall.
+- Earlier fit/overflow tests did not establish visual hierarchy, unobstructed controls,
+  useful map workspace, keyboard geometry or early task visibility. No claim of
+  physical iOS/Android testing or performance measurement.
 
-## Graphify
+## Proposed direction - awaiting approval
 
-- Refreshed graph/report/HTML/manifest covers 30 frontend TS/TSX files: 210 nodes, 595 edges, seven communities, at code commit 8ae4f4a.
-- Zero LLM/API extraction tokens. Forty-five raw edges have unresolved endpoints and six undirected endpoint pairs collapsed; exported graph endpoints are valid. Source remains authoritative.
-- CSS, HTML, public assets/manifest, tests and concept/backend/ML documents are outside this AST graph and were verified separately.
-- Generated frontend/src/graphify-out/cache artifact removed after verifying the exact target path; graphify-out/cache remains ignored.
+See docs/plans/2026-11-05-mobile-repair-proposal.md for evidence, alternatives,
+phone wireframes, ownership/sequence and acceptance gates.
 
-## Commits and workspace
+- Keep desktop navy/coral/Jakarta, globe and current features/layout.
+- Mobile compact header and persistent copyright/map-credit footer. Expand institutional
+  logos/team details via About. This is an explicit mobile-only presentation change.
+- One workspace/scroll owner; fluid shared gutters; deliberate touch targets and safe areas.
+- Home: stronger content scrim, organized actions/KPIs, live entrance retained; pause
+  mobile idle orbit after settling. Desktop motion unchanged.
+- Reports: search/scope hierarchy, filter sheet, full-width cards, compact in-flow pager.
+- Map: collapsed idle layers; one active layers/report surface; portrait report peek,
+  short-landscape detail surface; camera and controls respect available workspace.
+- Adapt officer queue/operations, Transparency and full-screen mobile forms/keyboard behavior.
+- Approval precedes implementation. No backend/model/schema changes proposed.
 
-- d81538a: concept clarification and road pilot limits.
-- 8ae4f4a: shared frontend conventions, presentation corrections and regression checks.
-- Current graph/handoff commit follows those. Branch rebuild/v1; nothing pushed.
-- Existing user edits were preserved/integrated where the approved refactor touched those files. Original old-icon deletions (frontend/public/icon-192.png and icon-512.png) remain unstaged; manifest no longer references them.
-- Preview remains http://127.0.0.1:5289; normal dev port is5288. This task did not stop existing services.
+## Repository state and previous work
 
-## Next
+This turn commits proposal/task/handoff documentation only. No build/test gate needed
+for app code because none changed. Plan whitespace checked with git diff --check.
+Nothing pushed; existing services remain running (dev5288, preview5289).
 
-Review the completed UI and concept addendum. Analytical eligibility/review/asset-domain expansion must be a separately scoped Concept/API task, not presented as already fixed. Real-phone installation/demo validation remains the existing U5 task.
+Prior completed scope is documented in docs/plans/2026-11-05-consistency-completion.md
+and docs/concept/2026-11-05-scope-clarification.md. Original graph snapshot remains
+at code8ae4f4a (210nodes/595edges), with its extraction limits recorded. Backend analytical
+eligibility/review/domain-model follow-ups remain separately scoped.
