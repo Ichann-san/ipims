@@ -67,11 +67,11 @@ export function MapCanvas({ initialViewState, children, className = 'h-full w-fu
     const panelBottom = panelBounds && panelBounds.width >= bounds.width * .55 ? bounds.bottom - panelBounds.top + 8 : 0
     const nativeBottom = extra + footer + Math.max(8, panelBottom)
     element.style.setProperty('--map-native-bottom', `${nativeBottom}px`)
-    const nativeControls = element.querySelector<HTMLElement>('.mapboxgl-ctrl-bottom-left')
-    if (nativeControls) {
-      nativeControls.style.bottom = `${nativeBottom}px`
-      nativeControls.style.left = panelBounds && panelBounds.width < bounds.width * .55 ? `${panelBounds.right - bounds.left + 8}px` : '0px'
-    }
+    // const nativeControls = element.querySelector<HTMLElement>('.mapboxgl-ctrl-bottom-left')
+    // if (nativeControls) {
+    //   nativeControls.style.bottom = `${nativeBottom}px`
+    //   nativeControls.style.left = panelBounds && panelBounds.width < bounds.width * .55 ? `${panelBounds.right - bounds.left + 8}px` : '0px'
+    // }
   }, [fullScreen, compact, overscan, ref])
   useEffect(() => {
     if (!root.current || !fullScreen) return

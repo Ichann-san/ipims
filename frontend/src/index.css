@@ -130,7 +130,7 @@ body {
 /* Initial placement works before the map load callback measures its canvas.
    A 110% surface clips 1/11 of its own height below the workspace. */
 .map-viewport[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: calc(var(--footer-height) + 8px); }
-.map-viewport.map-overscan[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: calc(100% / 11 + var(--footer-height) + 8px); }
+/* .map-viewport.map-overscan[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: calc(100% / 11 + var(--footer-height) + 8px); } */
 .map-control-position { position: absolute; right: 24px; bottom: calc(var(--footer-height) + 20px); z-index: 10; }
 .map-dock { flex-direction: column; }
 .map-dock-divider { height: 1px; margin: 2px 3px; }
@@ -246,7 +246,7 @@ body {
   .reports-pagination nav { justify-content: space-between; }
   .map-control-position { top: .75rem; right: .75rem; bottom: auto; }
   .map-viewport[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: 8px; }
-  .map-viewport.map-overscan[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: calc(100% / 11 + 8px); }
+  /* .map-viewport.map-overscan[data-fullscreen="true"] .mapboxgl-ctrl-bottom-left { bottom: calc(100% / 11 + 8px); } */
   .map-dock { flex-direction: row; }
   .map-panel-entry { position: absolute; left: .75rem; bottom: 2.75rem; z-index: 15; min-height: 2.75rem; background: var(--color-ink-900); border-color: var(--color-line-strong); }
   .map-mobile-panel {
