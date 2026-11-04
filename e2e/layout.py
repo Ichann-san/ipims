@@ -103,31 +103,31 @@ async def check(base: str, shots: Path | None):
         await page.goto(base + "/laporan")
         cards = page.locator(".report-cards > a")
         await expect(cards).to_have_count(9)
-        await page.get_by_role("combobox", name="Reports per page").select_option("18")
-        await expect(cards).to_have_count(18)
-        await page.get_by_role("button", name="Page 8", exact=True).click()
-        await expect(cards).to_have_count(11)
-        assert (18, 126, "") in observed
-        await page.goto(base + "/laporan?size=18&page=9999")
-        await expect(cards).to_have_count(11)
-        await expect(page).to_have_url(base + "/laporan?size=18&page=8")
+        await page.get_by_role("combobox", name="Reports per page").select_option("12")
+        await expect(cards).to_have_count(12)
+        await page.get_by_role("button", name="Page 12", exact=True).click()
+        await expect(cards).to_have_count(5)
+        assert (12, 132, "") in observed
+        await page.goto(base + "/laporan?size=12&page=9999")
+        await expect(cards).to_have_count(5)
+        await expect(page).to_have_url(base + "/laporan?size=12&page=12")
         inventory_total = 12
         await page.reload()
         await expect(cards).to_have_count(12)
         assert parse_qs(urlsplit(page.url).query)["page"] == ["1"]
         inventory_total = 137
-        await page.goto(base + "/laporan?size=18&page=8")
-        await expect(cards).to_have_count(11)
+        await page.goto(base + "/laporan?size=12&page=12")
+        await expect(cards).to_have_count(5)
         await cards.first.click()
-        await expect(page.get_by_role("dialog", name="LAYOUT-126")).to_be_visible()
+        await expect(page.get_by_role("dialog", name="LAYOUT-132")).to_be_visible()
         await page.go_back()
-        await expect(cards).to_have_count(11)
+        await expect(cards).to_have_count(5)
         await page.go_forward()
         await page.get_by_role("button", name="Close", exact=True).click()
-        assert parse_qs(urlsplit(page.url).query)["page"] == ["8"]
-        await expect(cards).to_have_count(11)
+        assert parse_qs(urlsplit(page.url).query)["page"] == ["12"]
+        await expect(cards).to_have_count(5)
         await page.get_by_role("combobox", name="Category", exact=True).select_option("jalan")
-        await expect(cards).to_have_count(18)
+        await expect(cards).to_have_count(12)
         assert parse_qs(urlsplit(page.url).query)["page"] == ["1"]
         search = page.get_by_placeholder("Search code, road, note")
         await search.fill("none"); await search.press("Enter")

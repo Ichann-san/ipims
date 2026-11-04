@@ -6,14 +6,14 @@ test('invalid URL pagination never requests a size above the API cap', () => {
   for (const query of ['page=-2&size=120', 'page=1.5&size=1000', 'page=Infinity&size=0']) {
     assert.deepEqual(readReportPage(new URLSearchParams(query), 9), { page: 1, pageSize: 9 })
   }
-  assert.deepEqual(readReportPage(new URLSearchParams('page=15&size=18'), 3), { page: 15, pageSize: 18 })
+  assert.deepEqual(readReportPage(new URLSearchParams('page=15&size=12'), 3), { page: 15, pageSize: 12 })
 })
 
 test('initial sizes match phone/tablet/desktop without restricting explicit choices', () => {
   assert.equal(initialPageSize(390), 3)
   assert.equal(initialPageSize(800), 6)
   assert.equal(initialPageSize(1366), 9)
-  assert.equal(readReportPage(new URLSearchParams('size=18'), 3).pageSize, 18)
+  assert.equal(readReportPage(new URLSearchParams('size=12'), 3).pageSize, 12)
 })
 
 test('page navigation stays bounded for large collections and the last page', () => {

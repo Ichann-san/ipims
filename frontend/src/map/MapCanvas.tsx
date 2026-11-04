@@ -62,7 +62,7 @@ export function MapCanvas({ initialViewState, children, className = 'h-full w-fu
     return () => observer.disconnect()
   }, [fullScreen, padVisibleArea])
 
-  if (!TOKEN) return <div className={`grid place-items-center bg-ink-900 text-sm text-muted ${className}`}>The map needs VITE_MAPBOX_TOKEN in frontend/.env.local</div>
+  if (!TOKEN) return <div role="status" className={`grid place-items-center bg-ink-900 text-sm text-muted ${className}`}>Map unavailable. Please try again later.</div>
 
   const report = (target: mapboxgl.Map) => {
     if (controls && interactive) setCamera({ bearing: target.getBearing(), zoom: target.getZoom() })

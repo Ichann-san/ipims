@@ -3,12 +3,14 @@ import { useEffect, useRef, useState } from 'react'
 import type { MapRef } from 'react-map-gl/mapbox'
 import { useNavigate } from 'react-router-dom'
 import { api } from '../api'
+import { BRAND } from '../brand'
+import { METRIC_LABEL, formatHours } from '../labels'
 import { useAsync } from '../hooks'
 import { MapCanvas } from '../map/MapCanvas'
 import { ReportsLayer } from '../map/layers'
 import { stageHomeIntro } from '../map/homeIntro'
 import { formatCoord, useRegion } from '../region'
-import { Button, ButtonLink, Panel, Stat } from '../ui/core'
+import { Button, ButtonLink, ErrorNote, Panel, Stat } from '../ui/core'
 
 const reduceMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -63,21 +65,24 @@ export default function Home() {
 
       <div className="home-content absolute inset-x-3 z-20 grid gap-3 md:inset-x-6 md:max-w-xl">
         <p className="num text-[11px] font-semibold uppercase tracking-[0.2em] text-coral-soft">
-          {region.name} · {formatCoord(region.center)}
+          {region.name}: {formatCoord(region.center)}
         </p>
         <h1 className="text-4xl font-extrabold leading-[1.05] tracking-tight md:text-5xl">
           Broken Infrastructure,<br /><span className="text-coral-soft">Fixed.</span>
         </h1>
-        {/* <p className="max-w-md text-muted">Foto kerusakan, AI menilai, sistem mengurutkan perbaikan menurut dampaknya pada kota.</p> */}
+        <p className="type-meta max-w-md text-muted">{BRAND.name}</p>
         <div className="flex flex-wrap gap-2">
           <Button variant="primary" icon={<Plus size={18} weight="bold" />} onClick={() => nav('/laporan?buat=1')}>Report</Button>
           <ButtonLink to="/peta" icon={<ArrowRight size={18} />}>Open map</ButtonLink>
         </div>
         <Panel className="mt-1 grid grid-cols-3 gap-4 px-5 py-3">
-          <Stat label="Active reports" value={s ? s.active : '-'} />
-          <Stat label="Completed" value={s ? s.by_status.completed : '-'} tone="var(--color-st-completed)" />
-          <Stat label="Approval time" value={s?.median_hours_to_verify != null ? `${s.median_hours_to_verify} h` : '-'} />
+          <Stat label="Active reports" value={s ? s.active : '—'} />
+          <Stat label="Completed" value={s ? s.by_status.completed : '—'} tone="var(--color-st-completed)" />
+          <Stat label={METRIC_LABEL.medianApproval} value={formatHours(s?.median_hours_to_verify)} />
         </Panel>
+        {stats.error && <ErrorNote compact title="Statistics unavailable." message="Try again." onRetry={stats.reload} />}
+        {reports.error ? <ErrorNote compact title="Report locations unavailable." message="Try again." onRetry={reports.reload} />
+          : <p className="type-caption text-muted" role="status">{reports.data ? `Map shows the latest ${reports.data.items.length} of ${reports.data.total} reports.` : 'Loading report locations…'}</p>}
       </div>
 
     </div>

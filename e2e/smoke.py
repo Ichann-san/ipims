@@ -70,8 +70,8 @@ def citizen(browser, base: str, c: Checker) -> str:
     form = page.get_by_role("dialog", name="Report damage")
     expect(form).to_be_visible()
     form.locator("input[type=file]").set_input_files(str(PHOTO if PHOTO.exists() else FALLBACK_PHOTO))
-    expect(form.get_by_text(re.compile(r"^AI: "))).to_be_visible(timeout=60_000)
-    expect(form.get_by_text(re.compile(r"GPS ±"))).to_be_visible(timeout=20_000)
+    expect(form.get_by_text(re.compile(r"^AI suggestion: "))).to_be_visible(timeout=60_000)
+    expect(form.get_by_text(re.compile(r"GPS \u00b1\d+ m"))).to_be_visible(timeout=20_000)
     expect(form.get_by_role("combobox")).not_to_have_value("")
     c.ok(page, "photo analysed, GPS located, category prefilled")
     form.locator("textarea").fill("End-to-end test: pothole on the road.")
@@ -80,7 +80,7 @@ def citizen(browser, base: str, c: Checker) -> str:
     code = urlsplit(page.url).path.rstrip("/").split("/")[-1]
     drawer = page.get_by_role("dialog", name=code)
     expect(drawer).to_be_visible()
-    expect(drawer.get_by_text("AI verified").first).to_be_visible()
+    expect(drawer.get_by_text("AI assessed").first).to_be_visible()
     c.ok(page, f"report submitted {code}, detail drawer")
 
     drawer.get_by_role("button", name="Close").click()
@@ -94,7 +94,7 @@ def citizen(browser, base: str, c: Checker) -> str:
     c.ok(page, "public map")
 
     page.goto(base + "/transparansi")
-    expect(page.get_by_text("Report progress")).to_be_visible()
+    expect(page.get_by_role("heading", name="Latest 12 reports", exact=True)).to_be_visible()
     expect(page.get_by_role("heading", name="Reports by stage", exact=True)).to_be_visible()
     c.ok(page, "transparency with progress")
     ctx.close()
@@ -117,10 +117,10 @@ def officer(browser, base: str, code: str, password: str, c: Checker):
 
     row.click()
     drawer = page.get_by_role("dialog", name=code)
-    expect(drawer.get_by_text("Priority", exact=True)).to_be_visible()
-    for action in ["Approved", "Assigned", "In repair", "Completed"]:
+    expect(drawer.get_by_text("Road-context priority", exact=True)).to_be_visible()
+    for action, status in [("Approve", "Approved"), ("Assign", "Assigned"), ("Start repair", "In repair"), ("Complete repair", "Completed")]:
         drawer.get_by_role("button", name=action, exact=True).click()
-        expect(drawer.locator("ol.border-l li").last.get_by_text(action)).to_be_visible()
+        expect(drawer.locator("ol.border-l li").last.get_by_text(status)).to_be_visible()
     expect(drawer.locator("ol.border-l li")).to_have_count(6)
     c.ok(page, "lifecycle approve assign repair complete")
 
@@ -129,15 +129,15 @@ def officer(browser, base: str, code: str, password: str, c: Checker):
     c.ok(page, "public detail shows completion")
 
     page.goto(base + "/admin")
-    page.get_by_role("button", name="Priority weights").click()
+    page.get_by_role("button", name="Road-context weights").click()
     page.get_by_role("button", name="Save and re-rank").click()
-    expect(page.get_by_role("dialog", name="Priority weights")).to_be_hidden()
+    expect(page.get_by_role("dialog", name="Road-context priority weights", exact=True)).to_be_hidden()
     c.ok(page, "weights saved and rescored")
 
     page.goto(base + "/admin/peta")
-    page.get_by_role("tab", name="Simulate").click()
+    page.get_by_role("button", name="Simulate", exact=True).click()
     page.get_by_role("button", name="Top 3 repairs").click()
-    expect(page.get_by_text("access restored")).to_be_visible(timeout=30_000)
+    expect(page.get_by_text("Modeled access gap reduced", exact=True)).to_be_visible(timeout=30_000)
     c.ok(page, "what-if simulation on real graph")
     ctx.close()
 

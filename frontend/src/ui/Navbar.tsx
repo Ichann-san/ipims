@@ -2,14 +2,16 @@ import { ChartBar, ListBullets, MapTrifold, Plus, SignOut, SquaresFour } from '@
 import type { ReactNode } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { setToken } from '../api'
+import { BRAND } from '../brand'
+import { Button } from './core'
 
 function Mark() {
   return (
     <span className="flex items-center gap-2 pl-1 pr-2">
-      <img src="/favicon.svg" alt="" width={40} height={40} className="size-10 rounded-xl object-cover" />
+      <img src="/favicon.svg" alt="" width={40} height={40} className="size-10 rounded-full object-cover" />
       <span className="hidden leading-none sm:block">
-        <span className="block text-base font-bold tracking-tight">IPIMS</span>
-        <span className="block text-[11px] font-medium text-muted">Surabaya</span>
+        <span className="block text-base font-bold tracking-tight">{BRAND.shortName}</span>
+        {/* <span className="block text-[11px] font-medium text-muted">Surabaya</span> */}
       </span>
     </span>
   )
@@ -19,7 +21,7 @@ function Item({ to, icon, label, end }: { to: string; icon: ReactNode; label: st
   return (
     <NavLink to={to} end={end} aria-label={label} title={label}
       className={({ isActive }) =>
-        `flex h-12 items-center gap-2 rounded-full px-4 text-sm font-semibold transition ${isActive ? 'bg-white/[0.09] text-fg' : 'text-muted hover:text-fg'}`}>
+        `flex size-11 shrink-0 items-center justify-center gap-2 rounded-full text-sm font-semibold transition md:h-12 md:w-auto md:px-4 ${isActive ? 'bg-white/[0.09] text-fg' : 'text-muted hover:text-fg'}`}>
       {icon}
       <span className="hidden md:inline">{label}</span>
     </NavLink>
@@ -31,14 +33,12 @@ const shell = 'glass fixed left-1/2 top-3 z-30 flex w-[calc(100%-1.5rem)] max-w-
 export function PublicNavbar({ onReport }: { onReport: () => void }) {
   return (
     <nav className={shell} aria-label="Main navigation">
-      <NavLink to="/" aria-label="Home"><Mark /></NavLink>
+      <NavLink to="/" aria-label="Home" title={BRAND.name}><Mark /></NavLink>
       <Item to="/laporan" icon={<ListBullets size={20} />} label="Reports" />
       <Item to="/peta" icon={<MapTrifold size={20} />} label="Map" />
       <Item to="/transparansi" icon={<ChartBar size={20} />} label="Transparency" />
-      <button onClick={onReport}
-        className="ml-1 flex h-12 items-center gap-2 rounded-full bg-coral px-5 text-sm font-semibold text-white transition hover:brightness-110 active:scale-[0.98]">
-        <Plus size={18} weight="bold" /> Report
-      </button>
+      <Button variant="primary" aria-label="Report" onClick={onReport} icon={<Plus size={18} weight="bold" />}
+        className="navbar-report ml-1 !h-12 !rounded-full !px-3 sm:!px-5"><span className="navbar-report-label">Report</span></Button>
     </nav>
   )
 }

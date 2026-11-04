@@ -1,7 +1,9 @@
 # IPIMS concept clarification and frontend consistency proposal
 
-Status: proposed, awaiting approval. No application, model, data or contract changes
-are implemented by this proposal. Two parallel read-only audits informed this plan.
+Status: approved and implemented within the clarification/frontend boundary.
+See [completion record](2026-11-05-consistency-completion.md) for delivery and checks.
+The backend/model/contract follow-ups remain separate. Two parallel read-only audits
+informed this plan before implementation.
 
 ## Canonical definition
 

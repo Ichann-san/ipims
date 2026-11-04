@@ -1,18 +1,13 @@
 import { Check, X } from '@phosphor-icons/react'
 import type { Status, StatusEvent } from '../api'
-import { STATUS_LABEL } from '../labels'
+import { STATUS_LABEL, STATUS_SHORT_LABEL } from '../labels'
 
 export const STAGES: Status[] = ['reported', 'ai_verified', 'gov_approved', 'assigned', 'in_repair', 'completed']
-const SHORT: Record<Status, string> = {
-  reported: 'Reported', ai_verified: 'AI', gov_approved: 'Approved', assigned: 'Assigned',
-  in_repair: 'Repair', completed: 'Done', rejected: 'Rejected',
-}
-
 /** Six-stage tracker. Stages the report passed are filled; a skipped AI step stays hollow. */
 export function StageTracker({ status, reached, compact = false }: { status: Status; reached?: Set<Status>; compact?: boolean }) {
   const current = status === 'rejected' ? -1 : STAGES.indexOf(status)
   return (
-    <ol className="flex w-full items-center" aria-label={`Stage: ${STATUS_LABEL[status]}`}>
+    <ol className="flex w-full min-w-0 items-center overflow-x-auto" aria-label={`Stage: ${STATUS_LABEL[status]}`}>
       {STAGES.map((s, i) => {
         const done = reached ? reached.has(s) : i <= current
         const isCurrent = i === current
@@ -26,7 +21,7 @@ export function StageTracker({ status, reached, compact = false }: { status: Sta
                 {done && !isCurrent && <Check size={compact ? 10 : 13} weight="bold" />}
                 {isCurrent && s === 'completed' && <Check size={compact ? 10 : 13} weight="bold" />}
               </span>
-              {!compact && <span className={`text-[11px] ${isCurrent ? 'font-semibold text-fg' : 'text-muted'}`}>{SHORT[s]}</span>}
+              {!compact && <span title={STATUS_LABEL[s]} className={`type-caption ${isCurrent ? 'font-semibold text-fg' : 'text-muted'}`}>{STATUS_SHORT_LABEL[s]}</span>}
             </span>
             {i < STAGES.length - 1 && (
               <span className={`mx-1 h-px flex-1 ${compact ? '' : 'mb-5'} ${i < current ? 'bg-st-completed/70' : 'bg-line-strong'}`} />

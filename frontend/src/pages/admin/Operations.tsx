@@ -3,11 +3,13 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { Layer, Source, type MapMouseEvent, type MapRef } from 'react-map-gl/mapbox'
 import { api, type FeatureCollection, type Report, type SegmentProps, type WhatIfResult } from '../../api'
 import { useAsync } from '../../hooks'
-import { CATEGORY_LABEL, FACILITY_LABEL, formatIdr, roadName } from '../../labels'
+import { FACILITY_LABEL, METRIC_LABEL, ROAD_ANALYTICS_NOTE, formatIdr, formatScore } from '../../labels'
 import { MapCanvas } from '../../map/MapCanvas'
-import { ReportsLayer, SegmentsLayer, useSegments } from '../../map/layers'
+import { ReportsLayer, SegmentsLayer, useSegmentData } from '../../map/layers'
+import { cameraPadding, useMapPanel } from '../../map/layout'
+import { ReportIdentity } from '../../ui/ReportSummary'
 import { useRegion } from '../../region'
-import { Button, ButtonLink, ErrorNote, Panel, StatusBadge } from '../../ui/core'
+import { Button, ButtonLink, Empty, ErrorNote, Panel, SegmentedControl, Skeleton, StatusBadge } from '../../ui/core'
 
 type Mode = 'queue' | 'simulate'
 type Side = 'before' | 'after'
@@ -15,6 +17,9 @@ type Side = 'before' | 'after'
 export default function Operations() {
   const region = useRegion()
   const mapRef = useRef<MapRef>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+  useMapPanel(panelRef)
   const [mode, setMode] = useState<Mode>('queue')
   const [side, setSide] = useState<Side>('after')
   const [view, setView] = useState<{ bbox: string; zoom: number } | null>(null)
@@ -23,10 +28,12 @@ export default function Operations() {
   const [result, setResult] = useState<WhatIfResult | null>(null)
   const [running, setRunning] = useState(false)
   const [simError, setSimError] = useState<string | null>(null)
+  const [recommendError, setRecommendError] = useState<string | null>(null)
+  const [recommending, setRecommending] = useState(false)
 
   const queue = useAsync(() => api.queue(), [])
   const damaged = useAsync<FeatureCollection<SegmentProps>>(() => api.activeSegments(), [])
-  const segments = useSegments(view, mode === 'queue')
+  const segments = useSegmentData(view, mode === 'queue')
   const reports = queue.data?.items ?? []
   const byCode = useMemo(() => new Map(reports.map((r) => [r.code, r])), [reports])
   const damagedIds = useMemo(() => new Set((damaged.data?.features ?? []).map((f) => f.properties.id)), [damaged.data])
@@ -35,10 +42,14 @@ export default function Operations() {
   useEffect(() => {
     if (mode !== 'simulate' || repairs.length === 0) {
       setResult(null)
+      setRunning(false)
+      setSimError(null)
       return
     }
     let live = true
     setRunning(true)
+    setResult(null)
+    setSimError(null)
     const t = setTimeout(() => {
       api.whatif(repairs)
         .then((r) => live && (setResult(r), setSimError(null)))
@@ -71,10 +82,19 @@ export default function Operations() {
   }
 
   async function recommend() {
-    const rec = await api.recommend()
-    const ids = rec.order.slice(0, 3).map((o) => o.segment_id)
-    setRepairs(ids)
-    frame(ids)
+    setRecommending(true)
+    setRecommendError(null)
+    try {
+      const rec = await api.recommend()
+      const ids = rec.order.slice(0, 3).map((o) => o.segment_id)
+      setRepairs(ids)
+      if (!ids.length) setRecommendError('No road repairs are available to recommend.')
+      frame(ids)
+    } catch (e) {
+      setRecommendError(e instanceof Error ? e.message : 'Could not recommend repairs.')
+    } finally {
+      setRecommending(false)
+    }
   }
 
   // Bring the chosen repairs into view.
@@ -82,11 +102,11 @@ export default function Operations() {
     const coords = (damaged.data?.features ?? [])
       .filter((f) => ids.includes(f.properties.id))
       .flatMap((f) => (f.geometry as GeoJSON.LineString).coordinates)
-    if (!coords.length) return
+    if (!coords.length || !containerRef.current) return
     const lngs = coords.map((c) => c[0])
     const lats = coords.map((c) => c[1])
     mapRef.current?.fitBounds([[Math.min(...lngs), Math.min(...lats)], [Math.max(...lngs), Math.max(...lats)]],
-      { padding: { top: 120, bottom: 80, left: 420, right: 80 }, maxZoom: 15.5, duration: 1600 })
+      { padding: cameraPadding(containerRef.current, panelRef.current), maxZoom: 15.5, duration: 1600 })
   }
 
   const nodeData = useMemo<GeoJSON.FeatureCollection>(() => ({
@@ -100,11 +120,11 @@ export default function Operations() {
   const showAfter = mode === 'simulate' && side === 'after' && result
   const sel = selected ? byCode.get(selected) : undefined
   return (
-    <div className="operations-map relative h-[100dvh] overflow-hidden">
+    <div ref={containerRef} className="operations-map relative h-[100dvh] overflow-hidden">
       <MapCanvas constrainToRegion mapRef={mapRef} onClick={onClick} onMoveEnd={(bbox, zoom) => setView({ bbox, zoom })}
-        interactiveLayerIds={mode === 'simulate' ? ['damaged', 'damaged-glow', 'reports'] : ['reports', ...(segments ? ['segments'] : [])]}
+        interactiveLayerIds={mode === 'simulate' ? ['damaged', 'damaged-glow', 'reports'] : ['reports', ...(segments.data ? ['segments'] : [])]}
         initialViewState={{ longitude: region.center[0], latitude: region.center[1], zoom: 12.3, pitch: 25, bearing: -10 }}>
-        {mode === 'queue' && segments && <SegmentsLayer data={segments} />}
+        {mode === 'queue' && segments.data && <SegmentsLayer data={segments.data} />}
         {damaged.data && (
           <Source id="damaged" type="geojson" data={damaged.data as unknown as GeoJSON.FeatureCollection}>
             <Layer id="damaged-glow" type="line" slot="middle" layout={{ 'line-cap': 'round' }}
@@ -140,69 +160,80 @@ export default function Operations() {
         <ReportsLayer reports={reports} selected={selected} />
       </MapCanvas>
 
-      <Panel strong className="operations-panel absolute inset-x-3 flex max-h-[46dvh] flex-col md:inset-x-auto md:left-6 md:max-h-none md:w-[22rem]">
-        <div className="grid grid-cols-2 gap-1 border-b border-line p-1.5" role="tablist">
-          {(['queue', 'simulate'] as Mode[]).map((m) => (
-            <button key={m} role="tab" aria-selected={mode === m} onClick={() => setMode(m)}
-              className={`h-10 rounded-xl text-[13px] font-semibold ${mode === m ? 'bg-white/[0.09] text-fg' : 'text-muted hover:text-fg'}`}>
-              {m === 'queue' ? 'Queue' : 'Simulate'}
-            </button>
-          ))}
+      <div ref={panelRef} className="operations-panel absolute inset-x-3 flex max-h-[46dvh] flex-col md:inset-x-auto md:left-6 md:max-h-none md:w-[22rem]">
+      <Panel strong className="flex min-h-0 flex-1 flex-col overflow-hidden">
+        <div className="border-b border-line p-1.5">
+          <SegmentedControl<Mode> label="Operations view" value={mode} onChange={setMode}
+            options={[{ value: 'queue', label: 'Queue' }, { value: 'simulate', label: 'Simulate' }]} className="flex" />
+        </div>
+        <div className="grid shrink-0 gap-2 px-3 pt-2">
+          {damaged.error && <ErrorNote compact title="Road scenario unavailable." message={damaged.error} onRetry={damaged.reload} />}
+          {mode === 'queue' && segments.error && <ErrorNote compact title="Nearby roads unavailable." message={segments.error} onRetry={segments.reload} />}
         </div>
 
         {mode === 'queue' && (
-          <ul className="min-h-0 flex-1 overflow-y-auto p-1.5">
-            {queue.error && <ErrorNote message={queue.error} onRetry={queue.reload} />}
+          <div className="min-h-0 flex-1 overflow-y-auto p-1.5">
+            <p className="px-2.5 py-2 type-meta text-muted">{queue.data ? `Showing ${reports.length} of ${queue.data.total} queued reports (up to 200 loaded).` : queue.loading ? 'Loading report queue...' : 'Queue count unavailable.'} {ROAD_ANALYTICS_NOTE}</p>
+            {queue.error && <ErrorNote compact message={queue.error} onRetry={queue.reload} />}
+            {queue.loading && !queue.data && <div className="grid gap-2 p-2">{Array.from({ length: 4 }, (_, i) => <Skeleton key={i} className="h-20" />)}</div>}
+            {queue.data && reports.length === 0 && <Empty title="No reports in the queue." />}
+            {segments.loading && <p role="status" className="px-2.5 type-meta text-muted">Loading nearby roads...</p>}
+            <ul>
             {reports.map((r) => (
               <li key={r.code}>
-                <button onClick={() => focus(r)}
-                  className={`flex w-full items-center gap-3 rounded-xl px-2.5 py-2 text-left transition ${selected === r.code ? 'bg-white/[0.08]' : 'hover:bg-white/[0.04]'}`}>
-                  <span className="num w-8 text-base font-bold">{r.priority_score?.toFixed(0) ?? '-'}</span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-sm font-semibold">{r.segment ? roadName(r.segment.name) : 'Not on a road'}</span>
-                    <span className="block text-xs text-muted">{CATEGORY_LABEL[r.category]}</span>
+                <button onClick={() => focus(r)} aria-pressed={selected === r.code}
+                  className={`grid w-full gap-2 rounded-xl px-2.5 py-2 text-left transition focus-visible:outline-2 focus-visible:outline-cyan ${selected === r.code ? 'bg-white/[0.08]' : 'hover:bg-white/[0.04]'}`}>
+                  <ReportIdentity report={r} compact />
+                  <span className="flex flex-wrap items-center justify-between gap-2">
+                    <span className="num type-meta text-muted">{METRIC_LABEL.roadPriority}: {formatScore(r.priority_score)}</span>
+                    <StatusBadge status={r.status} />
                   </span>
-                  <StatusBadge status={r.status} />
                 </button>
               </li>
             ))}
-          </ul>
+            </ul>
+          </div>
         )}
 
         {mode === 'simulate' && (
           <div className="grid min-h-0 flex-1 content-start gap-3 overflow-y-auto p-3">
-            <p className="text-[13px] text-muted">Click an orange road to repair it.</p>
+            <p className="type-label text-muted">Select an orange road segment for this repair scenario.</p>
+            <p className="type-meta text-muted">Road-network accessibility pilot only. Active reports of any category currently contribute to road disruption in this model; these results do not validate disruption or repair outcomes for non-road assets.</p>
+            {damaged.loading && !damaged.data && <p role="status" className="type-meta text-muted">Loading road scenarios...</p>}
+            {damaged.data && damagedIds.size === 0 && <Empty title="No road segments are available for a repair scenario." />}
             <div className="flex gap-2">
-              <Button size="sm" variant="blue" icon={<Lightning size={16} />} onClick={recommend}>Top 3 repairs</Button>
+              <Button size="sm" variant="blue" icon={<Lightning size={16} />} onClick={recommend} disabled={recommending || damaged.loading || !!damaged.error}>{recommending ? 'Finding repairs...' : 'Top 3 repairs'}</Button>
               <Button size="sm" variant="ghost" icon={<ArrowCounterClockwise size={16} />} onClick={() => setRepairs([])} disabled={!repairs.length}>Reset</Button>
             </div>
-            <p className="num text-sm"><b>{repairs.length}</b> of {damagedIds.size} damaged roads repaired</p>
-            {simError && <ErrorNote message={simError} />}
+            {damaged.data && <p className="num type-body"><b>{repairs.length}</b> of {damagedIds.size} road segments selected</p>}
+            {recommendError && <ErrorNote compact title="Recommendation unavailable." message={recommendError} onRetry={recommend} />}
+            {simError && <ErrorNote compact title="Could not run scenario." message={simError} />}
+            {running && <p role="status" className="type-meta text-muted">Calculating scenario...</p>}
             {repairs.length > 0 && (
               <div className={`grid gap-3 transition-opacity ${running ? 'opacity-50' : ''}`}>
-                <div className="grid grid-cols-2 gap-1 rounded-xl bg-ink-900 p-1">
-                  {(['before', 'after'] as Side[]).map((s) => (
-                    <button key={s} onClick={() => setSide(s)} aria-pressed={side === s}
-                      className={`h-9 rounded-lg text-[13px] font-semibold ${side === s ? 'bg-white/[0.09] text-fg' : 'text-muted'}`}>
-                      {s === 'before' ? 'Before' : 'After'}
-                    </button>
-                  ))}
-                </div>
+                <SegmentedControl<Side> label="Road scenario comparison" value={side} onChange={setSide}
+                  options={[{ value: 'before', label: 'Before' }, { value: 'after', label: 'After' }]} />
                 {result && (
                   <>
                     <div>
-                      <p className="num text-3xl font-extrabold text-cyan">{result.improvement_pct.toFixed(1)}%</p>
-                      <p className="text-xs text-muted">access restored</p>
+                      <p className="num text-3xl font-extrabold text-cyan">{formatScore(result.improvement_pct)}%</p>
+                      <p className="type-meta text-muted">{METRIC_LABEL.modeledImprovement}</p>
+                      <p className="mt-1 type-meta text-muted">Share of modeled excess travel time removed relative to the undamaged road-network baseline.</p>
                     </div>
-                    <dl className="grid grid-cols-2 gap-2 text-sm">
+                    <p className="type-meta text-muted">Modeled average travel time to accessibility destinations ({side})</p>
+                    <dl className="grid grid-cols-2 gap-2 type-body">
                       {Object.entries(result.by_facility).map(([k, v]) => (
                         <div key={k} className="rounded-xl border border-line px-3 py-2">
-                          <dt className="text-xs text-muted">{FACILITY_LABEL[k] ?? k}</dt>
-                          <dd className="num font-semibold">{(side === 'before' ? v.before : v.after).toFixed(2)} min</dd>
+                          <dt className="type-meta text-muted">{FACILITY_LABEL[k] ?? k}</dt>
+                          <dd className="num font-semibold">{formatScore(side === 'before' ? v.before : v.after)} min</dd>
                         </div>
                       ))}
                     </dl>
-                    <p className="num text-sm text-muted">±{formatIdr(result.cost_estimate_idr)} · {result.duration_days} work days</p>
+                    <p className="num type-meta text-muted">Approximate road-scenario cost: {formatIdr(result.cost_estimate_idr)}. Estimated duration: {result.duration_days} work days.</p>
+                    {result.assumptions.length > 0 && <details className="type-meta text-muted">
+                      <summary className="cursor-pointer">Road-scenario assumptions</summary>
+                      <ul className="mt-2 list-disc space-y-1 pl-4">{result.assumptions.map((assumption, i) => <li key={i}>{assumption}</li>)}</ul>
+                    </details>}
                   </>
                 )}
               </div>
@@ -210,16 +241,17 @@ export default function Operations() {
           </div>
         )}
       </Panel>
+      </div>
 
       {mode === 'queue' && sel && (
         <Panel strong className="operations-detail absolute right-3 hidden w-80 overflow-hidden md:block md:right-6">
           <img src={sel.photo_url} alt="" className="h-36 w-full object-cover" />
           <div className="grid gap-2 p-3">
             <div className="flex items-center justify-between gap-2">
-              <p className="truncate font-semibold">{sel.segment ? roadName(sel.segment.name) : 'Not on a road'}</p>
+              <ReportIdentity report={sel} compact />
               <StatusBadge status={sel.status} />
             </div>
-            <p className="num text-sm text-muted">Priority {sel.priority_score?.toFixed(1)} · impact {sel.impact_score?.toFixed(0) ?? '-'}</p>
+            <p className="num type-meta text-muted">{METRIC_LABEL.roadPriority}: {formatScore(sel.priority_score)} · {METRIC_LABEL.roadImpact}: {formatScore(sel.impact_score)}</p>
             <ButtonLink to={`/admin/laporan/${sel.code}`} size="sm" className="w-full">Follow up</ButtonLink>
           </div>
         </Panel>

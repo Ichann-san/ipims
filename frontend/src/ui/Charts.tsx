@@ -1,33 +1,53 @@
 import { useEffect, useRef } from 'react'
 import { Chart, BarController, BarElement, DoughnutController, ArcElement, CategoryScale, LinearScale, Tooltip,
-  type ChartConfiguration, type ChartOptions, type Plugin } from 'chart.js'
+  type ChartConfiguration, type ChartOptions } from 'chart.js'
 import type { Stats } from '../api'
 import { sixMonths } from '../statistics'
+import { palette, STATUS_HEX } from '../palette'
 
-// Canvas colors need concrete values; the rest of the UI uses CSS theme variables.
-const themeColors: Plugin = {
-  id: 'theme-colors',
-  beforeInit(chart) {
-    const style = getComputedStyle(chart.canvas)
-    for (const dataset of chart.data.datasets) {
-      if (Array.isArray(dataset.backgroundColor)) {
-        dataset.backgroundColor = dataset.backgroundColor.map((color) =>
-          typeof color === 'string' && color.startsWith('var(')
-            ? style.getPropertyValue(color.slice(4, -1)).trim() : color)
-      }
-    }
-  },
-}
-Chart.register(BarController, BarElement, DoughnutController, ArcElement, CategoryScale, LinearScale, Tooltip, themeColors)
+Chart.register(BarController, BarElement, DoughnutController, ArcElement, CategoryScale, LinearScale, Tooltip)
 Chart.defaults.devicePixelRatio = Math.min(window.devicePixelRatio, 2)
 
-const BLUE = '#5bb6e6'
-const ORANGE = '#f08a64'
-const TEXT = '#93a1bc'
+const BLUE = palette.cyan
+const ORANGE = palette.coral
+const TEXT = palette.muted
 const FONT = { family: '"Plus Jakarta Sans Variable", sans-serif', size: 11 }
+
+/** Resolve inherited typography and CSS colors before Chart.js copies its defaults. */
+function resolveTheme<T extends 'bar' | 'doughnut'>(canvas: HTMLCanvasElement, config: ChartConfiguration<T>) {
+  const style = getComputedStyle(canvas)
+  const color = (name: string, fallback: string) => style.getPropertyValue(`--color-${name}`).trim() || fallback
+  const font = { family: style.fontFamily || FONT.family, size: 11, weight: 'normal' as const, lineHeight: 1.5 }
+  const options = (config.options ?? {}) as NonNullable<ChartOptions<'bar' | 'doughnut'>>
+  config.options = options as ChartOptions<T>
+  options.font = font
+  options.color = color('muted', palette.muted)
+  options.plugins = { ...options.plugins, tooltip: {
+    ...options.plugins?.tooltip,
+    backgroundColor: color('ink-700', palette.ink700),
+    titleColor: color('fg', palette.fg), bodyColor: color('fg', palette.fg), footerColor: color('fg', palette.fg),
+    titleFont: { ...font, size: 12, weight: 'bold' }, bodyFont: { ...font, size: 12 }, footerFont: { ...font, size: 12, weight: 'bold' },
+    padding: 12,
+  } }
+  if (config.type === 'bar') {
+    const barOptions = options as ChartOptions<'bar'>
+    for (const scale of Object.values(barOptions.scales ?? {})) {
+      if (!scale) continue
+      scale.ticks = { ...scale.ticks, color: color('muted', palette.muted), font }
+      if (scale.grid?.display !== false) scale.grid = { ...scale.grid, color: color('line', palette.line) }
+    }
+  }
+  for (const dataset of config.data.datasets) {
+    const resolve = (value: string) => value.startsWith('var(') ? style.getPropertyValue(value.slice(4, -1)).trim() || value : value
+    if (Array.isArray(dataset.backgroundColor)) dataset.backgroundColor = dataset.backgroundColor.map((value) => typeof value === 'string' ? resolve(value) : value)
+    else if (typeof dataset.backgroundColor === 'string') dataset.backgroundColor = resolve(dataset.backgroundColor)
+  }
+  return config
+}
+
 const bars: ChartOptions<'bar'> = {
   responsive: true, maintainAspectRatio: false, animation: false,
-  plugins: { legend: { display: false }, tooltip: { backgroundColor: '#172542', titleColor: '#e8edf6', bodyColor: '#e8edf6', padding: 12 } },
+  plugins: { legend: { display: false }, tooltip: { backgroundColor: palette.ink700, titleColor: palette.fg, bodyColor: palette.fg, padding: 12 } },
   scales: {
     x: { grid: { color: 'rgba(148,170,210,0.10)' }, border: { display: false }, ticks: { color: TEXT, font: FONT, precision: 0, maxTicksLimit: 6 }, beginAtZero: true },
     y: { grid: { display: false }, border: { display: false }, ticks: { color: TEXT, font: FONT, precision: 0 }, beginAtZero: true },
@@ -40,8 +60,10 @@ function ChartView<T extends 'bar' | 'doughnut'>({ label, config, height, header
   const canvas = useRef<HTMLCanvasElement>(null)
   useEffect(() => {
     if (!canvas.current) return
-    const chart = new Chart<T>(canvas.current, config)
-    return () => chart.destroy()
+    const chart = new Chart<T>(canvas.current, resolveTheme(canvas.current, config))
+    let live = true
+    document.fonts.ready.then(() => { if (live) chart.update('none') })
+    return () => { live = false; chart.destroy() }
   }, [config])
   return (
     <div className="min-w-0">
@@ -98,8 +120,8 @@ export function MonthlyTrend({ monthly }: { monthly: Stats['monthly'] }) {
 export function ReportDistribution({ stats }: { stats: Stats }) {
   const rows = [
     { label: 'Active', value: stats.active, color: BLUE },
-    { label: 'Completed', value: stats.by_status.completed, color: '#4cc38a' },
-    { label: 'Rejected', value: stats.by_status.rejected, color: '#e36a7a' },
+    { label: 'Completed', value: stats.by_status.completed, color: STATUS_HEX.completed },
+    { label: 'Rejected', value: stats.by_status.rejected, color: STATUS_HEX.rejected },
   ]
   if (!stats.total) return <p className="py-12 text-center text-sm text-muted">No reports yet.</p>
   return <div className="grid items-center gap-3 sm:grid-cols-[minmax(0,1fr)_1fr]">

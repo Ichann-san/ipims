@@ -1,48 +1,32 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Layer, Source } from 'react-map-gl/mapbox'
 import { api, type FacilityProps, type FeatureCollection, type Report, type SegmentProps } from '../api'
+import { useAsync } from '../hooks'
+import { STATUS_HEX } from '../palette'
+export { STATUS_HEX } from '../palette'
 
 // Impact Score ramp: dim navy-orange for low, bright orange for critical. Simulation change: cyan better, coral worse.
 export const IMPACT_RAMP: [number, string][] = [[0, '#33405e'], [1, '#6b4a3a'], [40, '#a3582f'], [70, '#e0743a'], [90, '#ffb36b']]
-export const STATUS_HEX: Record<string, string> = {
-  reported: '#94a3b8', ai_verified: '#5bb6e6', gov_approved: '#7c9bf0', assigned: '#e8b04a',
-  in_repair: '#f08a64', completed: '#4cc38a', rejected: '#e36a7a',
-}
 export const FACILITY_HEX: Record<string, string> = { health: '#e36a7a', school: '#7c9bf0', market: '#e8b04a', government: '#b9a3f0' }
 
 const impactColor = ['interpolate', ['linear'], ['get', 'impact_score'], ...IMPACT_RAMP.flat()] as unknown as string
 
 /** Road segments with Impact Score colouring. Loaded for the visible area from zoom 13. */
-export function useSegments(view: { bbox: string; zoom: number } | null, enabled = true) {
-  const [data, setData] = useState<FeatureCollection<SegmentProps> | null>(null)
+export function useSegmentData(view: { bbox: string; zoom: number } | null, enabled = true) {
   const bbox = enabled && view && view.zoom >= 13 ? view.bbox : null
-  useEffect(() => {
-    if (!bbox) return
-    let live = true
-    const controller = new AbortController()
-    api.segments(bbox, controller.signal).then((d) => live && setData(d)).catch(() => undefined)
-    return () => {
-      live = false
-      controller.abort()
-    }
-  }, [bbox])
-  return enabled && view && view.zoom >= 13 ? data : null
+  const state = useAsync(async (signal) => ({ bbox, data: bbox ? await api.segments(bbox, signal) : null }), [bbox])
+  return { ...state, data: bbox ? state.data?.data ?? null : null, error: bbox ? state.error : null, loading: !!bbox && state.loading }
 }
-
-export function useFacilities(view: { bbox: string; zoom: number } | null, enabled = true) {
-  const [data, setData] = useState<FeatureCollection<FacilityProps> | null>(null)
+export function useSegments(view: { bbox: string; zoom: number } | null, enabled = true) {
+  return useSegmentData(view, enabled).data
+}
+export function useFacilityData(view: { bbox: string; zoom: number } | null, enabled = true) {
   const bbox = enabled && view && view.zoom >= 12 ? view.bbox : null
-  useEffect(() => {
-    if (!bbox) return
-    let live = true
-    const controller = new AbortController()
-    api.facilities(bbox, controller.signal).then((d) => live && setData(d)).catch(() => undefined)
-    return () => {
-      live = false
-      controller.abort()
-    }
-  }, [bbox])
-  return enabled && view && view.zoom >= 12 ? data : null
+  const state = useAsync(async (signal) => ({ bbox, data: bbox ? await api.facilities(bbox, signal) : null }), [bbox])
+  return { ...state, data: bbox ? state.data?.data ?? null : null, error: bbox ? state.error : null, loading: !!bbox && state.loading }
+}
+export function useFacilities(view: { bbox: string; zoom: number } | null, enabled = true) {
+  return useFacilityData(view, enabled).data
 }
 
 export function SegmentsLayer({ data, highlight = [], id = 'segments' }: { data: FeatureCollection<SegmentProps>; highlight?: string[]; id?: string }) {

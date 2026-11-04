@@ -1,4 +1,4 @@
-export const PAGE_SIZES = [3, 6, 9, 18] as const
+export const PAGE_SIZES = [3, 6, 9, 12] as const
 export function initialPageSize(width: number): number { return width < 640 ? 3 : width < 1100 ? 6 : 9 }
 
 export function readReportPage(params: URLSearchParams, defaultSize: number) {
