@@ -1,3 +1,10 @@
+# Handoff - favicon update
+
+- Wired frontend/index.html to user-provided favicon.svg with favicon.png fallback.
+- Verified npm run build passes; both favicon assets are emitted in dist.
+- Existing unrelated user edits remain uncommitted and untouched. No new issues.
+- Next: review the tab icon in the browser; previous implementation context follows.
+
 # Handoff - Codex R5 implementation complete
 
 ## State
